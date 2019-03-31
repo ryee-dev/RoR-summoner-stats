@@ -10,13 +10,13 @@ const App = () => {
 
   const [summName, setSummName] = useState('');
 
-  const [fetchedData, setFetchedData] = useState('');
+  // const [fetchedData, setFetchedData] = useState('');
   // @ts-ignore
-  const handleRefetch = e => {
-    e.preventDefault();
-    refetch();
-    setFetchedData(JSON.stringify(data, null, 2));
-  };
+  // const handleRefetch = e => {
+  //   e.preventDefault();
+  //   refetch();
+  //   setFetchedData(JSON.stringify(data, null, 2));
+  // };
 
   // @ts-ignore
   const updateName = e => {
@@ -30,13 +30,13 @@ const App = () => {
         <SummonerForm
           summName={summName}
           updateName={updateName}
-          handleRefetch={handleRefetch}
+          refetch={refetch}
         />
         <br />
         <div className="data-wrapper">
           {loading && <p style={{ position: 'absolute' }}>loading</p>}
           {error && <p>error</p>}
-          {data && <pre>{fetchedData}</pre>}
+          {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </div>
 
         {/* <h1>{summName}</h1> */}

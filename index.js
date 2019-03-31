@@ -4,11 +4,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-// const { Kayn } = require('kayn');
+const RiotRateLimiter = require('riot-ratelimiter');
 
 const app = express();
-
-// const kayn = Kayn(process.env.API_KEY);
+const limiter = new RiotRateLimiter;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -20,24 +19,31 @@ app.use((req, res, next) => {
   next();
 });
 
-let summonerName = "contractz";
+// declare objects
+let summonerName;
 
 // post summoner name input
 app.post('/api/summoner', async (req, res) => {
   summonerName = req.body.summName;
 });
 
-// declare objects
-let summonerInfo;
-let matchHistoryInfo;
-let result = [];
-
 // fetch data
 app.get('/api/summoner', async (req, res) => {
+  limiter.executing({
+    url: `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`,
+    token: process.env.API_KEY,
+
+    resolveWithFullResponse: true
+  });
+
   let fetchedSummonerData = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
 
+  let summonerInfo;
+  let matchHistoryInfo;
+  let result;
+
   summonerInfo = {
-    name: fetchedSummonerData.data.name,
+    name: summonerName,
     accountId: fetchedSummonerData.data.accountId,
   };
 
@@ -61,8 +67,9 @@ app.get('/api/summoner', async (req, res) => {
     matchHistoryData: matchHistoryInfo,
   };
 
+  console.log(summonerInfo.name);
 
-  res.json(result);
+  res.json(summonerInfo);
 });
 
 // catchall

@@ -5,19 +5,17 @@ import styled from 'styled-components';
 interface Props {
   summName: string;
   updateName: Function;
-  handleRefetch: Function;
+  refetch: Function;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, updateName, handleRefetch } = props;
+  const { summName, updateName, refetch } = props;
 
   return (
     <SummForm
       method="POST"
       action="http://localhost:3001/api/summoner"
       autoComplete="off"
-      // @ts-ignore
-      onSubmit={handleRefetch}
     >
       <SummInput
         placeholder="Summoner Name"
@@ -27,7 +25,13 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
         onChange={updateName}
       />
 
-      <SubmitButt type="submit">submit</SubmitButt>
+      <SubmitButt
+        type="submit"
+        // @ts-ignore
+        onClick={refetch}
+      >
+        submit
+      </SubmitButt>
     </SummForm>
   );
 };
