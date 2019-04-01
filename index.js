@@ -34,7 +34,7 @@ app.get('/api/summoner', async (req, res) => {
   let summonerInfo;
   let matchHistoryInfo;
   let matchData;
-  let result = [];
+  let result;
   let outcomeData;
   let matchIdList = [];
   let recentMatchOutcomeData = [];
@@ -64,6 +64,7 @@ app.get('/api/summoner', async (req, res) => {
       // match player's summoner name with participants' summoner name
       if (summonerInfo.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
         outcomeData = {
+          gameDuration: matchData.data.gameDuration,
           win: matchData.data.participants[i].stats.win,
           participantPlayerId: matchData.data.participants[i].participantId,
           summAId: matchData.data.participants[i].spell1Id,
@@ -106,10 +107,15 @@ app.get('/api/summoner', async (req, res) => {
   // console.log(outcomeData);
   // console.log(playerOutcomeData);
 
-  result.push(summonerInfo);
-  result.push(recentMatchOutcomeData);
+  // result = {
+  //   // summonerInfo: summonerInfo,
+  //   recentMatchOutcomeData,
+  // };
 
-  res.json(result);
+  // result.push(summonerInfo);
+  // result.push(recentMatchOutcomeData);
+
+  res.json(recentMatchOutcomeData);
 });
 
 // catchall
