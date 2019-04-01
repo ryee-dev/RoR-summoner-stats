@@ -8,14 +8,14 @@ interface MatchProps {
 
 const MatchList: React.FC<MatchProps> = (properties: MatchProps) => {
   const { data } = properties;
-  console.log(data);
+  // console.log(data);
   // console.log(data.matchData[0].win);
   return (
     <ListWrapper>
       {data &&
         data.map((match: any) => (
           <MatchCard
-            // key={match.gameId}
+            key={match.gameId}
             // summonerName={match.summonerName}
             // gameId={match.gameId}
             gameDuration={match.gameDuration}

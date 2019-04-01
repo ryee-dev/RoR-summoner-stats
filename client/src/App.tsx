@@ -22,7 +22,7 @@ const App = () => {
     setModalStatus(false);
   };
 
-  console.log(modalStatus);
+  // console.log(modalStatus);
   return (
     <AppShell>
       <FloatingContainer>

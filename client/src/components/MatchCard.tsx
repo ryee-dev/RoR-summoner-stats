@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// import { useFetch } from 'react-fetch-hook';
 // import useAxios from '@use-hooks/axios';
 // import useAxios from 'axios-hooks';
 
@@ -7,6 +8,7 @@ interface MatchProps {
   // matchDetails?: object | any;
   // summonerName: string;
   // gameId: string;
+  key: any;
   gameDuration: number;
   win?: string;
   participantPlayerId: string;
@@ -67,48 +69,35 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     assists,
   } = props;
 
-  // let summName: string;
+  // const { isLoading, data } = useFetch(
+  //   'http://localhost:3001/static/champions'
+  // );
+
+  // @ts-ignore
+  // const { data } = response || {};
+  // console.log(data);
+
+  // let championName;
+  // let arrIndex;
+
+  // const findChampionName = (champId: any) => {
+  //   // console.log(data)
+  //   const stringKey = champId.toString;
   //
-  // const getSummData = (spellId: number) => {
-  //   switch (spellId) {
-  //     case 21:
-  //       summName = 'Barrier';
-  //       break;
-  //     case 1:
-  //       summName = 'Cleanse';
-  //       break;
-  //     case 14:
-  //       summName = 'Ignite';
-  //       break;
-  //     case 3:
-  //       summName = 'Exhaust';
-  //       break;
-  //     case 4:
-  //       summName = 'Flash';
-  //       break;
-  //     case 6:
-  //       summName = 'Ghost';
-  //       break;
-  //     case 7:
-  //       summName = 'Heal';
-  //       break;
-  //     case 13:
-  //       summName = 'Clarity';
-  //       break;
-  //     case 11:
-  //       summName = 'Smite';
-  //       break;
-  //     case 32:
-  //       summName = 'Mark';
-  //       break;
-  //     case 12:
-  //       summName = 'Teleport';
-  //       break;
-  //     default:
-  //       console.log(`unable to find ${spellId}`);
+  //   for (let i = 0; i < data.championKeys.length; i++) {
+  //     if (stringKey === data.championKeys[i]) {
+  //       arrIndex = i;
+  //       championName = data.championNames[arrIndex];
+  //       return championName;
+  //     }
+  //     // console.log(data.championKeys[i]);
+  //     // console.log(championName);
   //   }
-  //   return summName;
   // };
+  //
+  // if (!isLoading) {
+  //   championName = findChampionName(championId);
+  // }
 
   const TotalCS: any = (
     totalMinionsKilled +

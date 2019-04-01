@@ -38,7 +38,8 @@
     "import/extensions": { "ts": "never", "tsx": "never" },
     "no-use-before-define": "warn",
     "no-param-reassign": "warn",
-    "unicorn/prevent-abbreviations": "off"
+    "unicorn/prevent-abbreviations": "off",
+    "no-plusplus": "warn"
   },
   "settings": {
     "import/resolver": {

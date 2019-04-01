@@ -98,24 +98,6 @@ app.get('/api/summoner', async (req, res) => {
     }
   }
 
-  // limiter.executing({
-  //   url: `https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`,
-  //   token: process.env.API_KEY,
-  //
-  //   resolveWithFullResponse: true
-  // });
-  // console.log(outcomeData);
-  // console.log(playerOutcomeData);
-
-  // result = {
-  //   // summonerInfo: summonerInfo,
-  //   recentMatchOutcomeData,
-  // };
-
-  // result.push(summonerInfo);
-  // result.push(recentMatchOutcomeData);
-
-
   // serve summoner.json
   let summSpelldata;
 
@@ -138,34 +120,47 @@ app.get('/api/summoner', async (req, res) => {
     }
     summItemData = JSON.parse(data);
   });
-
-  // serve champion.json
-  let summChampiondata;
-  let decodedChampion;
-  let decodedChampionList = [];
-
-  fs.readFile('./static/champion.json', 'utf8', (err, data) => {
-    if (err) {
-      throw err;
-    }
-    summChampiondata = JSON.parse(data);
-
-    const entries = Object.entries(summChampiondata.data);
-    for (const [champion, values] of entries) {
-      // console.log(champion, values.key);
-
-      decodedChampion = {
-        championName: champion,
-        championKey: values.key
-      };
-
-      decodedChampionList.push(decodedChampion);
-    }
-      console.log(decodedChampionList);
-  });
-
-
   res.json(recentMatchOutcomeData);
+});
+
+// serve champion.json
+let summChampiondata;
+let decodedChampion;
+// let championDecoded;
+let decodedChampionList = [];
+let championKeyList = [];
+let championNameList = [];
+// let decodedChampionKey;
+
+fs.readFile('./static/champion.json', 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+  summChampiondata = JSON.parse(data);
+  const entries = Object.entries(summChampiondata.data);
+  for (const [champion, values] of entries) {
+
+    championKeyList.push(values.key);
+    championNameList.push(champion);
+
+    // championDecoded = {
+    //   championKey: values.key,
+    //   championName: champion
+    // };
+
+    // decodedChampionList.push(championDecoded);
+
+    decodedChampion = {
+      championNames: championNameList,
+      championKeys: championKeyList
+    };
+  }
+  // decodedChampionList.push(decodedChampion);
+  // return decodedChampionList;
+});
+
+app.get('/static/champions', async (req, res) => {
+  res.json(decodedChampion);
 });
 
 // fetch static data
