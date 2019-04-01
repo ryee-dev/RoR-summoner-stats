@@ -6,43 +6,8 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const RiotRateLimiter = require('riot-ratelimiter');
 const fs = require('fs');
-const restify = require('restify');
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
 
-let schema = buildSchema(`
-  type Query {
-    summonerKey: Int,
-    summonerName: String  
-  }
-`);
-
-let root = {
-  summonerKey: () => {
-    return '123';
-  },
-
-  summonerName: () => {
-    return 'abc';
-  }
-};
-
-// const app = express();
-
-const app = restify.createServer({
-  name: 'lolstats-app'
-});
-
-server.use(restify.plugins.acceptParser(server.acceptable));
-server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser());
-
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true
-}));
-
+const app = express();
 // const limiter = new RiotRateLimiter;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -171,32 +136,27 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
+
   summChampiondata = JSON.parse(data);
   const entries = Object.entries(summChampiondata.data);
   for (const [champion, values] of entries) {
-
     championKeyList.push(values.key);
     championNameList.push(champion);
-
-    // championDecoded = {
-    //   championKey: values.key,
-    //   championName: champion
-    // };
-
-    // decodedChampionList.push(championDecoded);
 
     decodedChampion = {
       championNames: championNameList,
       championKeys: championKeyList
     };
+
   }
   // decodedChampionList.push(decodedChampion);
   // return decodedChampionList;
 
-  app.get('/static/champions', async (req, res) => {
-    res.json(decodedChampion);
-  });
 
+});
+
+app.get('/static/champions', async (req, res) => {
+  res.json(decodedChampion);
 });
 
   // const jsonData = summChampiondata;
@@ -204,7 +164,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
 
 
 // fetch static data
-// app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 // graphql
 // const data = summChampiondata;

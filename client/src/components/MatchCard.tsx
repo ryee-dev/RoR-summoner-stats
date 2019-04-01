@@ -110,16 +110,18 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
 
   const KDA: any = ((kills + assists) / deaths).toFixed(2);
 
+  const SecondsToMins = (secs: number) => {
+    const minutes = Math.floor(secs / 60);
+    const seconds = secs % 60;
+    return `${minutes}m ${seconds}s`;
+  };
+
   return (
     <CardWrapper>
       <CardRow>
         <CardCol>
           {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
-          <p>
-            {`${Math.floor(gameDuration / 60)}:${
-              gameDuration % 60 ? gameDuration % 60 : '00'
-            }`}
-          </p>
+          <p>{SecondsToMins(gameDuration)}</p>
         </CardCol>
         <CardCol>
           <p>{championId}</p>
@@ -170,12 +172,13 @@ const CardWrapper = styled.div`
   height: auto;
   width: 100%;
   border: 2px solid black;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   background-color: aliceblue;
+  margin: 1rem 0;
 
   p {
     font-size: 0.6rem;
@@ -187,8 +190,7 @@ const CardRow = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
-  border: 1px dotted black;
-  margin: 0.4rem;
+  //border: 1px dotted black;
 `;
 
 const CardCol = styled.div`
