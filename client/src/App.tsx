@@ -1,46 +1,43 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from 'axios-hooks';
-import { SummonerForm } from './components';
+// import useAxios from 'axios-hooks';
+import useAxios from '@use-hooks/axios';
+import { SummonerForm, MatchList } from './components';
 
 const App = () => {
-  const [{ data, loading, error }, refetch] = useAxios(
-    'http://localhost:3001/api/summoner'
-  );
+  const { response, loading, error, reFetch } = useAxios({
+    url: 'http://localhost:3001/api/summoner',
+    method: 'GET',
+  });
+
+  // @ts-ignore
+  const { data } = response || {};
 
   const [summName, setSummName] = useState('');
 
-  // const [fetchedData, setFetchedData] = useState('');
   // @ts-ignore
-  // const handleRefetch = e => {
+  // const updateName = e => {
   //   e.preventDefault();
-  //   refetch();
-  //   setFetchedData(JSON.stringify(data, null, 2));
+  //   setSummName(e.target.value);
   // };
 
-  // @ts-ignore
-  const updateName = e => {
-    e.preventDefault();
-    setSummName(e.target.value);
-  };
-
+  console.log(response);
   return (
     <AppShell>
       <FloatingContainer>
         <SummonerForm
           summName={summName}
-          updateName={updateName}
-          refetch={refetch}
+          setSummName={setSummName}
+          reFetch={reFetch}
         />
         <br />
         <div className="data-wrapper">
           {loading && <p style={{ position: 'absolute' }}>loading</p>}
           {error && <p>error</p>}
-          {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </div>
-
-        {/* <h1>{summName}</h1> */}
       </FloatingContainer>
+
+      {!loading && <MatchList data={data} />}
     </AppShell>
   );
 };
@@ -77,6 +74,7 @@ const FloatingContainer = styled.div`
   }
 
   .data-wrapper {
+    position: absolute;
     color: white;
     margin: 2rem 0;
     overflow: scroll;

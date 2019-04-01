@@ -1,34 +1,47 @@
 import React from 'react';
 import styled from 'styled-components';
-// import useAxios from 'axios-hooks';
+import useAxios from '@use-hooks/axios';
 
 interface Props {
   summName: string;
-  updateName: Function;
-  refetch: Function;
+  setSummName: Function;
+  reFetch: Function;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, updateName, refetch } = props;
+  const { summName, setSummName, reFetch } = props;
+
+  const bodyFormData = new FormData();
+
+  const setPostData = () => {
+    bodyFormData.set('summonerName', summName);
+  };
+
+  useAxios({
+    url: 'http://localhost:3001/api/summoner',
+    method: 'POST',
+    trigger: summName,
+  });
 
   return (
     <SummForm
       method="POST"
       action="http://localhost:3001/api/summoner"
       autoComplete="off"
+      onSubmit={setPostData}
     >
       <SummInput
         placeholder="Summoner Name"
         value={summName}
         name="summName"
         // @ts-ignore
-        onChange={updateName}
+        onChange={e => setSummName(e.target.value)}
       />
 
       <SubmitButt
         type="submit"
         // @ts-ignore
-        onClick={refetch}
+        onClick={reFetch}
       >
         submit
       </SubmitButt>
