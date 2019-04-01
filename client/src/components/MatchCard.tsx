@@ -6,7 +6,7 @@ interface MatchProps {
   // summonerName: string;
   // gameId: string;
   gameDuration: number;
-  win?: boolean;
+  win?: string;
   participantPlayerId: string;
   summAId: string;
   summBId: string;
@@ -65,18 +65,22 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     assists,
   } = props;
 
-  const TotalCS =
+  const TotalCS: any = (
     totalMinionsKilled +
     neutralMinionsKilled +
     teamJgMinionsKilled +
-    enemyJgMinionsKilled;
-  const CsPerMin = TotalCS / gameDuration;
+    enemyJgMinionsKilled
+  ).toFixed(1);
+
+  const CsPerMin: any = (TotalCS / gameDuration).toFixed(1);
+
+  const KDA: any = ((kills + assists) / deaths).toFixed(2);
 
   return (
     <CardWrapper>
       <CardRow>
         <CardCol>
-          <p>{win}</p>
+          {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
           <p>{gameDuration}</p>
         </CardCol>
         <CardCol>
@@ -90,7 +94,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           <p>
             {kills}/{deaths}/{assists}
           </p>
-          <p>{kills + assists / deaths}:1 KDA</p>
+          <p>{KDA}:1 KDA</p>
         </CardCol>
         <CardCol>
           <p>{champLevel}</p>
@@ -99,25 +103,24 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           </p>
         </CardCol>
         <CardCol>
-          <CardRow>
-            {item0} | {item1} | {item2} | {item3}
-          </CardRow>
-          <CardRow>
-            {item4} | {item5} | {item6}
-          </CardRow>
+          <p>{item0}</p>
+          <p>{item1}</p>
+          <p>{item2}</p>
+          <p>{item3}</p>
+        </CardCol>
+        <CardCol>
+          <p>{item4}</p>
+          <p>{item5}</p>
+          <p>{item6}</p>
         </CardCol>
       </CardRow>
       <CardRow>
-        <CardCol>
-          <p>Keystone: {primaryKeystone}</p>
-          <p>Primary Rune 1: {primaryRune1}</p>
-          <p>Primary Rune 2: {primaryRune2}</p>
-          <p>Primary Rune 3: {primaryRune3}</p>
-        </CardCol>
-        <CardCol>
-          <p>Secondary Rune 1: {secondaryRune1}</p>
-          <p>Secondary Rune 2: {secondaryRune2}</p>
-        </CardCol>
+        <p>Keystone: {primaryKeystone}</p>
+        <p>Primary Rune 1: {primaryRune1}</p>
+        <p>Primary Rune 2: {primaryRune2}</p>
+        <p>Primary Rune 3: {primaryRune3}</p>
+        <p>Secondary Rune 1: {secondaryRune1}</p>
+        <p>Secondary Rune 2: {secondaryRune2}</p>
       </CardRow>
     </CardWrapper>
   );
@@ -126,8 +129,12 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
 export default MatchCard;
 
 const CardWrapper = styled.div`
-  width: 80%;
+  height: auto;
+  width: 100%;
+  border: 2px solid black;
+  padding: 0 2rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   background-color: aliceblue;
@@ -138,14 +145,22 @@ const CardWrapper = styled.div`
 `;
 
 const CardRow = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
+  border: 1px dotted black;
+  margin: 0.4rem;
 `;
 
 const CardCol = styled.div`
+  height: 100%;
+  width: 10%;
+  max-width: 100px;
+  margin: 0 0.4rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+  border: 1px dotted black;
 `;

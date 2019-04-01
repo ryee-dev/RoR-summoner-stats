@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import useAxios from '@use-hooks/axios';
 
 interface Props {
   summName: string;
   setSummName: Function;
   reFetch: Function;
+  setModalStatus: Function;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, setSummName, reFetch } = props;
+  const { summName, setSummName, reFetch, setModalStatus } = props;
 
   const bodyFormData = new FormData();
 
@@ -17,11 +17,16 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
     bodyFormData.set('summonerName', summName);
   };
 
-  useAxios({
-    url: 'http://localhost:3001/api/summoner',
-    method: 'POST',
-    trigger: summName,
-  });
+  const handleModalReFetch = () => {
+    setModalStatus(true);
+    reFetch();
+  };
+
+  // const handlePostData = useAxios({
+  //   url: 'http://localhost:3001/api/summoner',
+  //   method: 'POST',
+  //   trigger: summName,
+  // });
 
   return (
     <SummForm
@@ -41,7 +46,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
       <SubmitButt
         type="submit"
         // @ts-ignore
-        onClick={reFetch}
+        onClick={handleModalReFetch}
       >
         submit
       </SubmitButt>

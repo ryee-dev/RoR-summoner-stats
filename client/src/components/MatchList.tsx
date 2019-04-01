@@ -55,11 +55,9 @@ export default MatchList;
 
 const ListWrapper = styled.div`
   //height: 50%;
+  position: absolute;
   padding: 0 1rem;
-  //max-height: 500px;
-  max-width: 1200px;
-  //max-height: 600px;
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

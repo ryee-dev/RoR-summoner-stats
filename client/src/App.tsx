@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import useAxios from 'axios-hooks';
 import useAxios from '@use-hooks/axios';
+// import { useClickOutside } from 'use-events';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
@@ -10,18 +10,19 @@ const App = () => {
     method: 'GET',
   });
 
+  const [modalStatus, setModalStatus] = useState(null);
+
   // @ts-ignore
   const { data } = response || {};
 
   const [summName, setSummName] = useState('');
-
   // @ts-ignore
-  // const updateName = e => {
-  //   e.preventDefault();
-  //   setSummName(e.target.value);
-  // };
+  const handleCloseModal = () => {
+    // @ts-ignore
+    setModalStatus(false);
+  };
 
-  console.log(response);
+  console.log(modalStatus);
   return (
     <AppShell>
       <FloatingContainer>
@@ -29,6 +30,7 @@ const App = () => {
           summName={summName}
           setSummName={setSummName}
           reFetch={reFetch}
+          setModalStatus={setModalStatus}
         />
         <br />
         <div className="data-wrapper">
@@ -37,7 +39,20 @@ const App = () => {
         </div>
       </FloatingContainer>
 
-      {!loading && <MatchList data={data} />}
+      {modalStatus && (
+        <ModalWrapper>
+          <ResultsModal>
+            <button
+              type="button"
+              // @ts-ignore
+              onClick={handleCloseModal}
+            >
+              close
+            </button>
+            <MatchList data={data} />
+          </ResultsModal>
+        </ModalWrapper>
+      )}
     </AppShell>
   );
 };
@@ -58,6 +73,7 @@ const AppShell = styled.div`
 `;
 
 const FloatingContainer = styled.div`
+  height: 100%;
   background-color: #151a27;
   border-radius: 4px;
   width: 100%;
@@ -66,7 +82,7 @@ const FloatingContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 4rem 0;
+  //padding: 4rem 0;
   overflow: scroll;
 
   h1 {
@@ -78,5 +94,33 @@ const FloatingContainer = styled.div`
     color: white;
     margin: 2rem 0;
     overflow: scroll;
+  }
+`;
+
+const ModalWrapper = styled.div`
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+`;
+
+const ResultsModal = styled.div`
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  //padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: scroll;
+
+  button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
   }
 `;
