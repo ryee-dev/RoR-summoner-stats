@@ -6,9 +6,44 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const RiotRateLimiter = require('riot-ratelimiter');
 const fs = require('fs');
+const restify = require('restify');
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
 
-const app = express();
-const limiter = new RiotRateLimiter;
+let schema = buildSchema(`
+  type Query {
+    summonerKey: Int,
+    summonerName: String  
+  }
+`);
+
+let root = {
+  summonerKey: () => {
+    return '123';
+  },
+
+  summonerName: () => {
+    return 'abc';
+  }
+};
+
+// const app = express();
+
+const app = restify.createServer({
+  name: 'lolstats-app'
+});
+
+server.use(restify.plugins.acceptParser(server.acceptable));
+server.use(restify.plugins.queryParser());
+server.use(restify.plugins.bodyParser());
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}));
+
+// const limiter = new RiotRateLimiter;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -157,16 +192,23 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   }
   // decodedChampionList.push(decodedChampion);
   // return decodedChampionList;
+
+  app.get('/static/champions', async (req, res) => {
+    res.json(decodedChampion);
+  });
+
 });
 
-app.get('/static/champions', async (req, res) => {
-  res.json(decodedChampion);
-});
+  // const jsonData = summChampiondata;
+  // app.use('/graphql', jsonGraphqlExpress(jsonData));
+
 
 // fetch static data
 // app.use('/static', express.static(path.join(__dirname, 'static')));
 
-
+// graphql
+// const data = summChampiondata;
+// app.use('/graphql', jsonGraphqlExpress(data));
 
 // catchall
 app.get('*', (req, res) => {

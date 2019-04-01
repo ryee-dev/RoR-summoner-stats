@@ -11,8 +11,14 @@
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
     "fs": "^0.0.1-security",
+    "graphql": "^14.2.1",
     "kayn": "^0.9.8",
+    "restify": "^8.2.0",
     "riot-ratelimiter": "^0.1.5"
+  },
+  "devDependencies": {
+    "json-graphql-server": "^2.1.3"
   }
 }
