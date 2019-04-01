@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+// import useAxios from '@use-hooks/axios';
+// import useAxios from 'axios-hooks';
 
 interface MatchProps {
   // matchDetails?: object | any;
@@ -8,8 +10,8 @@ interface MatchProps {
   gameDuration: number;
   win?: string;
   participantPlayerId: string;
-  summAId: string;
-  summBId: string;
+  summAId: any;
+  summBId: any;
   champLevel: number;
   totalMinionsKilled: number;
   neutralMinionsKilled: number;
@@ -65,6 +67,49 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     assists,
   } = props;
 
+  // let summName: string;
+  //
+  // const getSummData = (spellId: number) => {
+  //   switch (spellId) {
+  //     case 21:
+  //       summName = 'Barrier';
+  //       break;
+  //     case 1:
+  //       summName = 'Cleanse';
+  //       break;
+  //     case 14:
+  //       summName = 'Ignite';
+  //       break;
+  //     case 3:
+  //       summName = 'Exhaust';
+  //       break;
+  //     case 4:
+  //       summName = 'Flash';
+  //       break;
+  //     case 6:
+  //       summName = 'Ghost';
+  //       break;
+  //     case 7:
+  //       summName = 'Heal';
+  //       break;
+  //     case 13:
+  //       summName = 'Clarity';
+  //       break;
+  //     case 11:
+  //       summName = 'Smite';
+  //       break;
+  //     case 32:
+  //       summName = 'Mark';
+  //       break;
+  //     case 12:
+  //       summName = 'Teleport';
+  //       break;
+  //     default:
+  //       console.log(`unable to find ${spellId}`);
+  //   }
+  //   return summName;
+  // };
+
   const TotalCS: any = (
     totalMinionsKilled +
     neutralMinionsKilled +
@@ -81,7 +126,11 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
       <CardRow>
         <CardCol>
           {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
-          <p>{gameDuration}</p>
+          <p>
+            {`${Math.floor(gameDuration / 60)}:${
+              gameDuration % 60 ? gameDuration % 60 : '00'
+            }`}
+          </p>
         </CardCol>
         <CardCol>
           <p>{championId}</p>
@@ -94,7 +143,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           <p>
             {kills}/{deaths}/{assists}
           </p>
-          <p>{KDA}:1 KDA</p>
+          {deaths === 0 ? <p>Perfect</p> : <p>{KDA}:1 KDA</p>}
         </CardCol>
         <CardCol>
           <p>{champLevel}</p>

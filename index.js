@@ -5,6 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const RiotRateLimiter = require('riot-ratelimiter');
+const fs = require('fs');
 
 const app = express();
 const limiter = new RiotRateLimiter;
@@ -29,7 +30,6 @@ app.post('/api/summoner', async (req, res) => {
 
 // fetch data
 app.get('/api/summoner', async (req, res) => {
-
 
   let summonerInfo;
   let matchHistoryInfo;
@@ -115,8 +115,63 @@ app.get('/api/summoner', async (req, res) => {
   // result.push(summonerInfo);
   // result.push(recentMatchOutcomeData);
 
+
+  // serve summoner.json
+  let summSpelldata;
+
+  fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    summSpelldata = JSON.parse(data);
+    recentMatchOutcomeData.push(summSpelldata.data);
+
+    // console.log(summSpelldata.data.SummonerBarrier);
+  });
+
+
+  // serve item.json
+  let summItemData;
+  fs.readFile('./static/item.json', 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    summItemData = JSON.parse(data);
+  });
+
+  // serve champion.json
+  let summChampiondata;
+  let decodedChampion;
+  let decodedChampionList = [];
+
+  fs.readFile('./static/champion.json', 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    summChampiondata = JSON.parse(data);
+
+    const entries = Object.entries(summChampiondata.data);
+    for (const [champion, values] of entries) {
+      // console.log(champion, values.key);
+
+      decodedChampion = {
+        championName: champion,
+        championKey: values.key
+      };
+
+      decodedChampionList.push(decodedChampion);
+    }
+      console.log(decodedChampionList);
+  });
+
+
   res.json(recentMatchOutcomeData);
 });
+
+// fetch static data
+// app.use('/static', express.static(path.join(__dirname, 'static')));
+
+
 
 // catchall
 app.get('*', (req, res) => {

@@ -2,12 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80f7019c-8b6f-425f-8afd-fcd42d2fa85c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/champion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/championFull.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/item.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/language.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/map.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/mission-assets.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/profileicon.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/runesReforged.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/sticker.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/summoner.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MatchCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MatchCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MatchList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MatchList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/typings.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/typings.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,11 +42,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-573">
-                  <caret line="26" column="14" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="14" />
+                <state relative-caret-position="274">
+                  <caret line="163" column="39" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
@@ -43,17 +54,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/.env">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="36">
-                  <caret line="2" selection-start-line="2" selection-end-line="2" />
+                <state>
+                  <caret column="50" selection-start-column="50" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/App.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="556">
-                  <caret line="123" column="16" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+                <state relative-caret-position="864">
+                  <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
                   <folding>
                     <element signature="e#0#40#0" expanded="true" />
                   </folding>
@@ -68,8 +79,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/typings.d.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="36">
-                  <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+                <state relative-caret-position="54">
+                  <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -83,11 +94,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/SummonerForm.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="71">
-                  <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+                <state relative-caret-position="72">
+                  <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -107,8 +118,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1734">
-                  <caret line="134" column="12" selection-start-line="134" selection-start-column="12" selection-end-line="134" selection-end-column="12" />
+                <state relative-caret-position="252">
+                  <caret line="135" column="24" selection-start-line="135" selection-start-column="14" selection-end-line="135" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -119,8 +130,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/MatchList.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="734">
-                  <caret line="57" selection-start-line="57" selection-end-line="57" />
+                <state relative-caret-position="33">
+                  <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -129,10 +140,42 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$USER_HOME$/Downloads/dragontail-9.4.1/9.4.1/data/en_US/champion.json">
+            <entry file="file://$PROJECT_DIR$/static/summoner.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret column="316" selection-start-column="316" selection-end-column="316" />
+                <state relative-caret-position="378">
+                  <caret line="1636" column="21" selection-start-line="1636" selection-start-column="21" selection-end-line="1636" selection-end-column="21" />
+                  <folding>
+                    <element signature="n#!!block;n#SummonerBarrier#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerBoost#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerDarkStarChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerDarkStarChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerDot#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerExhaust#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerFlash#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerHaste#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerHeal#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerMana#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerOdysseyFlash#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerOdysseyGhost#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerOdysseyRevive#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerPoroRecall#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerPoroThrow#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerSiegeChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerSiegeChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerSmite#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerSnowURFSnowball_Mark#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerSnowball#0;n#!!block;n#data#0;n#!!top" />
+                    <element signature="n#!!block;n#SummonerTeleport#0;n#!!block;n#data#0;n#!!top" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/static/champion.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="162">
+                  <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -152,6 +195,10 @@
       <find>matchData</find>
       <find>list</find>
       <find>matchList</find>
+      <find>rune</find>
+      <find>gameDur</find>
+      <find>82</find>
+      <find>&quot;key&quot;: &quot;82&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>matchData.data.</replace>
@@ -166,15 +213,17 @@
       <list>
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/client/.eslintrc" />
         <option value="$PROJECT_DIR$/client/src/components/index.ts" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/client/src/components/MatchList.tsx" />
-        <option value="$PROJECT_DIR$/client/src/components/MatchCard.tsx" />
-        <option value="$PROJECT_DIR$/client/src/typings.d.ts" />
         <option value="$PROJECT_DIR$/client/src/components/SummonerForm.tsx" />
         <option value="$PROJECT_DIR$/client/src/App.tsx" />
+        <option value="$USER_HOME$/Downloads/dragontail-9.4.1/9.4.1/data/en_US/summoner.json" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/client/src/typings.d.ts" />
+        <option value="$PROJECT_DIR$/client/src/components/MatchCard.tsx" />
+        <option value="$PROJECT_DIR$/static/champion.json" />
+        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -187,8 +236,8 @@
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="width" value="1472" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="2560" />
     <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -225,6 +274,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="battlefy-lolstats-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="battlefy-lolstats-app" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -238,7 +292,7 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="11.11.0" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="$USER_HOME$/.nvm/versions/node/v11.12.0/bin/node" />
@@ -258,6 +312,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/client/static" />
       <recent name="$PROJECT_DIR$/client/src/components" />
       <recent name="$PROJECT_DIR$/client/src" />
       <recent name="$PROJECT_DIR$/client" />
@@ -287,18 +343,18 @@
       <updated>1554065047008</updated>
       <workItem from="1554065048347" duration="563000" />
       <workItem from="1554065624562" duration="541000" />
-      <workItem from="1554066177775" duration="26195000" />
+      <workItem from="1554066177775" duration="36156000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27299000" />
+    <option name="totallyTimeSpent" value="37260000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1472" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="2560" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.19848381" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12288302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Storybook" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -311,7 +367,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32595575" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.55331993" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -365,13 +421,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -393,6 +442,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/dragontail-9.4.1/9.4.1/data/en_US/champion.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret column="316" selection-start-column="316" selection-end-column="316" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="50" selection-start-column="50" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/static/champion.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret column="343" lean-forward="true" selection-start-column="343" selection-end-column="343" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/dragontail-9.4.1/9.4.1/data/en_US/summoner.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="n#!!block;n#SummonerBarrier#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerBoost#0;n#!!block;n#data#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/typings.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/map.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret column="377" selection-start-column="377" selection-end-column="377" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/index.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -400,41 +505,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-573">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/dragontail-9.4.1/9.4.1/data/en_US/champion.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret column="316" selection-start-column="316" selection-end-column="316" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/MatchList.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="734">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/typings.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="134" column="12" selection-start-line="134" selection-start-column="12" selection-end-line="134" selection-end-column="12" />
+        <state relative-caret-position="33">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -443,21 +517,65 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/SummonerForm.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        <state relative-caret-position="72">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.tsx">
+    <entry file="file://$PROJECT_DIR$/static/summoner.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="123" column="16" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+        <state relative-caret-position="378">
+          <caret line="1636" column="21" selection-start-line="1636" selection-start-column="21" selection-end-line="1636" selection-end-column="21" />
           <folding>
-            <element signature="e#0#40#0" expanded="true" />
+            <element signature="n#!!block;n#SummonerBarrier#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerBoost#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDarkStarChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDarkStarChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDot#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerExhaust#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerFlash#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerHaste#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerHeal#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerMana#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyFlash#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyGhost#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyRevive#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerPoroRecall#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerPoroThrow#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSiegeChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSiegeChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSmite#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSnowURFSnowball_Mark#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSnowball#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerTeleport#0;n#!!block;n#data#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="135" column="24" selection-start-line="135" selection-start-column="14" selection-end-line="135" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/champion.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="163" column="39" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
         </state>
       </provider>
     </entry>
