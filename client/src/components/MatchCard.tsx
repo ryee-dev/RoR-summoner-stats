@@ -20,20 +20,20 @@ interface MatchProps {
   neutralMinionsKilled: number;
   teamJgMinionsKilled: number;
   enemyJgMinionsKilled: number;
-  primaryKeystone: string;
-  primaryRune1: string;
-  primaryRune2: string;
-  primaryRune3: string;
-  secondaryRune1: string;
-  secondaryRune2: string;
+  primaryKeystone: number;
+  primaryRune1: number;
+  primaryRune2: number;
+  primaryRune3: number;
+  secondaryRune1: number;
+  secondaryRune2: number;
   championId: number;
-  item0: string;
-  item1: string;
-  item2: string;
-  item3: string;
-  item4: string;
-  item5: string;
-  item6: string;
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
   kills: number;
   deaths: number;
   assists: number;
@@ -41,7 +41,18 @@ interface MatchProps {
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
-  const data = useFetch(staticChampionDataEndpoint, {
+  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
+  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
+
+  const champData = useFetch(staticChampionDataEndpoint, {
+    method: 'GET',
+  });
+
+  const itemData = useFetch(staticItemDataEndpoint, {
+    method: 'GET',
+  });
+
+  const spellData = useFetch(staticSpellDataEndpoint, {
     method: 'GET',
   });
 
@@ -98,12 +109,32 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
 
   const getChampionName = (champKey: number) => {
     let championName;
-    for (let i = 0; i < data.championKeys.length; i++) {
-      if (champKey.toString() === data.championKeys[i]) {
-        championName = data.championNames[i];
+    for (let i = 0; i < champData.championKeys.length; i++) {
+      if (champKey.toString() === champData.championKeys[i]) {
+        championName = champData.championNames[i];
       }
     }
     return championName;
+  };
+
+  const getItemName = (itemKey: number) => {
+    let itemName;
+    for (let i = 0; i < itemData.itemKeys.length; i++) {
+      if (itemKey.toString() === itemData.itemKeys[i]) {
+        itemName = itemData.itemNames[i];
+      }
+    }
+    return itemName;
+  };
+
+  const getSpellName = (spellKey: number) => {
+    let spellName;
+    for (let i = 0; i < spellData.spellKeys.length; i++) {
+      if (spellKey.toString() === spellData.spellKeys[i]) {
+        spellName = spellData.spellNames[i];
+      }
+    }
+    return spellName;
   };
 
   return (
@@ -133,8 +164,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             <p>{getChampionName(championId)}</p>
           </CardCol>
           <CardCol>
-            <p>{summAId}</p>
-            <p>{summBId}</p>
+            <p>{getSpellName(summAId)}</p>
+            <p>{getSpellName(summBId)}</p>
           </CardCol>
           <CardCol>
             <p>
@@ -143,21 +174,21 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             {deaths === 0 ? <p>Perfect</p> : <p>{KDA}:1 KDA</p>}
           </CardCol>
           <CardCol>
-            <p>{champLevel}</p>
+            <p>level: {champLevel}</p>
             <p>
               {TotalCS} ({CsPerMin}) CS
             </p>
           </CardCol>
           <CardCol>
-            <p>{item0}</p>
-            <p>{item1}</p>
-            <p>{item2}</p>
-            <p>{item3}</p>
+            <p>{getItemName(item0)}</p>
+            <p>{getItemName(item1)}</p>
+            <p>{getItemName(item2)}</p>
+            <p>{getItemName(item3)}</p>
           </CardCol>
           <CardCol>
-            <p>{item4}</p>
-            <p>{item5}</p>
-            <p>{item6}</p>
+            <p>{getItemName(item4)}</p>
+            <p>{getItemName(item5)}</p>
+            <p>{getItemName(item6)}</p>
           </CardCol>
         </CardRow>
         <CardRow>
@@ -202,11 +233,11 @@ const CardRow = styled.div`
 
 const CardCol = styled.div`
   height: 100%;
-  width: 10%;
-  max-width: 100px;
+  //width: 10%;
+  //max-width: 100px;
   margin: 0 0.4rem;
   display: flex;
-  align-items: center;
+  align-items: flex=start;
   justify-content: space-evenly;
   flex-direction: column;
   border: 1px dotted black;

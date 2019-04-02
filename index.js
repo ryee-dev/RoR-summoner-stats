@@ -64,6 +64,7 @@ app.get('/api/summoner', async (req, res) => {
       // match player's summoner name with participants' summoner name
       if (summonerInfo.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
         outcomeData = {
+          summonerName: summonerInfo.name,
           gameDuration: matchData.data.gameDuration,
           win: matchData.data.participants[i].stats.win,
           participantPlayerId: matchData.data.participants[i].participantId,
@@ -126,11 +127,8 @@ app.get('/api/summoner', async (req, res) => {
 // serve champion.json
 let summChampiondata;
 let decodedChampion;
-// let championDecoded;
-let decodedChampionList = [];
 let championKeyList = [];
 let championNameList = [];
-// let decodedChampionKey;
 
 fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
@@ -147,28 +145,129 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
       championNames: championNameList,
       championKeys: championKeyList
     };
-
   }
-  // decodedChampionList.push(decodedChampion);
-  // return decodedChampionList;
+});
 
+// serve item.json
+let summItemData;
+let decodedItem;
+let itemKeyList = [];
+let itemNameList = [];
 
+fs.readFile('./static/item.json', 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+
+  summItemData = JSON.parse(data);
+  const entries = Object.entries(summItemData.data);
+  for (const [item, values] of entries) {
+    itemKeyList.push(item);
+    itemNameList.push(values.name);
+
+    decodedItem = {
+      itemNames: itemNameList,
+      itemKeys: itemKeyList
+    };
+  }
+});
+
+// serve summoner spells
+let summSpellData;
+let decodedSpell;
+let spellKeyList = [];
+let spellNameList = [];
+
+fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+
+  summSpellData = JSON.parse(data);
+  const entries = Object.entries(summSpellData.data);
+  for (const [spell, values] of entries) {
+    spellKeyList.push(values.key);
+    spellNameList.push(values.name);
+
+    decodedSpell = {
+      spellNames: spellNameList,
+      spellKeys: spellKeyList,
+    }
+  }
+});
+
+// serve summoner runes
+let decodedKeystone;
+let decodedRune;
+let summKeystoneData;
+let summRuneData;
+let decodedRunesReforged;
+
+let keystoneIdList = [];
+let keystoneNameList = [];
+let runeIdList = [];
+let runeNameList = [];
+
+fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+  summKeystoneData = JSON.parse(data);
+  // summRuneData = JSON.parse(data.slots);
+  // console.log(summRuneData);
+
+  const keystoneEntries = Object.entries(summKeystoneData);
+  for (const [keystone, values] of keystoneEntries) {
+    keystoneIdList.push(values.id);
+    keystoneNameList.push(values.name);
+
+    decodedKeystone = {
+      names: keystoneNameList,
+      ids: keystoneIdList
+    };
+
+    // decodedKeystone.names.push(keystoneIdList);
+    // decodedKeystone.ids.push(keystoneNameList);
+  }
+
+//   const runeEntries = Object.entries(summRuneData);
+//   for (const [rune, values] of runeEntries) {
+//     runeIdList.push(values.id);
+//     runeNameList.push(values.name);
+//
+//     decodedRune = {
+//       names: runeNameList,
+//       ids: runeIdList
+//     };
+//
+//     decodedRune.names.push(runeNameList);
+//     decodedRune.ids.push(runeIdList);
+//   }
+//
+//   decodedRunesReforged = {
+//     decodedKeystone,
+//     decodedRune
+//   }
 });
 
 app.get('/static/champions', async (req, res) => {
   res.json(decodedChampion);
 });
 
-  // const jsonData = summChampiondata;
-  // app.use('/graphql', jsonGraphqlExpress(jsonData));
+app.get('/static/items', async (req, res) => {
+  res.json(decodedItem);
+});
 
+app.get('/static/spells', async (req, res) => {
+  res.json(decodedSpell);
+});
+
+app.get('/static/runes', async (req, res) => {
+  res.json(decodedKeystone);
+});
 
 // fetch static data
 app.use('/static', express.static(path.join(__dirname, 'static')));
-
-// graphql
-// const data = summChampiondata;
-// app.use('/graphql', jsonGraphqlExpress(data));
 
 // catchall
 app.get('*', (req, res) => {

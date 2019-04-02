@@ -52,7 +52,7 @@ const App = () => {
                   </div>
                 }
               >
-                <MatchList />
+                <MatchList summonerName={summName} />
               </Suspense>
             </ListWrapper>
           </ResultsModal>
