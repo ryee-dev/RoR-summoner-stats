@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '@use-hooks/axios';
 // import { useClickOutside } from 'use-events';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
-  const { response, loading, error, reFetch } = useAxios({
-    url: 'http://localhost:3001/api/summoner',
-    method: 'GET',
-  });
-
   const [modalStatus, setModalStatus] = useState(null);
-
-  // @ts-ignore
-  const { data } = response || {};
-
   const [summName, setSummName] = useState('');
+
   // @ts-ignore
   const handleCloseModal = () => {
     // @ts-ignore
@@ -29,14 +20,9 @@ const App = () => {
         <SummonerForm
           summName={summName}
           setSummName={setSummName}
-          reFetch={reFetch}
           setModalStatus={setModalStatus}
         />
         <br />
-        <div className="data-wrapper">
-          {loading && <p style={{ position: 'absolute' }}>loading</p>}
-          {error && <p>error</p>}
-        </div>
       </FloatingContainer>
 
       {modalStatus && (
@@ -49,7 +35,26 @@ const App = () => {
             >
               close
             </button>
-            <MatchList data={data} />
+            <ListWrapper>
+              <Suspense
+                fallback={
+                  <div
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'absolute',
+                    }}
+                  >
+                    <h1 style={{ color: 'white' }}>loading...</h1>
+                  </div>
+                }
+              >
+                <MatchList />
+              </Suspense>
+            </ListWrapper>
           </ResultsModal>
         </ModalWrapper>
       )}
@@ -122,5 +127,22 @@ const ResultsModal = styled.div`
     position: fixed;
     top: 10px;
     right: 10px;
+  }
+`;
+
+const ListWrapper = styled.div`
+  //height: 50%;
+  position: absolute;
+  padding: 0 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  background-color: aliceblue;
+  overflow: scroll;
+
+  p {
+    font-size: 0.6rem;
   }
 `;

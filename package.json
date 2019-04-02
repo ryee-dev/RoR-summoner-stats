@@ -4,17 +4,23 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "client-install": "cd client && yarn",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"cd client && yarn start\""
   },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "fs": "^0.0.1-security",
     "graphql": "^14.2.1",
     "kayn": "^0.9.8",
+    "nodemon": "^1.18.10",
     "restify": "^8.2.0",
     "riot-ratelimiter": "^0.1.5"
   },

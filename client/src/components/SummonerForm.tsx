@@ -4,12 +4,11 @@ import styled from 'styled-components';
 interface Props {
   summName: string;
   setSummName: Function;
-  reFetch: Function;
   setModalStatus: Function;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, setSummName, reFetch, setModalStatus } = props;
+  const { summName, setSummName, setModalStatus } = props;
 
   const bodyFormData = new FormData();
 
@@ -19,7 +18,6 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
 
   const handleModalReFetch = () => {
     setModalStatus(true);
-    reFetch();
   };
 
   // const handlePostData = useAxios({
