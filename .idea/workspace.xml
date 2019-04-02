@@ -4,7 +4,10 @@
     <list default="true" id="80f7019c-8b6f-425f-8afd-fcd42d2fa85c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+=======
+>>>>>>> master
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,11 +22,16 @@
     <splitter split-orientation="horizontal" split-proportion="0.48133153">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
                 <state relative-caret-position="495">
                   <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+=======
+                <state relative-caret-position="126">
+                  <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
@@ -40,8 +48,13 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.js">
               <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
                 <state relative-caret-position="486">
                   <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+=======
+                <state relative-caret-position="180">
+                  <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
@@ -50,7 +63,11 @@
             <entry file="file://$PROJECT_DIR$/.env">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="18">
+<<<<<<< HEAD
                   <caret line="1" column="9" lean-forward="true" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+=======
+                  <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
@@ -58,8 +75,13 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/App.tsx">
               <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
                 <state relative-caret-position="400">
                   <caret line="58" column="19" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
+=======
+                <state relative-caret-position="45">
+                  <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+>>>>>>> master
                   <folding>
                     <element signature="e#0#50#0" expanded="true" />
                   </folding>
@@ -69,6 +91,7 @@
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
+<<<<<<< HEAD
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-2373">
                   <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
@@ -84,6 +107,11 @@
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
+=======
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="46">
+                  <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
@@ -95,17 +123,30 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/package.json">
               <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
                 <state relative-caret-position="486">
                   <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+=======
+                <state relative-caret-position="343">
+                  <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
           </file>
+<<<<<<< HEAD
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/components/SummonerForm.tsx">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="302">
                   <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+=======
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/components/SummonerForm.tsx">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="208">
+                  <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+>>>>>>> master
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -125,20 +166,33 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/MatchList.tsx">
               <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
                 <state relative-caret-position="110">
                   <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
                   <folding>
                     <element signature="e#71#109#0" expanded="true" />
                   </folding>
+=======
+                <state relative-caret-position="46">
+                  <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
           </file>
+<<<<<<< HEAD
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Procfile">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="18">
                   <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+=======
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Procfile">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret column="16" selection-start-column="16" selection-end-column="16" />
+>>>>>>> master
                 </state>
               </provider>
             </entry>
@@ -169,8 +223,10 @@
       <find>spell</find>
       <find>string</find>
       <find>data</find>
-      <find>console.</find>
       <find>port</find>
+      <find>console.</find>
+      <find>3000</find>
+      <find>3001</find>
     </findStrings>
     <replaceStrings>
       <replace>matchData.data.</replace>
@@ -198,11 +254,19 @@
         <option value="$PROJECT_DIR$/client/src/components/MatchList.tsx" />
         <option value="$PROJECT_DIR$/client/src/components/MatchCard.tsx" />
         <option value="$PROJECT_DIR$/client/src/components/SummonerForm.tsx" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/client/package.json" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/client/src/App.tsx" />
+=======
+        <option value="$PROJECT_DIR$/client/src/App.tsx" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/Procfile" />
+>>>>>>> master
       </list>
     </option>
   </component>
@@ -325,12 +389,16 @@
       <workItem from="1554065624562" duration="541000" />
       <workItem from="1554066177775" duration="43328000" />
       <workItem from="1554147675548" duration="8559000" />
-      <workItem from="1554164617127" duration="20221000" />
+      <workItem from="1554164617127" duration="21287000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="73384000" />
+=======
+    <option name="totallyTimeSpent" value="74278000" />
+>>>>>>> master
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1080" extended-state="0" />
@@ -431,6 +499,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/.eslintrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="516">
@@ -439,59 +508,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="57" selection-start-column="57" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/typings.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+=======
     <entry file="file://$PROJECT_DIR$/static/champion.json">
+>>>>>>> master
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/summoner.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-          <folding>
-            <element signature="e#378#399#0" />
-            <element signature="e#444#463#0" />
-            <element signature="e#528#882#0" />
-            <element signature="e#904#1058#0" />
-            <element signature="e#1138#1448#0" />
-            <element signature="e#1517#1539#0" />
-            <element signature="n#!!block;n#image#0;n#!!block;n#SummonerBarrier#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerBoost#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerDarkStarChampSelect1#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerDarkStarChampSelect2#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerDot#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerExhaust#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerFlash#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerHaste#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerHeal#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerMana#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerOdysseyFlash#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerOdysseyGhost#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerOdysseyRevive#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerPoroRecall#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerPoroThrow#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerSiegeChampSelect1#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerSiegeChampSelect2#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerSmite#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerSnowURFSnowball_Mark#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerSnowball#0;n#!!block;n#data#0;n#!!top" />
-            <element signature="n#!!block;n#SummonerTeleport#0;n#!!block;n#data#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -536,6 +558,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/summoner.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#378#399#0" />
+            <element signature="e#444#463#0" />
+            <element signature="e#528#882#0" />
+            <element signature="e#904#1058#0" />
+            <element signature="e#1138#1448#0" />
+            <element signature="e#1517#1539#0" />
+            <element signature="n#!!block;n#image#0;n#!!block;n#SummonerBarrier#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerBoost#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDarkStarChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDarkStarChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerDot#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerExhaust#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerFlash#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerHaste#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerHeal#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerMana#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyFlash#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyGhost#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerOdysseyRevive#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerPoroRecall#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerPoroThrow#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSiegeChampSelect1#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSiegeChampSelect2#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSmite#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSnowURFSnowball_Mark#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerSnowball#0;n#!!block;n#data#0;n#!!top" />
+            <element signature="n#!!block;n#SummonerTeleport#0;n#!!block;n#data#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="57" selection-start-column="57" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/typings.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2373">
@@ -561,18 +634,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+=======
+    <entry file="file://$PROJECT_DIR$/client/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/SummonerForm.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/MatchList.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+>>>>>>> master
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/MatchCard.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="18">
           <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+=======
+        <state relative-caret-position="46">
+          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
+>>>>>>> master
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="495">
           <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
         </state>
@@ -605,6 +724,31 @@
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="18">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="16" selection-start-column="16" selection-end-column="16" />
+>>>>>>> master
         </state>
       </provider>
     </entry>
