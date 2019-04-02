@@ -9,7 +9,7 @@ interface MatchListProps {
 
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const { summonerName } = props;
-  const matchHistoryEndPoint = 'http://localhost:3001/api/summoner';
+  const matchHistoryEndPoint = '/api/summoner';
   const data = useFetch(matchHistoryEndPoint, {
     method: 'GET',
   });

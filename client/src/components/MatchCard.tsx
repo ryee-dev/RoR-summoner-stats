@@ -40,9 +40,9 @@ interface MatchProps {
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
-  const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
-  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
-  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
+  const staticChampionDataEndpoint = '/static/champions';
+  const staticItemDataEndpoint = '/static/items';
+  const staticSpellDataEndpoint = '/static/spells';
 
   const champData = useFetch(staticChampionDataEndpoint, {
     method: 'GET',

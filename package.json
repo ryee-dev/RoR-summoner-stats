@@ -8,8 +8,10 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "cd client && yarn start",
-    "dev": "concurrently \"yarn server\" \"cd client && yarn start\""
+    "dev": "concurrently \"yarn server\" \"cd client && yarn start\"",
+    "heroku-postbuild": "cd client && yarn && yarn build"
   },
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
