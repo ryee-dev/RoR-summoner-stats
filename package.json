@@ -9,6 +9,7 @@
     "server": "nodemon index.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn server\" \"cd client && yarn start\"",
+    "build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
     "heroku-postbuild": "cd client && yarn && yarn build"
   },
   "dependencies": {

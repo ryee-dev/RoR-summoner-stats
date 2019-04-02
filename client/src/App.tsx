@@ -26,37 +26,37 @@ const App = () => {
       </FloatingContainer>
 
       {modalStatus && (
-        <ModalWrapper>
-          <ResultsModal>
-            <button
-              type="button"
-              // @ts-ignore
-              onClick={handleCloseModal}
+        <Suspense
+          fallback={
+            <div
+              style={{
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'absolute',
+              }}
             >
-              close
-            </button>
-            <ListWrapper>
-              <Suspense
-                fallback={
-                  <div
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'absolute',
-                    }}
-                  >
-                    <h1 style={{ color: 'white' }}>loading...</h1>
-                  </div>
-                }
+              <h1 style={{ color: 'white' }}>loading...</h1>
+            </div>
+          }
+        >
+          <ModalWrapper>
+            <ResultsModal>
+              <button
+                type="button"
+                // @ts-ignore
+                onClick={handleCloseModal}
               >
+                close
+              </button>
+              <ListWrapper>
                 <MatchList summonerName={summName} />
-              </Suspense>
-            </ListWrapper>
-          </ResultsModal>
-        </ModalWrapper>
+              </ListWrapper>
+            </ResultsModal>
+          </ModalWrapper>
+        </Suspense>
       )}
     </AppShell>
   );
