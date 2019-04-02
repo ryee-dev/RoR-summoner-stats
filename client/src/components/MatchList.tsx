@@ -13,7 +13,7 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const data = useFetch(matchHistoryEndPoint, {
     method: 'GET',
   });
-  // console.log(data);
+  console.log(data);
   // console.log(data.matchData[0].win);
 
   // @ts-ignore

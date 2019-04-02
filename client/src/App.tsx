@@ -13,6 +13,10 @@ const App = () => {
     setModalStatus(false);
   };
 
+  // useEffect(() => {
+  //   // setModalStatus(true);
+  // }, [summName]);
+
   // console.log(modalStatus);
   return (
     <AppShell>
@@ -24,7 +28,6 @@ const App = () => {
         />
         <br />
       </FloatingContainer>
-
       {modalStatus && (
         <Suspense
           fallback={

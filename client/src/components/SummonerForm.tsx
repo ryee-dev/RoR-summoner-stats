@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import useFetch from 'fetch-suspense';
 
 interface Props {
   summName: string;
@@ -10,10 +11,15 @@ interface Props {
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
 
+  const data = useFetch('/api/summoner', {
+    method: 'POST',
+  });
+
   const bodyFormData = new FormData();
 
   const setPostData = () => {
     bodyFormData.set('summonerName', summName);
+    data.summonerName = summName;
   };
 
   const handleModalReFetch = () => {
@@ -31,7 +37,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
       method="POST"
       action="/api/summoner"
       autoComplete="off"
-      onSubmit={setPostData}
+      onSubmit={handleModalReFetch}
     >
       <SummInput
         placeholder="Summoner Name"
@@ -44,7 +50,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
       <SubmitButt
         type="submit"
         // @ts-ignore
-        onClick={handleModalReFetch}
+        onClick={setPostData}
       >
         submit
       </SubmitButt>

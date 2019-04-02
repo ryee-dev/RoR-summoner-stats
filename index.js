@@ -25,7 +25,9 @@ let summonerName;
 
 // post summoner name input
 app.post('/api/summoner', async (req, res) => {
-  summonerName = req.body.summName;
+  // if (req.body.summName !== "Undefined") {
+  // }
+    summonerName = req.body.summName;
 });
 
 // fetch data
