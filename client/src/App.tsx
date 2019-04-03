@@ -1,11 +1,19 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense,qwa                                                                                                                                     useState } from 'react';
 import styled from 'styled-components';
 // import { useClickOutside } from 'use-events';
+// import useFetch from 'fetch-suspense';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(null);
   const [summName, setSummName] = useState('');
+  // const [stats, setStats] = useState({});
+  // const [data, loadData] =
+
+  // const matchHistoryEndPoint = '/api/summoner';
+  // const data = useFetch(matchHistoryEndPoint, {
+  //   method: 'GET',
+  // });
 
   // @ts-ignore
   const handleCloseModal = () => {
@@ -15,17 +23,37 @@ const App = () => {
 
   // useEffect(() => {
   //   // setModalStatus(true);
-  // }, [summName]);
+  //   console.log('change detected');
+  // }, [stats]);
 
   // console.log(modalStatus);
   return (
     <AppShell>
       <FloatingContainer>
-        <SummonerForm
-          summName={summName}
-          setSummName={setSummName}
-          setModalStatus={setModalStatus}
-        />
+        <Suspense
+          fallback={
+            <div
+              style={{
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'absolute',
+              }}
+            >
+              <h1 style={{ color: 'white' }}>loading...</h1>
+            </div>
+          }
+        >
+          <SummonerForm
+            summName={summName}
+            setSummName={setSummName}
+            setModalStatus={setModalStatus}
+            // setStats={setStats}
+            // data={data}
+          />
+        </Suspense>
         <br />
       </FloatingContainer>
       {modalStatus && (
@@ -55,7 +83,10 @@ const App = () => {
                   </div>
                 }
               >
-                <MatchList summonerName={summName} />
+                <MatchList
+                  summonerName={summName}
+                  // stats={stats}
+                />
               </Suspense>
             </ListWrapper>
           </ResultsModal>

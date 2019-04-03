@@ -34,7 +34,17 @@ app.use((req, res, next) => {
 
 // fetch data
 app.get('/api/summoner', async (req, res) => {
-  let summonerName = req.name;
+  console.log(req.query.name);
+
+  const summonerName = await req.query.name;
+
+  if (!summonerName) {
+    res.json({
+      error: 'missing parameter'
+    });
+    return;
+  }
+
   let summonerInfo;
   let matchHistoryInfo;
   let matchData;

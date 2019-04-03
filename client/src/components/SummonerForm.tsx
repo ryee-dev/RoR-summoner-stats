@@ -1,16 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+// import useFetch from 'fetch-suspense';
+
 // @ts-ignore
+// import useFetch from "fetch-suspense";
 import findSummoner from '../Client';
 
 interface Props {
   summName: string;
   setSummName: Function;
   setModalStatus: Function;
+  // setStats: Function;
+  // data: any;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
+  // const [stats, setStats] = useState({});
+  // const matchHistoryEndPoint = '/api/summoner';
+  // const data = useFetch(matchHistoryEndPoint, {
+  //   method: 'GET',
+  // });
+
   // const summNameFormData = new FormData();
 
   // const setPostData = () => {
@@ -25,21 +36,23 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
   // @ts-ignore
   const handleFindSummoner = () => {
     // setSummName(e.target.value[0]);
+    const summoner = summName;
 
     if (summName === '') {
       console.log('invalid summoner name');
     }
 
-    findSummoner(summName);
+    // findSummoner(summoner, () => {
+    //   setStats();
+    // });
+
+    findSummoner(summoner);
+
+    handleModalReFetch();
   };
 
   return (
-    <SummForm
-      method="POST"
-      action="localhost:3001/api/summoner"
-      autoComplete="off"
-      onSubmit={handleFindSummoner}
-    >
+    <SummFormWrapper>
       <SummInput
         placeholder="Summoner Name"
         value={summName}
@@ -48,20 +61,16 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt
-        type="submit"
-        // @ts-ignore
-        onClick={handleModalReFetch}
-      >
+      <SubmitButt type="button" onClick={handleFindSummoner}>
         submit
       </SubmitButt>
-    </SummForm>
+    </SummFormWrapper>
   );
 };
 
 export default SummonerForm;
 
-const SummForm = styled.form`
+const SummFormWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;

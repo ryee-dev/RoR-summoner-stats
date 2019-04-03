@@ -5,6 +5,8 @@ import MatchCard from './MatchCard';
 
 interface MatchListProps {
   summonerName: string;
+  // data: any;
+  // stats: any;
 }
 
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
