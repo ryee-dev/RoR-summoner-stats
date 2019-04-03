@@ -6,57 +6,35 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 // const cors = require('cors');
 
-const RiotRateLimiter = require('riot-ratelimiter');
+// const RiotRateLimiter = require('riot-ratelimiter');
 const fs = require('fs');
 
 const app = express();
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 // const limiter = new RiotRateLimiter;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// enable cors
-// app.use(cors());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-// declare objects
-// let summonerNameInput;
-//
-// const asyncTest = async () => {
-//   // let summonerName;
-//   // try {
-//   //   summonerName = await Promise.resolve(summonerNameInput);
-//   // } catch (err) => {
-//   //   console.log(err);
-//   // }
-//   // return summonerName;
-//   return await axios(summonerNameInput);
-// };
 
-let summonerName;
-
-// post summoner name input
 // app.post('/api/summoner', async (req, res) => {
-//   console.log(req.body);
-//   // if (req.body.summName !== "Undefined") {
-//   // }
-//   summonerName = await req.body;
-//   // console.log(port, summonerNameInput);
-//   // console.log(res);
+//   summonerName = req.body.summName;
 // });
-app.post('/api/summoner', async (req, res) => {
-  summonerName = req.body.summName;
-});
 
 // fetch data
 app.get('/api/summoner', async (req, res) => {
-  // summonerName = res.body.summonerName;
+  let summonerName = req.name;
   let summonerInfo;
   let matchHistoryInfo;
   let matchData;
@@ -64,7 +42,6 @@ app.get('/api/summoner', async (req, res) => {
   let outcomeData;
   let matchIdList = [];
   let recentMatchOutcomeData = [];
-  console.log(summonerName);
 
   let fetchedSummonerData = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
 
@@ -120,78 +97,10 @@ app.get('/api/summoner', async (req, res) => {
           deaths: matchData.data.participants[i].stats.deaths,
           assists: matchData.data.participants[i].stats.assists,
         };
-
         recentMatchOutcomeData.push(outcomeData);
       }
     }
   }
-
-  // if (summonerName !== '') {
-  //   let fetchedSummonerData = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
-  //
-  //   summonerInfo = {
-  //     name: fetchedSummonerData.data.name,
-  //     accountId: fetchedSummonerData.data.accountId
-  //   };
-  //
-  //   let fetchedMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerInfo.accountId}?api_key=${process.env.API_KEY}`);
-  //
-  //   matchHistoryInfo = {
-  //     matches: fetchedMatchHistory.data.matches,
-  //   };
-  //
-  //   for (let i = 0; i < matchHistoryInfo.matches.length; i++) {
-  //     matchIdList.push(matchHistoryInfo.matches[i].gameId);
-  //   }
-  //
-  //   for (let i = 0; i < 5; i++) {
-  //     matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
-  //
-  //     for (let i = 0; i < matchData.data.participants.length; i++) {
-  //
-  //       // match player's summoner name with participants' summoner name
-  //       if (summonerInfo.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
-  //         outcomeData = {
-  //           summonerName: summonerInfo.name,
-  //           gameDuration: matchData.data.gameDuration,
-  //           win: matchData.data.participants[i].stats.win,
-  //           participantPlayerId: matchData.data.participants[i].participantId,
-  //           summAId: matchData.data.participants[i].spell1Id,
-  //           summBId: matchData.data.participants[i].spell2Id,
-  //           champLevel: matchData.data.participants[i].stats.champLevel,
-  //           totalMinionsKilled: matchData.data.participants[i].stats.totalMinionsKilled,
-  //           neutralMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilled,
-  //           teamJgMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle,
-  //           enemyJgMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle,
-  //           primaryKeystone: matchData.data.participants[i].stats.perk0,
-  //           primaryRune1: matchData.data.participants[i].stats.perk1,
-  //           primaryRune2: matchData.data.participants[i].stats.perk2,
-  //           primaryRune3: matchData.data.participants[i].stats.perk3,
-  //           secondaryRune1: matchData.data.participants[i].stats.perk4,
-  //           secondaryRune2: matchData.data.participants[i].stats.perk5,
-  //           championId: matchData.data.participants[i].championId,
-  //           item0: matchData.data.participants[i].stats.item0,
-  //           item1: matchData.data.participants[i].stats.item1,
-  //           item2: matchData.data.participants[i].stats.item2,
-  //           item3: matchData.data.participants[i].stats.item3,
-  //           item4: matchData.data.participants[i].stats.item4,
-  //           item5: matchData.data.participants[i].stats.item5,
-  //           item6: matchData.data.participants[i].stats.item6,
-  //           kills: matchData.data.participants[i].stats.kills,
-  //           deaths: matchData.data.participants[i].stats.deaths,
-  //           assists: matchData.data.participants[i].stats.assists,
-  //         };
-  //
-  //         recentMatchOutcomeData.push(outcomeData);
-  //       }
-  //     }
-  //   }
-  // } else {
-  //   console.log(summonerName);
-  //   recentMatchOutcomeData.push('no summoner name inputted');
-  // }
-
-  // res.json(recentMatchOutcomeData);
 
   // serve summoner.json
   let summSpelldata;
@@ -201,21 +110,16 @@ app.get('/api/summoner', async (req, res) => {
     }
     summSpelldata = JSON.parse(data);
     recentMatchOutcomeData.push(summSpelldata.data);
-
-    // console.log(summSpelldata.data.SummonerBarrier);
   });
+  let summItemData;
+  fs.readFile('./static/item.json', 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    summItemData = JSON.parse(data);
+  });
+
   res.json(recentMatchOutcomeData);
-});
-
-
-
-// serve item.json
-let summItemData;
-fs.readFile('./static/item.json', 'utf8', (err, data) => {
-  if (err) {
-    throw err;
-  }
-  summItemData = JSON.parse(data);
 });
 
 // serve champion.json
@@ -369,5 +273,4 @@ app.get('*', (req, res) => {
 
 
 const port = process.env.PORT || 5000;
-
 app.listen(port);

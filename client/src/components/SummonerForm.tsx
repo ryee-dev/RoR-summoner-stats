@@ -1,60 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-// import useFetch from 'fetch-suspense';
-// import axios from 'axios';
+// @ts-ignore
+import findSummoner from '../Client';
 
 interface Props {
   summName: string;
   setSummName: Function;
   setModalStatus: Function;
 }
-// @ts-ignore
-// axios.defaults.baseURL = 'http://localhost:3001/api/summoner';
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
-  const summNameFormData = new FormData();
-  // const summonerDataEndpoint = '/api/summoner';
+  // const summNameFormData = new FormData();
 
-  // const data = useFetch('/api/summoner', {
-  //   method: 'POST',
-  // });
+  // const setPostData = () => {
+  //   summNameFormData.set('summonerName', summName);
+  // };
 
   // @ts-ignore
-  const handleModalReFetch = e => {
-    e.preventDefault();
-    summNameFormData.set('summonerName', summName);
-
-    // @ts-ignore
-    // axios({
-    //   method: 'post',
-    //   data: summNameFormData,
-    // })
-    //   // @ts-ignore
-    //   .then(res => {
-    //     console.log('received', res);
-    //   })
-    //   // @ts-ignore
-    //
-    //   .catch(error => {
-    //     console.log('error', error);
-    //   });
-
+  const handleModalReFetch = () => {
     setModalStatus(true);
   };
 
-  // const handlePostData = useAxios({
-  //   url: 'http://localhost:3001/api/summoner',
-  //   method: 'POST',
-  //   trigger: summName,
-  // });
+  // @ts-ignore
+  const handleFindSummoner = () => {
+    // setSummName(e.target.value[0]);
+
+    if (summName === '') {
+      console.log('invalid summoner name');
+    }
+
+    findSummoner(summName);
+  };
 
   return (
     <SummForm
       method="POST"
-      action="/api/summoner"
+      action="localhost:3001/api/summoner"
       autoComplete="off"
-      onSubmit={handleModalReFetch}
+      onSubmit={handleFindSummoner}
     >
       <SummInput
         placeholder="Summoner Name"
@@ -67,8 +51,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
       <SubmitButt
         type="submit"
         // @ts-ignore
-        // onClick={setPostData}
-        // onClick={console.log('click')}
+        onClick={handleModalReFetch}
       >
         submit
       </SubmitButt>
