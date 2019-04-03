@@ -13,7 +13,7 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const data = useFetch(matchHistoryEndPoint, {
     method: 'GET',
   });
-  console.log(data);
+  // console.log(data);
   // console.log(data.matchData[0].win);
 
   // @ts-ignore
@@ -34,7 +34,6 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
 
   return (
     <>
-      <h2>{summonerName}</h2>
       <Suspense
         fallback={
           <div
@@ -51,6 +50,7 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
           </div>
         }
       >
+        <h2>{summonerName}</h2>
         {data.map((match: any) => (
           <MatchCard
             // summonerName={match.summonerName}

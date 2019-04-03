@@ -1,28 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
-import useFetch from 'fetch-suspense';
+// import useFetch from 'fetch-suspense';
+// import axios from 'axios';
 
 interface Props {
   summName: string;
   setSummName: Function;
   setModalStatus: Function;
 }
+// @ts-ignore
+// axios.defaults.baseURL = 'http://localhost:3001/api/summoner';
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
+  const summNameFormData = new FormData();
+  // const summonerDataEndpoint = '/api/summoner';
 
-  const data = useFetch('/api/summoner', {
-    method: 'POST',
-  });
+  // const data = useFetch('/api/summoner', {
+  //   method: 'POST',
+  // });
 
-  const bodyFormData = new FormData();
+  // @ts-ignore
+  const handleModalReFetch = e => {
+    e.preventDefault();
+    summNameFormData.set('summonerName', summName);
 
-  const setPostData = () => {
-    bodyFormData.set('summonerName', summName);
-    data.summonerName = summName;
-  };
+    // @ts-ignore
+    // axios({
+    //   method: 'post',
+    //   data: summNameFormData,
+    // })
+    //   // @ts-ignore
+    //   .then(res => {
+    //     console.log('received', res);
+    //   })
+    //   // @ts-ignore
+    //
+    //   .catch(error => {
+    //     console.log('error', error);
+    //   });
 
-  const handleModalReFetch = () => {
     setModalStatus(true);
   };
 
@@ -50,7 +67,8 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
       <SubmitButt
         type="submit"
         // @ts-ignore
-        onClick={setPostData}
+        // onClick={setPostData}
+        // onClick={console.log('click')}
       >
         submit
       </SubmitButt>
