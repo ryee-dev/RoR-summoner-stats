@@ -9,9 +9,9 @@
     "server": "nodemon index.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn server\" \"cd client && yarn start\"",
-    "dev-build": "concurrently \"yarn server\" \"cd client && yarn build\"",
+    "dev-build": "concurrently \"yarn server\" \"yarn client\"",
     "build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn && yarn && yarn build"
   },
   "dependencies": {
     "axios": "^0.18.0",

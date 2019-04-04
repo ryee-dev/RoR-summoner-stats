@@ -24,24 +24,6 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
 
   const findSummoner = () => {
     summonerFormData.set('summonerName', summName);
-    // summonerFormData.set('summonerName', summName);
-
-    // fetch(`api/summoner?name=${summName}`, {
-    //   // @ts-ignore
-    //   accept: 'application/json',
-    // })
-    //   .then(() => {
-    //     handleModalReFetch();
-    //   })
-    //   .catch(() => {
-    //     console.log('client error');
-    //   });
-
-    // axios
-    //   .post(`/api/summoner?name=${summName}`)
-    //   .then(res => res.status)
-    //   .catch(error => console.warn(error));
-    // ;
   };
 
   return (
@@ -59,7 +41,9 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt type="submit" onClick={handleModalReFetch}>submit</SubmitButt>
+      <SubmitButt type="submit" onClick={handleModalReFetch}>
+        submit
+      </SubmitButt>
     </SummForm>
   );
 };

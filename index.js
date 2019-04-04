@@ -139,7 +139,6 @@ app.get('/api/summoner', async (req, res) => {
   }
 });
 
-
 let summItemData;
 fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
@@ -292,15 +291,21 @@ app.get('/static/runes', async (req, res) => {
 // fetch static data
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname = 'client/build/index.html'));
+  })
+}
+
+
 // catchall
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'))
+  res.sendFile(path.join(__dirname+'/client/public/index.html'));
 });
 
-
-// app.listen(app.get("port"), () => {
-//   console.log(`Find the server at: http://localhost:${app.get("port")}/`);
-// });
-
 const port = process.env.PORT || 5000;
-app.listen(port);
+app.listen(port, (req, res) => {
+  console.log(`server listening on port ${port}`);
+});
