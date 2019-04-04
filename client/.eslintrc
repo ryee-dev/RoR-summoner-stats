@@ -39,7 +39,8 @@
     "no-use-before-define": "warn",
     "no-param-reassign": "warn",
     "unicorn/prevent-abbreviations": "off",
-    "no-plusplus": "warn"
+    "no-plusplus": "warn",
+    "@typescript-eslint/no-var-requires": "warn"
   },
   "settings": {
     "import/resolver": {

@@ -5,6 +5,8 @@ import MatchCard from './MatchCard';
 
 interface MatchListProps {
   summonerName: string;
+  // data: any;
+  // stats: any;
 }
 
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
@@ -13,28 +15,11 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const data = useFetch(matchHistoryEndPoint, {
     method: 'GET',
   });
-  // console.log(data);
-  // console.log(data.matchData[0].win);
-
-  // @ts-ignore
-  // let summName: any;
-
-  // const handleGetSummonerName = (champKey: any) => {
-  //   for (let i = 0; i < staticData.championKeys.length; i++) {
-  //     console.log(staticData.championKeys[i]);
-  //     if (champKey.toString() === staticData.championKeys[i]) {
-  //       summName = staticData.championNames[i];
-  //       return summName;
-  //     }
-  //   }
-  //   return summName;
-  // };
-
-  // @ts-ignore
 
   return (
     <>
       <h2>{summonerName}</h2>
+
       <Suspense
         fallback={
           <div

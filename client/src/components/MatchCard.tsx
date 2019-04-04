@@ -1,9 +1,6 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
 import useFetch from 'fetch-suspense';
-// import useAxios from '@use-hooks/axios';
-// import useAxios from 'axios-hooks';
 
 interface MatchProps {
   // matchDetails?: object | any;
