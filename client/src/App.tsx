@@ -1,4 +1,4 @@
-import React, { Suspense,qwa                                                                                                                                     useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import styled from 'styled-components';
 // import { useClickOutside } from 'use-events';
 // import useFetch from 'fetch-suspense';
@@ -30,30 +30,13 @@ const App = () => {
   return (
     <AppShell>
       <FloatingContainer>
-        <Suspense
-          fallback={
-            <div
-              style={{
-                height: '100%',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
-              }}
-            >
-              <h1 style={{ color: 'white' }}>loading...</h1>
-            </div>
-          }
-        >
-          <SummonerForm
-            summName={summName}
-            setSummName={setSummName}
-            setModalStatus={setModalStatus}
-            // setStats={setStats}
-            // data={data}
-          />
-        </Suspense>
+        <SummonerForm
+          summName={summName}
+          setSummName={setSummName}
+          setModalStatus={setModalStatus}
+          // setStats={setStats}
+          // data={data}
+        />
         <br />
       </FloatingContainer>
       {modalStatus && (

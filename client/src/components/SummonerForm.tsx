@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-// import useFetch from 'fetch-suspense';
+import axios from 'axios';
 
 // @ts-ignore
 // import useFetch from "fetch-suspense";
-import findSummoner from '../Client';
+// import findSummoner from '../Client';
 
 interface Props {
   summName: string;
@@ -16,61 +16,50 @@ interface Props {
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
-  // const [stats, setStats] = useState({});
-  // const matchHistoryEndPoint = '/api/summoner';
-  // const data = useFetch(matchHistoryEndPoint, {
-  //   method: 'GET',
-  // });
-
-  // const summNameFormData = new FormData();
-
-  // const setPostData = () => {
-  //   summNameFormData.set('summonerName', summName);
-  // };
-
   // @ts-ignore
   const handleModalReFetch = () => {
     setModalStatus(true);
   };
 
-  // @ts-ignore
-  const handleFindSummoner = () => {
-    // setSummName(e.target.value[0]);
-    const summoner = summName;
-
-    if (summName === '') {
-      console.log('invalid summoner name');
-    }
-
-    // findSummoner(summoner, () => {
-    //   setStats();
-    // });
-
-    findSummoner(summoner);
-
+  const findSummoner = async () => {
+    await axios
+      .post(`/api/summoner`)
+      .then(res => {
+        if (summName === '') {
+          console.log('invalid summoner name');
+        }
+        return res;
+        // console.log(res, summName);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     handleModalReFetch();
   };
 
   return (
-    <SummFormWrapper>
+    <SummForm
+      method="POST"
+      action="/api/summoner"
+      autoComplete="off"
+      onClick={findSummoner}
+    >
       <SummInput
         placeholder="Summoner Name"
         value={summName}
-        name="summName"
+        name="name"
         // @ts-ignore
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt type="button" onClick={handleFindSummoner}>
-        submit
-      </SubmitButt>
-    </SummFormWrapper>
+      <SubmitButt type="submit">submit</SubmitButt>
+    </SummForm>
   );
 };
 
 export default SummonerForm;
 
-const SummFormWrapper = styled.div`
+const SummForm = styled.form`
   width: 100%;
   display: flex;
   align-items: center;
