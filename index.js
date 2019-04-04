@@ -30,12 +30,14 @@ app.use((req, res, next) => {
 
 // let summonerName;
 let summonerInfo;
+let matchIdList = [];
+let summSpelldata;
 let matchData;
-let outcomeData;
 let compiledData;
+let playerMatchHistory = [];
 
-const handleSummonerEP = async (name) => {
-  let summonerData = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${process.env.API_KEY}`);
+const handleSummonerEP = (name) => {
+  let summonerData = axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${process.env.API_KEY}`).then(console.log('retrieved summoner'));
 
   summonerInfo = {
     name: summonerData.data.name,
@@ -45,9 +47,9 @@ const handleSummonerEP = async (name) => {
   return summonerInfo;
 };
 
-const handleMatchHistoryEP = async (accountId) => {
-  let matchIdList = [];
-  let matchHistoryData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
+
+const handleMatchHistoryEP = (accountId) => {
+  let matchHistoryData = axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`).then(console.log('retrieved matchIdList'));
 
   for (let i = 0; i < matchHistoryData.data.matches.length; i++) {
     matchIdList.push(matchHistoryData.data.matches[i].gameId);
@@ -56,11 +58,11 @@ const handleMatchHistoryEP = async (accountId) => {
   return matchIdList;
 };
 
-const handleMatchEP = async (matchIdList) => {
+const handleMatchEP = (matchIdList) => {
   let matchHistoryData = [];
 
   for (let i = 0; i < 5; i++) {
-    matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
+    matchData = axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
     for (let i = 0; i < matchData.data.participants.length; i++) {
       // match player's summoner name with participants' summoner name
       if (summonerInfo.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
@@ -93,7 +95,7 @@ const handleMatchEP = async (matchIdList) => {
           },
           championLevel: matchData.data.participants[i].stats.champLevel,
           totalCS: matchData.data.participants[i].stats.totalMinionsKilled + matchData.data.participants[i].stats.neutralMinionsKilled + matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle + matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle,
-          csPerMinute: compiledData.totalCS / compiledData.gameDuration
+          csPerMinute: (matchData.data.participants[i].stats.totalMinionsKilled + matchData.data.participants[i].stats.neutralMinionsKilled + matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle + matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle) / matchData.data.gameDuration
         };
         matchHistoryData.push(compiledData);
       }
@@ -103,15 +105,14 @@ const handleMatchEP = async (matchIdList) => {
   return matchHistoryData;
 };
 
-let summonerName;
+let summonerName = "contractz";
 
 app.post('/api/summoner', (req, res) => {
   summonerName = req.body.summName;
 });
 
 app.get('/api/summoner', (req, res, next) => {
-  let playerMatchHistory = [];
-
+  console.log(summonerName);
   if (summonerName) {
     handleSummonerEP(summonerName)
       .then(async data => {
@@ -120,20 +121,12 @@ app.get('/api/summoner', (req, res, next) => {
       })
       .catch(err => {
         console.log(err);
-      })
+      });
+
+
   } else {
     console.log("error");
   }
-
-  let summSpelldata;
-  fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
-    if (err) {
-      throw err;
-    }
-    summSpelldata = JSON.parse(data);
-    playerMatchHistory.push(summSpelldata.data);
-  });
-
   res.json(playerMatchHistory);
 });
 
