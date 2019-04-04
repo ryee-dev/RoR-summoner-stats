@@ -1,29 +1,25 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useFetch from 'fetch-suspense';
 
 interface MatchProps {
-  // matchDetails?: object | any;
-  // summonerName: string;
-  // gameId: string;
-  key: any;
+  key: number;
+  win: string;
   gameDuration: number;
-  win?: string;
-  participantPlayerId: string;
-  summAId: any;
-  summBId: any;
-  champLevel: number;
-  totalMinionsKilled: number;
-  neutralMinionsKilled: number;
-  teamJgMinionsKilled: number;
-  enemyJgMinionsKilled: number;
-  primaryKeystone: number;
+  summonerName: string;
+  summAId: number;
+  summBId: number;
+  keystone: number;
   primaryRune1: number;
   primaryRune2: number;
   primaryRune3: number;
   secondaryRune1: number;
   secondaryRune2: number;
   championId: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  kda: number;
   item0: number;
   item1: number;
   item2: number;
@@ -31,15 +27,17 @@ interface MatchProps {
   item4: number;
   item5: number;
   item6: number;
-  kills: number;
-  deaths: number;
-  assists: number;
+  champLevel: number;
+  totalMinionsKilled: number;
+  neutralMinionsKilled: number;
+  neutralMinionsKilledTeamJungle: number;
+  neutralMinionsKilledEnemyJungle: number;
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
-  const staticChampionDataEndpoint = '/static/champions';
-  const staticItemDataEndpoint = '/static/items';
-  const staticSpellDataEndpoint = '/static/spells';
+  const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
+  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
+  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
 
   const champData = useFetch(staticChampionDataEndpoint, {
     method: 'GET',
@@ -54,24 +52,21 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   });
 
   const {
-    // participantPlayerId,
-    // staticChampionData,
     win,
     gameDuration,
     summAId,
     summBId,
-    champLevel,
-    totalMinionsKilled,
-    neutralMinionsKilled,
-    teamJgMinionsKilled,
-    enemyJgMinionsKilled,
-    primaryKeystone,
+    keystone,
     primaryRune1,
     primaryRune2,
     primaryRune3,
     secondaryRune1,
     secondaryRune2,
     championId,
+    kills,
+    deaths,
+    assists,
+    kda,
     item0,
     item1,
     item2,
@@ -79,30 +74,35 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     item4,
     item5,
     item6,
-    kills,
-    deaths,
-    assists,
+    champLevel,
+    totalMinionsKilled,
+    neutralMinionsKilled,
+    // neutralMinionsKilledTeamJungle,
+    // neutralMinionsKilledEnemyJungle,
   } = props;
 
-  const TotalCS: any = (
-    totalMinionsKilled +
-    neutralMinionsKilled +
-    teamJgMinionsKilled +
-    enemyJgMinionsKilled
-  ).toFixed(1);
+  const getTotalCS = () => {
+    let total;
+    if (neutralMinionsKilled === 0) {
+      total = totalMinionsKilled;
+    } else {
+      total = totalMinionsKilled + neutralMinionsKilled;
+    }
+    return total;
+  };
 
-  const CsPerMin: any = (TotalCS / gameDuration).toFixed(1);
-
-  const KDA: any = ((kills + assists) / deaths).toFixed(2);
+  const getCsPerMin = () => {
+    const csPerMin = (getTotalCS() / Math.floor(gameDuration / 60)).toPrecision(
+      1
+    );
+    return csPerMin;
+  };
 
   const SecondsToMins = (secs: number) => {
     const minutes = Math.floor(secs / 60);
     const seconds = secs % 60;
     return `${minutes}m ${seconds}s`;
   };
-
-  // let staticChampionData;
-  // let summName = 'unknown';
 
   const getChampionName = (champKey: number) => {
     let championName;
@@ -135,69 +135,53 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   };
 
   return (
-    <Suspense
-      fallback={
-        <div
-          style={{
-            height: '100vh',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-          }}
-        >
-          <h1>loading...</h1>
-        </div>
-      }
-    >
-      <CardWrapper>
-        <CardRow>
-          <CardCol>
-            {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
-            <p>{SecondsToMins(gameDuration)}</p>
-          </CardCol>
-          <CardCol>
-            <p>{getChampionName(championId)}</p>
-          </CardCol>
-          <CardCol>
-            <p>{getSpellName(summAId)}</p>
-            <p>{getSpellName(summBId)}</p>
-          </CardCol>
-          <CardCol>
-            <p>
-              {kills}/{deaths}/{assists}
-            </p>
-            {deaths === 0 ? <p>Perfect</p> : <p>{KDA}:1 KDA</p>}
-          </CardCol>
-          <CardCol>
-            <p>level: {champLevel}</p>
-            <p>
-              {TotalCS} ({CsPerMin}) CS
-            </p>
-          </CardCol>
-          <CardCol>
-            <p>{getItemName(item0)}</p>
-            <p>{getItemName(item1)}</p>
-            <p>{getItemName(item2)}</p>
-            <p>{getItemName(item3)}</p>
-          </CardCol>
-          <CardCol>
-            <p>{getItemName(item4)}</p>
-            <p>{getItemName(item5)}</p>
-            <p>{getItemName(item6)}</p>
-          </CardCol>
-        </CardRow>
-        <CardRow>
-          <p>Keystone: {primaryKeystone}</p>
-          <p>Primary Rune 1: {primaryRune1}</p>
-          <p>Primary Rune 2: {primaryRune2}</p>
-          <p>Primary Rune 3: {primaryRune3}</p>
-          <p>Secondary Rune 1: {secondaryRune1}</p>
-          <p>Secondary Rune 2: {secondaryRune2}</p>
-        </CardRow>
-      </CardWrapper>
-    </Suspense>
+    <CardWrapper>
+      <CardRow>
+        <CardCol>
+          {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
+          <p>{SecondsToMins(gameDuration)}</p>
+        </CardCol>
+        <CardCol>
+          <p>{getChampionName(championId)}</p>
+          {/* <p>{championId}</p> */}
+        </CardCol>
+        <CardCol>
+          <p>{getSpellName(summAId)}</p>
+          <p>{getSpellName(summBId)}</p>
+        </CardCol>
+        <CardCol>
+          <p>
+            {kills}/{deaths}/{assists}
+          </p>
+          {deaths === 0 ? <p>Perfect</p> : <p>{kda}:1 KDA</p>}
+        </CardCol>
+        <CardCol>
+          <p>level: {champLevel}</p>
+          <p>
+            {getTotalCS()} ({getCsPerMin()}) CS
+          </p>
+        </CardCol>
+        <CardCol>
+          <p>{getItemName(item0)}</p>
+          <p>{getItemName(item1)}</p>
+          <p>{getItemName(item2)}</p>
+          <p>{getItemName(item3)}</p>
+        </CardCol>
+        <CardCol>
+          <p>{getItemName(item4)}</p>
+          <p>{getItemName(item5)}</p>
+          <p>{getItemName(item6)}</p>
+        </CardCol>
+      </CardRow>
+      <CardRow>
+        <p>Keystone: {keystone}</p>
+        <p>Primary Rune 1: {primaryRune1}</p>
+        <p>Primary Rune 2: {primaryRune2}</p>
+        <p>Primary Rune 3: {primaryRune3}</p>
+        <p>Secondary Rune 1: {secondaryRune1}</p>
+        <p>Secondary Rune 2: {secondaryRune2}</p>
+      </CardRow>
+    </CardWrapper>
   );
 };
 

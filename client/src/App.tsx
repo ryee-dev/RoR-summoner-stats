@@ -7,13 +7,6 @@ import { SummonerForm, MatchList } from './components';
 const App = () => {
   const [modalStatus, setModalStatus] = useState(null);
   const [summName, setSummName] = useState('');
-  // const [stats, setStats] = useState({});
-  // const [data, loadData] =
-
-  // const matchHistoryEndPoint = '/api/summoner';
-  // const data = useFetch(matchHistoryEndPoint, {
-  //   method: 'GET',
-  // });
 
   // @ts-ignore
   const handleCloseModal = () => {
@@ -21,12 +14,6 @@ const App = () => {
     setModalStatus(false);
   };
 
-  // useEffect(() => {
-  //   // setModalStatus(true);
-  //   console.log('change detected');
-  // }, [stats]);
-
-  // console.log(modalStatus);
   return (
     <AppShell>
       <FloatingContainer>
@@ -66,10 +53,7 @@ const App = () => {
                   </div>
                 }
               >
-                <MatchList
-                  summonerName={summName}
-                  // stats={stats}
-                />
+                <MatchList summonerName={summName} />
               </Suspense>
             </ListWrapper>
           </ResultsModal>

@@ -5,21 +5,18 @@ import MatchCard from './MatchCard';
 
 interface MatchListProps {
   summonerName: string;
-  // data: any;
-  // stats: any;
 }
 
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const { summonerName } = props;
-  const matchHistoryEndPoint = '/api/summoner';
+  const matchHistoryEndPoint = 'http://localhost:3001/api/summoner';
   const data = useFetch(matchHistoryEndPoint, {
     method: 'GET',
   });
 
   return (
     <>
-      <h2>{summonerName}</h2>
-
+      <h1>{summonerName}</h1>
       <Suspense
         fallback={
           <div
@@ -38,36 +35,40 @@ const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
       >
         {data.map((match: any) => (
           <MatchCard
-            // summonerName={match.summonerName}
-            // gameId={match.gameId}
-            // win={match.win}
             key={match.gameId}
+
+            win={match.outcome}
             gameDuration={match.gameDuration}
-            participantPlayerId={match.participantPlayerId}
-            summAId={match.summAId}
-            summBId={match.summBId}
-            champLevel={match.champLevel}
-            totalMinionsKilled={match.totalMinionsKilled}
-            neutralMinionsKilled={match.neutralMinionsKilled}
-            teamJgMinionsKilled={match.teamJgMinionsKilled}
-            enemyJgMinionsKilled={match.enemyJgMinionsKilled}
-            primaryKeystone={match.primaryKeystone}
-            primaryRune1={match.primaryRune1}
-            primaryRune2={match.primaryRune2}
-            primaryRune3={match.primaryRune3}
-            secondaryRune1={match.secondaryRune1}
-            secondaryRune2={match.secondaryRune2}
+            summonerName={match.summonerName}
+            summAId={match.spell1Id}
+            summBId={match.spell2Id}
+            keystone={match.runes.keystone}
+            primaryRune1={match.runes.primaryRune1}
+            primaryRune2={match.runes.primaryRune2}
+            primaryRune3={match.runes.primaryRune3}
+            secondaryRune1={match.runes.primaryRune4}
+            secondaryRune2={match.runes.primaryRune5}
             championId={match.championId}
-            item0={match.item0}
-            item1={match.item1}
-            item2={match.item2}
-            item3={match.item3}
-            item4={match.item4}
-            item5={match.item5}
-            item6={match.item6}
             kills={match.kills}
             deaths={match.deaths}
             assists={match.assists}
+            kda={match.kda}
+            item0={match.items.item0}
+            item1={match.items.item1}
+            item2={match.items.item2}
+            item3={match.items.item3}
+            item4={match.items.item4}
+            item5={match.items.item5}
+            item6={match.items.item6}
+            champLevel={match.championLevel}
+            totalMinionsKilled={match.creepScore.totalMinionsKilled}
+            neutralMinionsKilled={match.creepScore.neutralMinionsKilled}
+            neutralMinionsKilledTeamJungle={
+              match.creepScore.neutralMinionsKilledTeamJungle
+            }
+            neutralMinionsKilledEnemyJungle={
+              match.creepScore.neutralMinionsKilledEnemyJungle
+            }
           />
         ))}
       </Suspense>

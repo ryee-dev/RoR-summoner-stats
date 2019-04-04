@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+// import axios from 'axios';
 
 // @ts-ignore
 // import useFetch from "fetch-suspense";
@@ -16,43 +16,50 @@ interface Props {
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
   const { summName, setSummName, setModalStatus } = props;
-  // @ts-ignore
+  const summonerFormData = new FormData();
+
   const handleModalReFetch = () => {
     setModalStatus(true);
   };
 
-  const findSummoner = async () => {
-    await axios
-      .post(`/api/summoner`)
-      .then(res => {
-        if (summName === '') {
-          console.log('invalid summoner name');
-        }
-        return res;
-        // console.log(res, summName);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    handleModalReFetch();
+  const findSummoner = () => {
+    summonerFormData.set('summonerName', summName);
+    // summonerFormData.set('summonerName', summName);
+
+    // fetch(`api/summoner?name=${summName}`, {
+    //   // @ts-ignore
+    //   accept: 'application/json',
+    // })
+    //   .then(() => {
+    //     handleModalReFetch();
+    //   })
+    //   .catch(() => {
+    //     console.log('client error');
+    //   });
+
+    // axios
+    //   .post(`/api/summoner?name=${summName}`)
+    //   .then(res => res.status)
+    //   .catch(error => console.warn(error));
+    // ;
   };
 
   return (
     <SummForm
       method="POST"
-      action="/api/summoner"
+      action="http://localhost:3001/api/summoner"
       autoComplete="off"
-      onClick={findSummoner}
+      onSubmit={findSummoner}
     >
       <SummInput
         placeholder="Summoner Name"
         value={summName}
-        name="name"
+        name="summName"
         // @ts-ignore
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt type="submit">submit</SubmitButt>
+      <SubmitButt type="submit" onClick={handleModalReFetch}>submit</SubmitButt>
     </SummForm>
   );
 };
