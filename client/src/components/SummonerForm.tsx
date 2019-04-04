@@ -15,21 +15,30 @@ interface Props {
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, setSummName, setModalStatus } = props;
-  const summonerFormData = new FormData();
+  const {
+    summName,
+    setSummName,
+    setModalStatus,
+    // setFormData,
+  } = props;
 
-  const handleModalReFetch = () => {
-    setModalStatus(true);
-  };
+  const summForm = new FormData();
+
+  // formData = new FormData();
+  // const handleModalReFetch = () => {
+  //   setModalStatus(true);
+  // };
 
   const findSummoner = () => {
-    summonerFormData.set('summonerName', summName);
+    summForm.set('summonerName', summName);
+    setModalStatus(true);
   };
 
   return (
     <SummForm
       method="POST"
       action="http://localhost:3001/api/summoner"
+      // action="/api/summoner"
       autoComplete="off"
       onSubmit={findSummoner}
     >
@@ -41,9 +50,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt type="submit" onClick={handleModalReFetch}>
-        submit
-      </SubmitButt>
+      <SubmitButt type="submit">submit</SubmitButt>
     </SummForm>
   );
 };

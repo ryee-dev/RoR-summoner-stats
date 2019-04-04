@@ -2,11 +2,13 @@ import React, { Suspense, useState } from 'react';
 import styled from 'styled-components';
 // import { useClickOutside } from 'use-events';
 // import useFetch from 'fetch-suspense';
+// import axios from 'axios';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(null);
   const [summName, setSummName] = useState('');
+  // const [formData, setFormData] = useState(new FormData());
 
   // @ts-ignore
   const handleCloseModal = () => {
@@ -21,6 +23,7 @@ const App = () => {
           summName={summName}
           setSummName={setSummName}
           setModalStatus={setModalStatus}
+
           // setStats={setStats}
           // data={data}
         />

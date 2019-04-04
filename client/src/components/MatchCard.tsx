@@ -162,15 +162,15 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           </p>
         </CardCol>
         <CardCol>
-          <p>{getItemName(item0)}</p>
-          <p>{getItemName(item1)}</p>
-          <p>{getItemName(item2)}</p>
-          <p>{getItemName(item3)}</p>
+          <p>Item 1: {getItemName(item0)}</p>
+          <p>Item 2: {getItemName(item1)}</p>
+          <p>Item 3: {getItemName(item2)}</p>
+          <p>Item 4: {getItemName(item3)}</p>
         </CardCol>
         <CardCol>
-          <p>{getItemName(item4)}</p>
-          <p>{getItemName(item5)}</p>
-          <p>{getItemName(item6)}</p>
+          <p>Item 5: {getItemName(item4)}</p>
+          <p>Item 6: {getItemName(item5)}</p>
+          <p>Trinket: {getItemName(item6)}</p>
         </CardCol>
       </CardRow>
       <CardRow>
