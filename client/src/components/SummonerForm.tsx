@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
+// import axios from ';
 
 // @ts-ignore
 // import useFetch from "fetch-suspense";
@@ -15,22 +15,11 @@ interface Props {
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const {
-    summName,
-    setSummName,
-    setModalStatus,
-    // setFormData,
-  } = props;
-
-  const summForm = new FormData();
-
-  // formData = new FormData();
-  // const handleModalReFetch = () => {
-  //   setModalStatus(true);
-  // };
+  const { summName, setSummName, setModalStatus } = props;
+  const summonerFormData = new FormData();
 
   const findSummoner = () => {
-    summForm.set('summonerName', summName);
+    summonerFormData.set('summonerName', summName);
     setModalStatus(true);
   };
 
@@ -38,7 +27,6 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
     <SummForm
       method="POST"
       action="http://localhost:3001/api/summoner"
-      // action="/api/summoner"
       autoComplete="off"
       onSubmit={findSummoner}
     >

@@ -1,21 +1,11 @@
 import React, { Suspense, useState } from 'react';
 import styled from 'styled-components';
-// import { useClickOutside } from 'use-events';
-// import useFetch from 'fetch-suspense';
-// import axios from 'axios';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(null);
   const [summName, setSummName] = useState('');
-  // const [formData, setFormData] = useState(new FormData());
-
   // @ts-ignore
-  const handleCloseModal = () => {
-    // @ts-ignore
-    setModalStatus(false);
-  };
-
   return (
     <AppShell>
       <FloatingContainer>
@@ -29,16 +19,10 @@ const App = () => {
         />
         <br />
       </FloatingContainer>
+
       {modalStatus && (
         <ModalWrapper>
           <ResultsModal>
-            <button
-              type="button"
-              // @ts-ignore
-              onClick={handleCloseModal}
-            >
-              close
-            </button>
             <ListWrapper>
               <Suspense
                 fallback={
