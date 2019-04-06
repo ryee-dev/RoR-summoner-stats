@@ -40,7 +40,7 @@ const App = () => {
                   </div>
                 }
               >
-                <MatchList summonerName={summName} />
+                <MatchList setModalStatus={setModalStatus} summonerName={summName} />
               </Suspense>
             </ListWrapper>
           </ResultsModal>

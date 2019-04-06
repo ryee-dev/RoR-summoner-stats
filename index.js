@@ -8,6 +8,8 @@ const axios = require('axios');
 const fs = require('fs');
 
 const app = express();
+const port = process.env.PORT || 5000;
+
 
 // Express only serves static assets in production
 // if (process.env.NODE_ENV === "production") {
@@ -37,6 +39,8 @@ app.get('/api/summoner', async (req, res) => {
   let playerMatchStatsList = [];
   let matchIdList = [];
   let matchData;
+
+  // console.log(summonerName);
 
   const handleEmptyData = () => {
     return {
@@ -83,6 +87,8 @@ app.get('/api/summoner', async (req, res) => {
     for (let i = 0; i < matchHistory.length; i++) {
       matchIdList.push(matchHistory[i].gameId);
     }
+
+    console.log(matchIdList);
 
     for (let i = 0; i < 10; i++) {
       matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
@@ -305,7 +311,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/public/index.html'));
 });
 
-const port = process.env.PORT || 5000;
 app.listen(port, (req, res) => {
   console.log(`server listening on port ${port}`);
 });
