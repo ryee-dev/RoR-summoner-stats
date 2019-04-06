@@ -9,18 +9,18 @@ import styled from 'styled-components';
 interface Props {
   summName: string;
   setSummName: Function;
-  setModalStatus: Function;
+  reFetch: Function;
   // setStats: Function;
   // data: any;
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, setSummName, setModalStatus } = props;
+  const { summName, setSummName, reFetch } = props;
   const summonerFormData = new FormData();
 
   const findSummoner = () => {
     summonerFormData.set('summonerName', summName);
-    setModalStatus(true);
+    reFetch();
   };
 
   return (

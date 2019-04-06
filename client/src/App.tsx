@@ -1,10 +1,38 @@
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+// import useFetch from 'fetch-suspense';
+import useAxios from '@use-hooks/axios';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
-  const [modalStatus, setModalStatus] = useState(null);
+  const [modalStatus, setModalStatus] = useState(false);
   const [summName, setSummName] = useState('');
+
+  // const data = useFetch('http://localhost:3001/api/summoner', {
+  //   method: 'GET',
+  // });
+
+  // do this ONLY when data from form is retrieved by server
+  const { response, loading, reFetch } = useAxios({
+    url: 'http://localhost:3001/api/summoner',
+    method: 'GET',
+    trigger: summName,
+    // checkFetchStatus: () => {
+    //   if (response.summonerName === '') {
+    //     setModalStatus(false);
+    //   }
+    //   setModalStatus(true);
+    //   return modalStatus;
+    // },
+  });
+
+  // @ts-ignore
+  const { data } = response || {};
+
+  // useEffect(() => {
+  //   checkFetchStatus();
+  // }, []);
+
   // @ts-ignore
   return (
     <AppShell>
@@ -12,39 +40,41 @@ const App = () => {
         <SummonerForm
           summName={summName}
           setSummName={setSummName}
-          setModalStatus={setModalStatus}
-
+          reFetch={reFetch}
           // setStats={setStats}
           // data={data}
         />
         <br />
       </FloatingContainer>
 
-      {modalStatus && (
-        <ModalWrapper>
-          <ResultsModal>
-            <ListWrapper>
-              <Suspense
-                fallback={
-                  <div
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'absolute',
-                    }}
-                  >
-                    <h1 style={{ color: 'white' }}>loading...</h1>
-                  </div>
-                }
-              >
-                <MatchList setModalStatus={setModalStatus} summonerName={summName} />
-              </Suspense>
-            </ListWrapper>
-          </ResultsModal>
-        </ModalWrapper>
+      {loading ? (
+        <div
+          style={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+          }}
+        >
+          <h1 style={{ color: 'white' }}>loading...</h1>
+        </div>
+      ) : (
+        modalStatus && (
+          <ModalWrapper>
+            <ResultsModal>
+              <ListWrapper>
+                <MatchList
+                  data={data}
+                  setModalStatus={setModalStatus}
+                  modalStatus={modalStatus}
+                  summonerName={summName}
+                />
+              </ListWrapper>
+            </ResultsModal>
+          </ModalWrapper>
+        )
       )}
     </AppShell>
   );
