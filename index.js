@@ -30,6 +30,7 @@ let summonerName;
 
 app.post('/api/summoner', async (req, res) => {
   summonerName = req.body.summName;
+  console.log("received form input");
 });
 
 app.get('/api/summoner', async (req, res) => {

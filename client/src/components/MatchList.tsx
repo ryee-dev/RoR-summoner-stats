@@ -1,42 +1,34 @@
 import React from 'react';
-// import axios from ';
-import useFetch from 'fetch-suspense';
-// import axios from ';
+// import useFetch from 'fetch-suspense';
+import { useFetch } from 'react-fetch-hook';
 import MatchCard from './MatchCard';
 
 interface MatchListProps {
   summonerName: string;
-  setModalStatus: Function;
+  // setModalStatus: Function;
 }
 
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
-  const { summonerName, setModalStatus } = props;
-  // let summData;
-
-  // axios.get('http://localhost:3001/api/summoner').then(res => {
-  //   console.log(res.data);
-  //   const { data } = res;
+  const { summonerName } = props;
+  // const data = useFetch('http://localhost:3001/api/summoner', {
+  //   method: 'GET',
   // });
+  const { isLoading, data } = useFetch('http://localhost:3001/api/summoner');
 
-  const data = useFetch('http://localhost:3001/api/summoner', {
-    method: 'GET',
-  });
-  // console.log(summData);
-  // let matchList = data.data;
-
-  return (
+  return isLoading ? (
+    <div>...loading</div>
+  ) : (
     <>
       <button
         type="button"
         // @ts-ignore
-        onClick={setModalStatus(false)}
+        // onClick={setModalStatus(false)}
       >
         x
       </button>
-      <h1>{summonerName}</h1>
 
-      {// @ts-ignore
-      data.map((match: any) => (
+      <h1>{summonerName}</h1>
+      {data.map((match: any) => (
         <MatchCard
           key={match.gameId}
           win={match.outcome}
