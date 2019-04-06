@@ -1,30 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <Suspense
-    fallback={
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-        }}
-      >
-        <h1 style={{ color: 'white' }}>loading...</h1>
-      </div>
-    }
-  >
-    <App />
-  </Suspense>,
-  document.querySelector('#root')
-);
+ReactDOM.render(<App />, document.querySelector('#root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -14,7 +14,7 @@ const App = () => {
 
   // do this ONLY when data from form is retrieved by server
   const { response, loading, reFetch } = useAxios({
-    url: 'http://localhost:3001/api/summoner',
+    url: '/api/summoner',
     method: 'GET',
     trigger: summName,
     // checkFetchStatus: () => {

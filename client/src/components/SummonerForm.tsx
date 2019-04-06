@@ -26,7 +26,7 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
   return (
     <SummForm
       method="POST"
-      action="http://localhost:3001/api/summoner"
+      action="/api/summoner"
       autoComplete="off"
       onSubmit={findSummoner}
     >
