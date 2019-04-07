@@ -11,7 +11,7 @@ interface MatchListProps {
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const { summonerName, modalStatus, setModalStatus, data } = props;
 
-  console.log(modalStatus, data.summonerName);
+  // console.log(modalStatus, data.summonerName);
 
   return (
     <>

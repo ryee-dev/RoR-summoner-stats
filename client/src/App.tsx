@@ -8,6 +8,8 @@ import { SummonerForm, MatchList } from './components';
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [summName, setSummName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState();
 
   // const data = useFetch('http://localhost:3001/api/summoner', {
   //   method: 'GET',
@@ -22,37 +24,51 @@ const App = () => {
 
   // @ts-ignore
   // const { data } = response || {};
-  let data;
 
   // await axios.get('http://localhost:3001/api/summoner');
 
-  const fetchData = async () => {
-    await axios
-      .get('http://localhost:3001/api/summoner')
-      .then(res => {
-        if (res === undefined) {
-          console.log('undefined');
-        }
-        data = res;
-      })
-      .catch(() => {
-        console.log('error');
-      });
-  };
+  // const fetchData = async () => {
+  //   await axios
+  //     .get('http://localhost:3001/api/summoner')
+  //     .then(res => {
+  //       if (res === undefined) {
+  //         console.log('undefined');
+  //       }
+  //       data = res;
+  //     })
+  //     .catch(() => {
+  //       console.log('error');
+  //     });
+  // };
 
   useEffect(() => {
+    const fetchData = async () => {
+      await axios('http://localhost:3001/api/summoner')
+        .then(res => {
+          console.log(res.data);
+          setData(res.data);
+          // console.log(data);
+          setLoading(false);
+          setModalStatus(true);
+          // setModalStatus(null);
+        })
+        .catch(() => {
+          setModalStatus(false);
+        });
+      // console.log(data);
+    };
     fetchData();
-    // @ts-ignore
   }, []);
 
   // @ts-ignore
-  // console.log(data);
   return (
     <AppShell>
       <FloatingContainer>
         <SummonerForm
           summName={summName}
           setSummName={setSummName}
+          setLoading={setLoading}
+          // setModalStatus={setModalStatus}
           // reFetch={reFetch}
           // setStats={setStats}
           // data={data}
@@ -60,7 +76,7 @@ const App = () => {
         <br />
       </FloatingContainer>
 
-      {data !== undefined ? (
+      {loading ? (
         <div
           style={{
             height: '100%',
@@ -74,7 +90,7 @@ const App = () => {
           <h1 style={{ color: 'white' }}>loading...</h1>
         </div>
       ) : (
-        data !== undefined && (
+        modalStatus && (
           <ModalWrapper>
             <ResultsModal>
               <ListWrapper>
