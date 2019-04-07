@@ -53,7 +53,7 @@ app.get('/api/summoner', async (req, res) => {
   let matchIdList = [];
   let matchData;
 
-  if (summonerName !== '') {
+  if (summonerName !== undefined) {
     let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
     accountId = fetchAccountId.data.accountId;
 

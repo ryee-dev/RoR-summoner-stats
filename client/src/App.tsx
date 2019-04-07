@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import useFetch from 'fetch-suspense';
-import useAxios from '@use-hooks/axios';
+// import useAxios from '@use-hooks/axios';
+import axios from 'axios';
 import { SummonerForm, MatchList } from './components';
 
 const App = () => {
@@ -13,35 +14,53 @@ const App = () => {
   // });
 
   // do this ONLY when data from form is retrieved by server
-  const { response, loading, reFetch } = useAxios({
-    url: 'http://localhost:3001/api/summoner',
-    method: 'GET',
-    trigger: summName,
-  });
+  // const { response, loading, reFetch } = useAxios({
+  //   url: 'http://localhost:3001/api/summoner',
+  //   method: 'GET',
+  //   trigger: summName,
+  // });
 
   // @ts-ignore
-  const { data } = response || {};
+  // const { data } = response || {};
+  let data;
 
-  // useEffect(() => {
-  //   checkFetchStatus();
-  // }, []);
+  // await axios.get('http://localhost:3001/api/summoner');
+
+  const fetchData = async () => {
+    await axios
+      .get('http://localhost:3001/api/summoner')
+      .then(res => {
+        if (res === undefined) {
+          console.log('undefined');
+        }
+        data = res;
+      })
+      .catch(() => {
+        console.log('error');
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+    // @ts-ignore
+  }, []);
 
   // @ts-ignore
-  console.log(data);
+  // console.log(data);
   return (
     <AppShell>
       <FloatingContainer>
         <SummonerForm
           summName={summName}
           setSummName={setSummName}
-          reFetch={reFetch}
+          // reFetch={reFetch}
           // setStats={setStats}
           // data={data}
         />
         <br />
       </FloatingContainer>
 
-      {data !== undefined && loading ? (
+      {data !== undefined ? (
         <div
           style={{
             height: '100%',
