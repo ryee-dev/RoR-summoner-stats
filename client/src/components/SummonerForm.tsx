@@ -10,6 +10,8 @@ interface Props {
   summName: string;
   setSummName: Function;
   setLoading: Function;
+  setSummQuery: Function;
+  summQuery: string;
   // setModalStatus: Function;
   // reFetch: Function;
   // setStats: Function;
@@ -17,13 +19,14 @@ interface Props {
 }
 
 const SummonerForm: React.FC<Props> = (props: Props) => {
-  const { summName, setSummName, setLoading } = props;
+  const { summName, setSummName, setLoading, setSummQuery, summQuery } = props;
   const summonerFormData = new FormData();
 
   const findSummoner = () => {
-    summonerFormData.set('summonerName', summName);
-    setLoading(true);
-    // reFetch();
+    if (summName.length >= 4) {
+      summonerFormData.set('summonerName', summQuery);
+      setLoading(true);
+    }
   };
 
   return (
@@ -41,7 +44,9 @@ const SummonerForm: React.FC<Props> = (props: Props) => {
         onChange={e => setSummName(e.target.value)}
       />
 
-      <SubmitButt type="submit">submit</SubmitButt>
+      <SubmitButt type="submit" onClick={() => setSummQuery(summName)}>
+        submit
+      </SubmitButt>
     </SummForm>
   );
 };

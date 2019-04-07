@@ -7,58 +7,34 @@ import { SummonerForm, MatchList } from './components';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
-  const [summName, setSummName] = useState('');
   const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(false);
   const [data, setData] = useState();
-
-  // const data = useFetch('http://localhost:3001/api/summoner', {
-  //   method: 'GET',
-  // });
-
-  // do this ONLY when data from form is retrieved by server
-  // const { response, loading, reFetch } = useAxios({
-  //   url: 'http://localhost:3001/api/summoner',
-  //   method: 'GET',
-  //   trigger: summName,
-  // });
-
-  // @ts-ignore
-  // const { data } = response || {};
-
-  // await axios.get('http://localhost:3001/api/summoner');
-
-  // const fetchData = async () => {
-  //   await axios
-  //     .get('http://localhost:3001/api/summoner')
-  //     .then(res => {
-  //       if (res === undefined) {
-  //         console.log('undefined');
-  //       }
-  //       data = res;
-  //     })
-  //     .catch(() => {
-  //       console.log('error');
-  //     });
-  // };
+  const [summName, setSummName] = useState('');
+  const [summQuery, setSummQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       await axios('http://localhost:3001/api/summoner')
         .then(res => {
-          console.log(res.data);
-          setData(res.data);
-          // console.log(data);
-          setLoading(false);
-          setModalStatus(true);
-          // setModalStatus(null);
+          if (summQuery.length > 4) {
+            setData(res.data);
+            // console.log(summQuery);
+            setModalStatus(true);
+          }
         })
-        .catch(() => {
+        .catch(error => {
           setModalStatus(false);
+          console.log(error);
         });
-      // console.log(data);
     };
+
     fetchData();
-  }, []);
+  }, [summQuery]);
+
+  // if (data) {
+  //   setLoading(false);
+  // }
 
   // @ts-ignore
   return (
@@ -68,10 +44,8 @@ const App = () => {
           summName={summName}
           setSummName={setSummName}
           setLoading={setLoading}
-          // setModalStatus={setModalStatus}
-          // reFetch={reFetch}
-          // setStats={setStats}
-          // data={data}
+          setSummQuery={setSummQuery}
+          summQuery={summQuery}
         />
         <br />
       </FloatingContainer>
@@ -90,7 +64,7 @@ const App = () => {
           <h1 style={{ color: 'white' }}>loading...</h1>
         </div>
       ) : (
-        modalStatus && (
+        data && (
           <ModalWrapper>
             <ResultsModal>
               <ListWrapper>
