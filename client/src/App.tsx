@@ -1,56 +1,73 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 // import useFetch from 'fetch-suspense';
 // import useAxios from '@use-hooks/axios';
 import axios from 'axios';
-import { SummonerForm, MatchList } from './components';
+import { MatchList } from './components';
+
+const fetchData = () => {
+  return axios.get('http://localhost:3001/api/summoner');
+};
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState({ hits: [] });
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
+  const summonerFormData = new FormData();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await axios('http://localhost:3001/api/summoner')
-        .then(res => {
-          if (summQuery.length > 4) {
-            setData(res.data);
-            // console.log(summQuery);
-            setModalStatus(true);
-          }
-        })
-        .catch(error => {
-          setModalStatus(false);
-          console.log(error);
-        });
-    };
+  const findSummoner = async () => {
+    summonerFormData.set('summonerName', summQuery);
+    setLoading(true);
+    setData({ hits: [] });
+    setSummQuery(summName);
+    await fetchData()
+      .then(res => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-    fetchData();
-  }, [summQuery]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios.get('http://localhost:3001/api/summoner');
+  //     setData(result.data);
+  //   };
+  //
+  //   if (summQuery !== '') {
+  //     fetchData();
+  //     setLoading(false);
+  //     setModalStatus(true);
+  //   }
+  // }, [summQuery]);
 
-  // if (data) {
-  //   setLoading(false);
-  // }
-
-  // @ts-ignore
   return (
     <AppShell>
       <FloatingContainer>
-        <SummonerForm
-          summName={summName}
-          setSummName={setSummName}
-          setLoading={setLoading}
-          setSummQuery={setSummQuery}
-          summQuery={summQuery}
-        />
+        <SummForm
+          method="POST"
+          action="http://localhost:3001/api/summoner"
+          autoComplete="off"
+          onSubmit={findSummoner}
+        >
+          <SummInput
+            placeholder="Summoner Name"
+            value={summName}
+            name="summName"
+            // @ts-ignore
+            onChange={e => setSummName(e.target.value)}
+          />
+
+          <SubmitButt type="submit">submit</SubmitButt>
+        </SummForm>
         <br />
       </FloatingContainer>
 
-      {loading ? (
+      {loading && (
         <div
           style={{
             height: '100%',
@@ -63,21 +80,23 @@ const App = () => {
         >
           <h1 style={{ color: 'white' }}>loading...</h1>
         </div>
+      )}
+
+      {!loading && data && modalStatus ? (
+        <ModalWrapper>
+          <ResultsModal>
+            <ListWrapper>
+              <MatchList
+                data={data}
+                setModalStatus={setModalStatus}
+                modalStatus={modalStatus}
+                summonerName={summQuery}
+              />
+            </ListWrapper>
+          </ResultsModal>
+        </ModalWrapper>
       ) : (
-        data && (
-          <ModalWrapper>
-            <ResultsModal>
-              <ListWrapper>
-                <MatchList
-                  data={data}
-                  setModalStatus={setModalStatus}
-                  modalStatus={modalStatus}
-                  summonerName={summName}
-                />
-              </ListWrapper>
-            </ResultsModal>
-          </ModalWrapper>
-        )
+        <div>data not found</div>
       )}
     </AppShell>
   );
@@ -165,5 +184,65 @@ const ListWrapper = styled.div`
 
   p {
     font-size: 0.6rem;
+  }
+`;
+
+const SummForm = styled.form`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  //background-color: #1D212B;
+  //background-color: #27303F;
+  border-radius: 6px;
+`;
+
+const SummInput = styled.input`
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.25);
+  outline: none;
+  border: none;
+  padding: 0.6rem 1rem;
+  width: 25%;
+  border-radius: 2px;
+  margin: 1rem;
+  transition: width 0.2s ease-in-out;
+  background-color: #f3f8ff;
+  caret-color: #565b63;
+  color: #565b63;
+
+  ::placeholder {
+    color: #565b63;
+  }
+
+  &:focus {
+    width: 40%;
+  }
+`;
+
+const SubmitButt = styled.button`
+  //width: 10%;
+  padding: 0.6rem 2rem;
+  text-decoration: none;
+  outline: none;
+  //border: none;
+  border-radius: 6px;
+  background-color: transparent;
+  border: solid #1380f0 1px;
+  //color: white;
+  color: #1380f0;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+
+  transition: background-color 0.2s ease-in-out, letter-spacing 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+
+  &:hover {
+    //width: 25%;
+    background-color: #1380f0;
+    //letter-spacing: 4px;
+    color: #151a27;
   }
 `;
