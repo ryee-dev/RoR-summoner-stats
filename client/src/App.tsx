@@ -14,16 +14,9 @@ const App = () => {
 
   // do this ONLY when data from form is retrieved by server
   const { response, loading, reFetch } = useAxios({
-    url: '/api/summoner',
+    url: 'http://localhost:3001/api/summoner',
     method: 'GET',
     trigger: summName,
-    // checkFetchStatus: () => {
-    //   if (response.summonerName === '') {
-    //     setModalStatus(false);
-    //   }
-    //   setModalStatus(true);
-    //   return modalStatus;
-    // },
   });
 
   // @ts-ignore
@@ -34,6 +27,7 @@ const App = () => {
   // }, []);
 
   // @ts-ignore
+  console.log(data);
   return (
     <AppShell>
       <FloatingContainer>
@@ -47,7 +41,7 @@ const App = () => {
         <br />
       </FloatingContainer>
 
-      {loading ? (
+      {data !== undefined && loading ? (
         <div
           style={{
             height: '100%',
@@ -61,7 +55,7 @@ const App = () => {
           <h1 style={{ color: 'white' }}>loading...</h1>
         </div>
       ) : (
-        modalStatus && (
+        data !== undefined && (
           <ModalWrapper>
             <ResultsModal>
               <ListWrapper>

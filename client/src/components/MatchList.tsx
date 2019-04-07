@@ -11,11 +11,6 @@ interface MatchListProps {
 const MatchList: React.FC<MatchListProps> = (props: MatchListProps) => {
   const { summonerName, modalStatus, setModalStatus, data } = props;
 
-  // const data = useFetch('http://localhost:3001/api/summoner', {
-  //   method: 'GET',
-  // });
-  // console.log(summData);
-  // let matchList = data.data;
   console.log(modalStatus, data.summonerName);
 
   return (
