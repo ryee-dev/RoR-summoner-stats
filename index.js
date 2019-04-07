@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -32,129 +32,94 @@ app.post('/api/summoner', async (req, res) => {
   summonerName = await req.body.summName;
 });
 
-
-const handleSummInfo = (summonerName) => {
-  let summInfo;
-
-  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`)
-    .then(res => {
-      summInfo = res.data;
-      return summInfo;
-    })
-    .catch(() => {
-      console.log("error retrieving summoner data");
-    });
-};
-
-const handleMatchHistory = (accountId) => {
-  let matchIdList;
-
-  axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`)
-    .then(res => {
-      for (let i = 0; i < res.data.length; i++) {
-        matchIdList.push(res.data[i].gameId);
-      }
-      return matchIdList;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-const handleMatchData = (matchIdList, summName) => {
+const searchSummoner = async () => {
+  let accountId;
+  let matchHistory;
+  let matchStats;
   let playerMatchStatsList = [];
+  let matchIdList = [];
+  let matchData;
 
-  for (let i = 0; i < 10; i++) {
-    let matchData = axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
+  if (summonerName !== undefined) {
+    let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
+    console.log(summonerName);
 
-    for (let i = 0; i < matchData.data.participants.length; i++) {
-      if (handleSummInfo(summName).name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
-        playerMatchStatsList.push({
-          gameId: matchData.data.gameId,
-          outcome: matchData.data.participants[i].stats.win,
-          gameDuration: matchData.data.gameDuration,
-          summonerName: summonerName,
-          spell1Id: matchData.data.participants[i].spell1Id,
-          spell2Id: matchData.data.participants[i].spell2Id,
-          runes: {
-            keystone: matchData.data.participants[i].stats.perk0,
-            primaryRune1: matchData.data.participants[i].stats.perk1,
-            primaryRune2: matchData.data.participants[i].stats.perk2,
-            primaryRune3: matchData.data.participants[i].stats.perk3,
-            secondaryRune1: matchData.data.participants[i].stats.perk4,
-            secondaryRune2: matchData.data.participants[i].stats.perk5,
-          },
-          championId: matchData.data.participants[i].championId,
-          kills: matchData.data.participants[i].stats.kills,
-          deaths: matchData.data.participants[i].stats.deaths,
-          assists: matchData.data.participants[i].stats.assists,
-          kda: ((matchData.data.participants[i].stats.kills + matchData.data.participants[i].stats.assists) / matchData.data.participants[i].stats.deaths).toFixed(2),
-          items: {
-            item0: matchData.data.participants[i].stats.item0,
-            item1: matchData.data.participants[i].stats.item1,
-            item2: matchData.data.participants[i].stats.item2,
-            item3: matchData.data.participants[i].stats.item3,
-            item4: matchData.data.participants[i].stats.item4,
-            item5: matchData.data.participants[i].stats.item5,
-            item6: matchData.data.participants[i].stats.item6,
-          },
-          championLevel: matchData.data.participants[i].stats.champLevel,
-          creepScore: {
-            totalMinionsKilled: matchData.data.participants[i].stats.totalMinionsKilled,
-            neutralMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilled,
-            neutralMinionsKilledTeamJungle: matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle,
-            neutralMinionsKilledEnemyJungle: matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle,
-          },
-        });
+    accountId = fetchAccountId.data.accountId;
+
+    let fetchMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
+    matchHistory = fetchMatchHistory.data.matches;
+
+    console.log(accountId);
+
+    for (let i = 0; i < matchHistory.length; i++) {
+      matchIdList.push(matchHistory[i].gameId);
+    }
+
+    for (let i = 0; i < 10; i++) {
+      matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
+
+      for (let i = 0; i < matchData.data.participants.length; i++) {
+
+        if (fetchAccountId.data.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
+          matchStats = {
+            gameId: matchData.data.gameId,
+            outcome: matchData.data.participants[i].stats.win,
+            gameDuration: matchData.data.gameDuration,
+            summonerName: summonerName,
+            spell1Id: matchData.data.participants[i].spell1Id,
+            spell2Id: matchData.data.participants[i].spell2Id,
+            runes: {
+              keystone: matchData.data.participants[i].stats.perk0,
+              primaryRune1: matchData.data.participants[i].stats.perk1,
+              primaryRune2: matchData.data.participants[i].stats.perk2,
+              primaryRune3: matchData.data.participants[i].stats.perk3,
+              secondaryRune1: matchData.data.participants[i].stats.perk4,
+              secondaryRune2: matchData.data.participants[i].stats.perk5,
+            },
+            championId: matchData.data.participants[i].championId,
+            kills: matchData.data.participants[i].stats.kills,
+            deaths: matchData.data.participants[i].stats.deaths,
+            assists: matchData.data.participants[i].stats.assists,
+            kda: ((matchData.data.participants[i].stats.kills + matchData.data.participants[i].stats.assists) / matchData.data.participants[i].stats.deaths).toFixed(2),
+            items: {
+              item0: matchData.data.participants[i].stats.item0,
+              item1: matchData.data.participants[i].stats.item1,
+              item2: matchData.data.participants[i].stats.item2,
+              item3: matchData.data.participants[i].stats.item3,
+              item4: matchData.data.participants[i].stats.item4,
+              item5: matchData.data.participants[i].stats.item5,
+              item6: matchData.data.participants[i].stats.item6,
+            },
+            championLevel: matchData.data.participants[i].stats.champLevel,
+            creepScore: {
+              totalMinionsKilled: matchData.data.participants[i].stats.totalMinionsKilled,
+              neutralMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilled,
+              neutralMinionsKilledTeamJungle: matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle,
+              neutralMinionsKilledEnemyJungle: matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle,
+            }
+          };
+
+          playerMatchStatsList.push(matchStats);
+        }
       }
     }
-  }
-  return playerMatchStatsList;
-};
-
-const checkSummInput = async (summName) => {
-  let input;
-  await summName;
-
-  if (summName) {
-    input = summName;
+    return playerMatchStatsList;
   } else {
-    input = 'contractz';
+    console.log('error');
   }
-
-  return input;
 };
 
-let accountId;
-let matchIdList;
-// let summData;
+let output;
 
 app.get('/api/summoner', async (req, res) => {
-
-  if (summonerName) {
-    await checkSummInput(summonerName)
-      .then(() => {
-        // console.log(summonerName, res);
-        let summData = handleSummInfo(summonerName);
-        console.log(summData);
-      })
-      .then(() => {
-        // accountId = res.data.id;
-        matchIdList = handleMatchHistory(accountId);
-        // console.log(matchIdList);
-      })
-      .then(() => {
-        return res.json(handleMatchData(matchIdList, summonerName));
-      })
-      .catch(err => {
-        console.log(err);
+  if (summonerName !== undefined) {
+    await searchSummoner()
+      .then(res => {
+        output = res;
+        console.log(output);
       });
+  res.json(output);
   }
-
-
-
-  // Promise.all(handleSummInfo, handleMatchHistory, handleMatchData);
-  // await handleMatchData();
 });
 
 let summItemData;
