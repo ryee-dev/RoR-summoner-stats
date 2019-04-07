@@ -81,6 +81,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     // neutralMinionsKilledEnemyJungle,
   } = props;
 
+  // console.log(win);
+
   const getTotalCS = () => {
     let total;
     if (neutralMinionsKilled === 0) {
