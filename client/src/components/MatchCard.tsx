@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import useFetch from 'fetch-suspense';
 
 interface MatchProps {
   key: number;
@@ -32,25 +31,12 @@ interface MatchProps {
   neutralMinionsKilled: number;
   neutralMinionsKilledTeamJungle: number;
   neutralMinionsKilledEnemyJungle: number;
+  champData: any;
+  itemData: any;
+  spellData: any;
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
-  const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
-  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
-  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
-
-  const champData = useFetch(staticChampionDataEndpoint, {
-    method: 'GET',
-  });
-
-  const itemData = useFetch(staticItemDataEndpoint, {
-    method: 'GET',
-  });
-
-  const spellData = useFetch(staticSpellDataEndpoint, {
-    method: 'GET',
-  });
-
   const {
     win,
     gameDuration,
@@ -77,27 +63,35 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     champLevel,
     totalMinionsKilled,
     neutralMinionsKilled,
-    // neutralMinionsKilledTeamJungle,
-    // neutralMinionsKilledEnemyJungle,
+    neutralMinionsKilledTeamJungle,
+    neutralMinionsKilledEnemyJungle,
+    champData,
+    itemData,
+    spellData,
   } = props;
 
   // console.log(win);
 
   const getTotalCS = () => {
     let total;
-    if (neutralMinionsKilled === 0) {
-      total = totalMinionsKilled;
-    } else {
+    if (
+      neutralMinionsKilledTeamJungle === undefined ||
+      neutralMinionsKilledEnemyJungle === undefined
+    ) {
       total = totalMinionsKilled + neutralMinionsKilled;
+    } else {
+      total =
+        totalMinionsKilled +
+        neutralMinionsKilled +
+        neutralMinionsKilledTeamJungle +
+        neutralMinionsKilledEnemyJungle;
     }
     return total;
   };
 
   const getCsPerMin = () => {
-    const csPerMin = (getTotalCS() / Math.floor(gameDuration / 60)).toPrecision(
-      1
-    );
-    return csPerMin;
+    const csPerMin = getTotalCS() / Math.floor(gameDuration / 60);
+    return csPerMin.toFixed(1);
   };
 
   const SecondsToMins = (secs: number) => {

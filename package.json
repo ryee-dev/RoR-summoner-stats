@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "client-install": "cd client && yarn",
+    "client": "cd client && yarn start",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "cd client && yarn start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
     "build": "cd client && yarn && yarn build",

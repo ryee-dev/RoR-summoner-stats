@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import useFetch from 'fetch-suspense';
 import MatchCard from './components/MatchCard';
 
 const App = () => {
@@ -12,9 +13,30 @@ const App = () => {
   const [summQuery, setSummQuery] = useState('');
   const summonerFormData = new FormData();
 
+  const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
+  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
+  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
+
+  const champData = useFetch(staticChampionDataEndpoint, {
+    method: 'GET',
+  });
+
+  const itemData = useFetch(staticItemDataEndpoint, {
+    method: 'GET',
+  });
+
+  const spellData = useFetch(staticSpellDataEndpoint, {
+    method: 'GET',
+  });
+
   const findSummoner = async () => {
     setSummQuery(summName);
     summonerFormData.set('summonerName', summQuery);
+  };
+
+  const closeModal = () => {
+    setModalStatus(false);
+    setData({ hits: [] });
   };
 
   useEffect(() => {
@@ -37,6 +59,7 @@ const App = () => {
             setError(false);
             setLoading(false);
             setModalStatus(true);
+            console.log('fetched');
             return data;
           })
           .catch(() => {
@@ -96,6 +119,13 @@ const App = () => {
 
       {modalStatus && !loading && data.hits && (
         <ModalWrapper>
+          <button
+            type="button"
+            // @ts-ignore
+            onClick={closeModal}
+          >
+            x
+          </button>
           <ResultsModal>
             <ListWrapper>
               {data.hits.map((match: any) => (
@@ -133,58 +163,15 @@ const App = () => {
                   neutralMinionsKilledEnemyJungle={
                     match.creepScore.neutralMinionsKilledEnemyJungle
                   }
+                  champData={champData}
+                  itemData={itemData}
+                  spellData={spellData}
                 />
               ))}
             </ListWrapper>
           </ResultsModal>
         </ModalWrapper>
       )}
-
-      {/* {modalStatus && !loading && data && ( */}
-      {/*  <ModalWrapper> */}
-      {/*    <ResultsModal> */}
-      {/*      <ListWrapper> */}
-      {/*        {data.hits.map((match: any) => ( */}
-      {/*          <MatchCard */}
-      {/*            key={match.gameId} */}
-      {/*            win={match.outcome} */}
-      {/*            gameDuration={match.gameDuration} */}
-      {/*            summonerName={match.summonerName} */}
-      {/*            summAId={match.spell1Id} */}
-      {/*            summBId={match.spell2Id} */}
-      {/*            keystone={match.runes.keystone} */}
-      {/*            primaryRune1={match.runes.primaryRune1} */}
-      {/*            primaryRune2={match.runes.primaryRune2} */}
-      {/*            primaryRune3={match.runes.primaryRune3} */}
-      {/*            secondaryRune1={match.runes.secondaryRune1} */}
-      {/*            secondaryRune2={match.runes.secondaryRune2} */}
-      {/*            championId={match.championId} */}
-      {/*            kills={match.kills} */}
-      {/*            deaths={match.deaths} */}
-      {/*            assists={match.assists} */}
-      {/*            kda={match.kda} */}
-      {/*            item0={match.items.item0} */}
-      {/*            item1={match.items.item1} */}
-      {/*            item2={match.items.item2} */}
-      {/*            item3={match.items.item3} */}
-      {/*            item4={match.items.item4} */}
-      {/*            item5={match.items.item5} */}
-      {/*            item6={match.items.item6} */}
-      {/*            champLevel={match.championLevel} */}
-      {/*            totalMinionsKilled={match.creepScore.totalMinionsKilled} */}
-      {/*            neutralMinionsKilled={match.creepScore.neutralMinionsKilled} */}
-      {/*            neutralMinionsKilledTeamJungle={ */}
-      {/*              match.creepScore.neutralMinionsKilledTeamJungle */}
-      {/*            } */}
-      {/*            neutralMinionsKilledEnemyJungle={ */}
-      {/*              match.creepScore.neutralMinionsKilledEnemyJungle */}
-      {/*            } */}
-      {/*          /> */}
-      {/*        ))} */}
-      {/*      </ListWrapper> */}
-      {/*    </ResultsModal> */}
-      {/*  </ModalWrapper> */}
-      {/* )} */}
 
       {!loading && modalStatus && error && (
         <div
@@ -252,6 +239,13 @@ const ModalWrapper = styled.div`
   align-items: center;
   justify-content: center;
   overflow: scroll;
+
+  button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+  }
 `;
 
 const ResultsModal = styled.div`
