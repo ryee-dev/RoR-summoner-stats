@@ -10,41 +10,57 @@ import MatchCard from './components/MatchCard';
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [data, setData] = useState({ hits: [] });
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
   const summonerFormData = new FormData();
 
-  const prepareResults = async () => {
-    await setSummQuery(summName);
-  };
-
   const findSummoner = async () => {
-    setLoading(true);
-    setModalStatus(false);
-    await summonerFormData.set('summonerName', summQuery);
+    setSummQuery(summName);
+    summonerFormData.set('summonerName', summQuery);
   };
 
   useEffect(() => {
+    setData({ hits: [] });
+    summonerFormData.set('summonerName', summQuery);
+
     const fetchData = async () => {
-      if (summQuery) {
-        setData({ hits: [] });
+      setModalStatus(false);
+      setLoading(true);
+
+      if (summQuery !== '') {
+        setLoading(true);
         console.log('fetching');
         await axios
           .get('/api/summoner')
           .then(res => {
-            setData(res.data);
+            setData({
+              hits: res.data,
+            });
+            setError(false);
             setLoading(false);
             setModalStatus(true);
             return data;
           })
-          .catch(error => {
-            console.log(error);
+          .catch(() => {
+            setError(true);
+            console.log('error');
           });
       }
     };
 
-    fetchData();
+    if (summQuery !== '') {
+      fetchData();
+    }
+
+    console.log({
+      loadingStatus: loading,
+      errorStatus: error,
+      modal: modalStatus,
+      response: data,
+      query: summQuery,
+    });
   }, [summQuery]);
 
   return (
@@ -62,14 +78,12 @@ const App = () => {
             name="summName"
             onChange={e => setSummName(e.target.value)}
           />
-          <SubmitButt type="submit" onClick={prepareResults}>
-            submit
-          </SubmitButt>
+          <SubmitButt type="submit">submit</SubmitButt>
         </SummForm>
         <br />
       </FloatingContainer>
 
-      {data && loading && (
+      {summQuery !== '' && loading && (
         <div
           style={{
             height: '100%',
@@ -84,7 +98,7 @@ const App = () => {
         </div>
       )}
 
-      {modalStatus && !loading && (
+      {modalStatus && !loading && data.hits && (
         <ModalWrapper>
           <ResultsModal>
             <ListWrapper>
@@ -130,7 +144,53 @@ const App = () => {
         </ModalWrapper>
       )}
 
-      {!loading && modalStatus && (
+      {/* {modalStatus && !loading && data && ( */}
+      {/*  <ModalWrapper> */}
+      {/*    <ResultsModal> */}
+      {/*      <ListWrapper> */}
+      {/*        {data.hits.map((match: any) => ( */}
+      {/*          <MatchCard */}
+      {/*            key={match.gameId} */}
+      {/*            win={match.outcome} */}
+      {/*            gameDuration={match.gameDuration} */}
+      {/*            summonerName={match.summonerName} */}
+      {/*            summAId={match.spell1Id} */}
+      {/*            summBId={match.spell2Id} */}
+      {/*            keystone={match.runes.keystone} */}
+      {/*            primaryRune1={match.runes.primaryRune1} */}
+      {/*            primaryRune2={match.runes.primaryRune2} */}
+      {/*            primaryRune3={match.runes.primaryRune3} */}
+      {/*            secondaryRune1={match.runes.secondaryRune1} */}
+      {/*            secondaryRune2={match.runes.secondaryRune2} */}
+      {/*            championId={match.championId} */}
+      {/*            kills={match.kills} */}
+      {/*            deaths={match.deaths} */}
+      {/*            assists={match.assists} */}
+      {/*            kda={match.kda} */}
+      {/*            item0={match.items.item0} */}
+      {/*            item1={match.items.item1} */}
+      {/*            item2={match.items.item2} */}
+      {/*            item3={match.items.item3} */}
+      {/*            item4={match.items.item4} */}
+      {/*            item5={match.items.item5} */}
+      {/*            item6={match.items.item6} */}
+      {/*            champLevel={match.championLevel} */}
+      {/*            totalMinionsKilled={match.creepScore.totalMinionsKilled} */}
+      {/*            neutralMinionsKilled={match.creepScore.neutralMinionsKilled} */}
+      {/*            neutralMinionsKilledTeamJungle={ */}
+      {/*              match.creepScore.neutralMinionsKilledTeamJungle */}
+      {/*            } */}
+      {/*            neutralMinionsKilledEnemyJungle={ */}
+      {/*              match.creepScore.neutralMinionsKilledEnemyJungle */}
+      {/*            } */}
+      {/*          /> */}
+      {/*        ))} */}
+      {/*      </ListWrapper> */}
+      {/*    </ResultsModal> */}
+      {/*  </ModalWrapper> */}
+      {/* )} */}
+
+      {!loading && modalStatus && error && (
         <div
           style={{
             height: '100%',
