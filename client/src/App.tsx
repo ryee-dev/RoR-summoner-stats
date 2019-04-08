@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
-// import useFetch from 'fetch-suspense';
-// import useAxios from '@use-hooks/axios';
 import axios from 'axios';
-// import { MatchList } from './components';
 import MatchCard from './components/MatchCard';
 
 const App = () => {

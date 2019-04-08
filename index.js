@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-// const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
