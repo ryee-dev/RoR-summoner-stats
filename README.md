@@ -49,12 +49,12 @@ ___
 
 Created By Roger Yee | 4/7/19
 
-Contact: ryee.dev@gmail.com
+ryee.dev@gmail.com
 
 [ryee.io](https://ryee.io)
 
 ___
 
-Licensed under the MIT License.
+Project licensed under the MIT License.
 
-Copyright (c) 2019 Roger Yee
+[© 2018 Riot Games, Inc. All rights reserved.](https://developer.riotgames.com/terms)
