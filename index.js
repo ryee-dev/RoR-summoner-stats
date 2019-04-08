@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -15,6 +16,20 @@ const port = process.env.PORT || 5000;
 //   app.use(express.static("client/build"));
 // }
 
+// let currentSession = {
+//   secret: 'btlfy-lolstats-app',
+//   resave: false,
+//   validInput: false,
+//   summData: {}
+// }
+
+app.use(session({
+  secret: 'btlfy-lolstats-app',
+  resave: true,
+  saveUninitialized: true,
+  // cookie: {}
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -25,13 +40,8 @@ app.use((req, res, next) => {
   next();
 });
 
-let summonerName;
+const searchSummoner = async (summonerName) => {
 
-app.post('/api/summoner', async (req, res) => {
-  summonerName = await req.body.summName;
-});
-
-const searchSummoner = async () => {
   let accountId;
   let matchHistory;
   let matchStats;
@@ -41,14 +51,11 @@ const searchSummoner = async () => {
 
   if (summonerName !== undefined) {
     let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
-    console.log(summonerName);
 
     accountId = fetchAccountId.data.accountId;
 
     let fetchMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
     matchHistory = fetchMatchHistory.data.matches;
-
-    console.log(accountId);
 
     for (let i = 0; i < matchHistory.length; i++) {
       matchIdList.push(matchHistory[i].gameId);
@@ -108,18 +115,41 @@ const searchSummoner = async () => {
   }
 };
 
-let output;
+let summName;
+
+// responds to http post request (form)
+app.post('/api/summoner', async (req, res) => {
+  // req.session.cookie.path = '/api/summoner';
+
+  summName = req.body.summName;
+});
+
+// responds to get request
+
+let results;
 
 app.get('/api/summoner', async (req, res) => {
-  if (summonerName !== undefined) {
-    await searchSummoner()
-      .then(res => {
-        output = res;
-        console.log(output);
-      });
-  res.json(output);
-  }
+  console.log(summName);
+  searchSummoner(summName)
+    .then(res => {
+      results = res;
+      // req.session.validInput = true;
+      // req.session.summData = res;
+      // console.log(req.session);
+    })
+    .catch(() => {
+      // req.session.validInput = false;
+    });
+      res.json(results);
+  // console.log(req.session);
+
+  // console.log(req.session.validInput);
+
+  // res.send("summoner data not received");
 });
+
+// let output;
+
 
 let summItemData;
 fs.readFile('./static/item.json', 'utf8', (err, data) => {

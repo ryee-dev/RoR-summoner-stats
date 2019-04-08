@@ -13,25 +13,21 @@ const App = () => {
   const [summQuery, setSummQuery] = useState('');
   const summonerFormData = new FormData();
 
-  const staticChampionDataEndpoint = 'http://localhost:3001/static/champions';
-  const staticItemDataEndpoint = 'http://localhost:3001/static/items';
-  const staticSpellDataEndpoint = 'http://localhost:3001/static/spells';
-
-  const champData = useFetch(staticChampionDataEndpoint, {
+  const champData = useFetch('/static/champions', {
     method: 'GET',
   });
 
-  const itemData = useFetch(staticItemDataEndpoint, {
+  const itemData = useFetch('/static/items', {
     method: 'GET',
   });
 
-  const spellData = useFetch(staticSpellDataEndpoint, {
+  const spellData = useFetch('/static/spells', {
     method: 'GET',
   });
 
   const findSummoner = async () => {
     setSummQuery(summName);
-    summonerFormData.set('summonerName', summQuery);
+    // summonerFormData.set('summonerName', summQuery);
   };
 
   const closeModal = () => {
