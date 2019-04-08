@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "client-install": "cd client && yarn",
+    "client-build": "cd client && yarn build",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client-build": "cd client && yarn && yarn build"
+    "client": "yarn client-install && yarn client-build"
   },
   "dependencies": {
     "axios": "^0.18.0",
