@@ -8,7 +8,8 @@
     "client-build": "cd client && yarn build",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "yarn client-install && yarn client-build"
+    "heroku-prebuild": "yarn client-install",
+    "client": "yarn client-build"
   },
   "dependencies": {
     "axios": "^0.18.0",

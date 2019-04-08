@@ -1,1 +1,1 @@
-web: yarn client-build
+web: yarn client
