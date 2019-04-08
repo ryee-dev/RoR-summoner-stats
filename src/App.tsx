@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import useFetch from 'fetch-suspense';
 import MatchCard from './components/MatchCard';
 
 const App = () => {
@@ -11,6 +12,27 @@ const App = () => {
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
   const summonerFormData = new FormData();
+
+  const champData = useFetch(
+    'https://ror-stats-api.herokuapp.com/static/champions',
+    {
+      method: 'GET',
+    }
+  );
+
+  const itemData = useFetch(
+    'https://ror-stats-api.herokuapp.com/static/items',
+    {
+      method: 'GET',
+    }
+  );
+
+  const spellData = useFetch(
+    'https://ror-stats-api.herokuapp.com/static/spells',
+    {
+      method: 'GET',
+    }
+  );
 
   const findSummoner = async () => {
     setSummQuery(summName);
@@ -29,7 +51,7 @@ const App = () => {
         setLoading(true);
         console.log('fetching');
         await axios
-          .get('/api/summoner')
+          .get('https://ror-stats-api.herokuapp.com/api/summoner')
           .then(res => {
             setData({
               hits: res.data,
@@ -64,7 +86,7 @@ const App = () => {
       <FloatingContainer>
         <SummForm
           method="POST"
-          action="/api/summoner"
+          action="https://ror-stats-api.herokuapp.com//api/summoner"
           autoComplete="off"
           onSubmit={findSummoner}
         >
@@ -133,6 +155,9 @@ const App = () => {
                   neutralMinionsKilledEnemyJungle={
                     match.creepScore.neutralMinionsKilledEnemyJungle
                   }
+                  champData={champData}
+                  itemData={itemData}
+                  spellData={spellData}
                 />
               ))}
             </ListWrapper>
