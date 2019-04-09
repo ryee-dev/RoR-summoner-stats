@@ -7,8 +7,8 @@
     "client-install": "cd client && yarn",
     "client": "cd client && yarn start",
     "start": "node index.js",
-    "server": "nodemon index.js",
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "server": "nodemon index.js --ignore client",
+    "dev": "concurrently \"node index.js\" \"yarn client\"",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
     "build": "cd client && yarn && yarn build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn && yarn build"

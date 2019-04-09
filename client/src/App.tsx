@@ -27,9 +27,9 @@ const App = () => {
 
   const closeModal = () => {
     setModalStatus(false);
+    setData({ hits: [] });
     setSummQuery('');
     setSummName('');
-    setData({ hits: [] });
   };
 
   useEffect(() => {

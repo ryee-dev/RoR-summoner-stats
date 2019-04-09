@@ -12,10 +12,11 @@ const SummForm: React.FC<Props> = (props: Props) => {
   const { setSummName, setSummQuery, summQuery, summName } = props;
   const summonerFormData = new FormData();
 
-  const findSummoner = async () => {
-    await setSummQuery(summName);
+  const findSummoner = () => {
+    setSummQuery(summName);
     summonerFormData.set('summonerName', summQuery);
   };
+
   return (
     <SummonerForm method="POST" action="/api/summoner" onSubmit={findSummoner}>
       <SummInput

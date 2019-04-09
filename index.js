@@ -27,8 +27,14 @@ app.use((req, res, next) => {
 
 let summonerName;
 
-app.post('/api/summoner', async (req, res) => {
-  summonerName = await req.body.summName;
+app.post('/api/summoner', (req, res) => {
+  summonerName = req.body.summName;
+  // if (summonerName !== undefined && summonerName.length >= 4) {
+  // }
+  res.status(204).send();
+  // res.status(404).send();
+  // res.redirect('back');
+  // res.end();
 });
 
 const searchSummoner = async () => {
@@ -41,14 +47,14 @@ const searchSummoner = async () => {
 
   if (summonerName !== undefined) {
     let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
-    console.log(summonerName);
+    // console.log(summonerName);
 
     accountId = fetchAccountId.data.accountId;
 
     let fetchMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
     matchHistory = fetchMatchHistory.data.matches;
 
-    console.log(accountId);
+    // console.log(accountId);
 
     for (let i = 0; i < matchHistory.length; i++) {
       matchIdList.push(matchHistory[i].gameId);
@@ -115,7 +121,7 @@ app.get('/api/summoner', async (req, res) => {
     await searchSummoner()
       .then(res => {
         output = res;
-        console.log(output);
+        // console.log(output);
       });
     res.json(output);
   }
