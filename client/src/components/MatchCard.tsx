@@ -34,6 +34,8 @@ interface MatchProps {
   champData: any;
   itemData: any;
   spellData: any;
+  // keystoneData: any;
+  // runeData: any;
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
@@ -68,6 +70,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     champData,
     itemData,
     spellData,
+    // keystoneData,
+    // runeData,
   } = props;
 
   // console.log(win);
@@ -119,6 +123,26 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     }
     return itemName;
   };
+
+  // const getkeystoneName = (keystoneId: number) => {
+  //   let keystoneName;
+  //   for (let i = 0; i < keystoneData.keystoneIdList.length; i++) {
+  //     if (keystoneId.toString() === keystoneData.keystoneIdList[i]) {
+  //       keystoneName = keystoneData.keystoneNameList[i];
+  //     }
+  //   }
+  //   return keystoneName;
+  // };
+
+  // const getRuneName = (runeId: number) => {
+  //   let runeName;
+  //   for (let i = 0; i < runeData.runeIdList.length; i++) {
+  //     if (runeId.toString() === runeData.runeIDList[i]) {
+  //       runeName = runeData.runeNames[i];
+  //     }
+  //   }
+  //   return runeName;
+  // };
 
   const getSpellName = (spellKey: number) => {
     let spellName;

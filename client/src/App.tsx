@@ -25,19 +25,28 @@ const App = () => {
     method: 'GET',
   });
 
+  // const keystoneData = useFetch('/static/keystones', {
+  //   method: 'GET',
+  // });
+
+  // const runeData = useFetch('/static/runes', {
+  //   method: 'GET',
+  // });
+
   const findSummoner = async () => {
     setSummQuery(summName);
-    // summonerFormData.set('summonerName', summQuery);
+    summonerFormData.set('summonerName', summQuery);
   };
 
   const closeModal = () => {
     setModalStatus(false);
+    setSummQuery('');
+    setSummName('');
     setData({ hits: [] });
   };
 
   useEffect(() => {
     setData({ hits: [] });
-    summonerFormData.set('summonerName', summQuery);
 
     const fetchData = async () => {
       setModalStatus(false);
@@ -55,7 +64,7 @@ const App = () => {
             setError(false);
             setLoading(false);
             setModalStatus(true);
-            console.log('fetched');
+            console.log(summQuery, 'fetched');
             return data;
           })
           .catch(() => {
@@ -81,12 +90,7 @@ const App = () => {
   return (
     <AppShell>
       <FloatingContainer>
-        <SummForm
-          method="POST"
-          action="/api/summoner"
-          autoComplete="off"
-          onSubmit={findSummoner}
-        >
+        <SummForm method="POST" action="/api/summoner" onSubmit={findSummoner}>
           <SummInput
             placeholder="Summoner Name"
             value={summName}
@@ -124,6 +128,7 @@ const App = () => {
           </button>
           <ResultsModal>
             <ListWrapper>
+              <h1>{summName}</h1>
               {data.hits.map((match: any) => (
                 <MatchCard
                   key={match.gameId}
@@ -162,6 +167,8 @@ const App = () => {
                   champData={champData}
                   itemData={itemData}
                   spellData={spellData}
+                  // keystoneData={keystoneData}
+                  // runeData={runeData}
                 />
               ))}
             </ListWrapper>
