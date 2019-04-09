@@ -9,10 +9,9 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
 
-
 // Express only serves static assets in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,8 +19,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
   next();
 });
 
@@ -46,26 +48,39 @@ const searchSummoner = async () => {
   let matchData;
 
   if (summonerName !== undefined) {
-    let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
-    // console.log(summonerName);
+    let fetchAccountId = await axios.get(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${
+        process.env.API_KEY
+      }`
+    );
 
     accountId = fetchAccountId.data.accountId;
 
-    let fetchMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
+    let fetchMatchHistory = await axios.get(
+      `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${
+        process.env.API_KEY
+      }`
+    );
     matchHistory = fetchMatchHistory.data.matches;
-
-    // console.log(accountId);
 
     for (let i = 0; i < matchHistory.length; i++) {
       matchIdList.push(matchHistory[i].gameId);
     }
 
     for (let i = 0; i < 10; i++) {
-      matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
+      matchData = await axios.get(
+        `https://na1.api.riotgames.com/lol/match/v4/matches/${
+          matchIdList[i]
+        }?api_key=${process.env.API_KEY}`
+      );
 
       for (let i = 0; i < matchData.data.participants.length; i++) {
-
-        if (fetchAccountId.data.name === matchData.data.participantIdentities[i].player.summonerName && matchData.data.participantIdentities[i].participantId === matchData.data.participants[i].participantId) {
+        if (
+          fetchAccountId.data.name ===
+            matchData.data.participantIdentities[i].player.summonerName &&
+          matchData.data.participantIdentities[i].participantId ===
+            matchData.data.participants[i].participantId
+        ) {
           matchStats = {
             gameId: matchData.data.gameId,
             outcome: matchData.data.participants[i].stats.win,
@@ -85,7 +100,11 @@ const searchSummoner = async () => {
             kills: matchData.data.participants[i].stats.kills,
             deaths: matchData.data.participants[i].stats.deaths,
             assists: matchData.data.participants[i].stats.assists,
-            kda: ((matchData.data.participants[i].stats.kills + matchData.data.participants[i].stats.assists) / matchData.data.participants[i].stats.deaths).toFixed(2),
+            kda: (
+              (matchData.data.participants[i].stats.kills +
+                matchData.data.participants[i].stats.assists) /
+              matchData.data.participants[i].stats.deaths
+            ).toFixed(2),
             items: {
               item0: matchData.data.participants[i].stats.item0,
               item1: matchData.data.participants[i].stats.item1,
@@ -97,11 +116,17 @@ const searchSummoner = async () => {
             },
             championLevel: matchData.data.participants[i].stats.champLevel,
             creepScore: {
-              totalMinionsKilled: matchData.data.participants[i].stats.totalMinionsKilled,
-              neutralMinionsKilled: matchData.data.participants[i].stats.neutralMinionsKilled,
-              neutralMinionsKilledTeamJungle: matchData.data.participants[i].stats.neutralMinionsKilledTeamJungle,
-              neutralMinionsKilledEnemyJungle: matchData.data.participants[i].stats.neutralMinionsKilledEnemyJungle,
-            }
+              totalMinionsKilled:
+                matchData.data.participants[i].stats.totalMinionsKilled,
+              neutralMinionsKilled:
+                matchData.data.participants[i].stats.neutralMinionsKilled,
+              neutralMinionsKilledTeamJungle:
+                matchData.data.participants[i].stats
+                  .neutralMinionsKilledTeamJungle,
+              neutralMinionsKilledEnemyJungle:
+                matchData.data.participants[i].stats
+                  .neutralMinionsKilledEnemyJungle,
+            },
           };
 
           playerMatchStatsList.push(matchStats);
@@ -118,11 +143,10 @@ let output;
 
 app.get('/api/summoner', async (req, res) => {
   if (summonerName !== undefined) {
-    await searchSummoner()
-      .then(res => {
-        output = res;
-        // console.log(output);
-      });
+    await searchSummoner().then(res => {
+      output = res;
+      // console.log(output);
+    });
     res.json(output);
   }
 });
@@ -239,7 +263,6 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
 
   // console.log()
 
-
   // const runeEntries = Object.entries(summRuneData);
   // for (const [rune, values] of runeEntries) {
   //   runeIdList.push(values.slots[i].runes.id);
@@ -275,14 +298,12 @@ app.get('/static/runes', async (req, res) => {
 // fetch static data
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
+    res.sendfile(path.join((__dirname = 'client/build/index.html')));
   });
 }
-
 
 // catchall
 app.get('*', (req, res) => {
