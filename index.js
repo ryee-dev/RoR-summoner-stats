@@ -1,10 +1,9 @@
-require("dotenv").config();
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-// const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
@@ -12,9 +11,9 @@ const port = process.env.PORT || 5000;
 
 
 // Express only serves static assets in production
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,11 +28,10 @@ app.use((req, res, next) => {
 let summonerName;
 
 app.post('/api/summoner', async (req, res) => {
-  summonerName = req.body.summName;
-  console.log("received form input");
+  summonerName = await req.body.summName;
 });
 
-app.get('/api/summoner', async (req, res) => {
+const searchSummoner = async () => {
   let accountId;
   let matchHistory;
   let matchStats;
@@ -41,55 +39,20 @@ app.get('/api/summoner', async (req, res) => {
   let matchIdList = [];
   let matchData;
 
-  // console.log(summonerName);
-
-  const handleEmptyData = () => {
-    return {
-      gameId: 0,
-      outcome: '',
-      gameDuration: 0,
-      summonerName: '',
-      spell1Id: 0,
-      spell2Id: 0,
-      runes: {
-        keystone: 0,
-        primaryRune1: 0,
-        primaryRune2: 0,
-        primaryRune3: 0,
-        secondaryRune1: 0,
-        secondaryRune2: 0,
-      },
-      championId: 0,
-      kills: 0,
-      deaths: 0,
-      assists: 0,
-      items: {
-        item0: 0,
-        item1: 0,
-        item2: 0,
-        item3: 0,
-        item4: 0,
-        item5: 0,
-        item6: 0,
-      },
-      championLevel: 0,
-      totalCS: 0,
-      csPerMinute: 0
-    };
-  };
-
-  if (summonerName) {
+  if (summonerName !== undefined) {
     let fetchAccountId = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
+    console.log(summonerName);
+
     accountId = fetchAccountId.data.accountId;
 
     let fetchMatchHistory = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`);
     matchHistory = fetchMatchHistory.data.matches;
 
+    console.log(accountId);
+
     for (let i = 0; i < matchHistory.length; i++) {
       matchIdList.push(matchHistory[i].gameId);
     }
-
-    console.log(matchIdList);
 
     for (let i = 0; i < 10; i++) {
       matchData = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`);
@@ -139,10 +102,22 @@ app.get('/api/summoner', async (req, res) => {
         }
       }
     }
-
-    res.json(playerMatchStatsList);
+    return playerMatchStatsList;
   } else {
-    res.json(handleEmptyData());
+    console.log('error');
+  }
+};
+
+let output;
+
+app.get('/api/summoner', async (req, res) => {
+  if (summonerName !== undefined) {
+    await searchSummoner()
+      .then(res => {
+        output = res;
+        console.log(output);
+      });
+    res.json(output);
   }
 });
 
@@ -173,7 +148,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
 
     decodedChampion = {
       championNames: championNameList,
-      championKeys: championKeyList
+      championKeys: championKeyList,
     };
   }
 });
@@ -196,7 +171,7 @@ fs.readFile('./static/item.json', 'utf8', (err, data) => {
 
     decodedItem = {
       itemNames: itemNameList,
-      itemKeys: itemKeyList
+      itemKeys: itemKeyList,
     };
   }
 });
@@ -221,16 +196,16 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
     decodedSpell = {
       spellNames: spellNameList,
       spellKeys: spellKeyList,
-    }
+    };
   }
 });
 
 // serve summoner runes
 let decodedKeystone;
 let decodedRune;
-let summKeystoneData;
+// let summKeystoneData;
 let summRuneData;
-let decodedRunesReforged;
+// let decodedRunesReforged;
 
 let keystoneIdList = [];
 let keystoneNameList = [];
@@ -241,42 +216,34 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
-  summKeystoneData = JSON.parse(data);
-  // summRuneData = JSON.parse(data.slots);
+  summRuneData = JSON.parse(data);
+  // summRuneData = JSON.parse(data);
   // console.log(summRuneData);
 
-  const keystoneEntries = Object.entries(summKeystoneData);
+  const keystoneEntries = Object.entries(summRuneData);
   for (const [keystone, values] of keystoneEntries) {
     keystoneIdList.push(values.id);
     keystoneNameList.push(values.name);
 
     decodedKeystone = {
       names: keystoneNameList,
-      ids: keystoneIdList
+      ids: keystoneIdList,
     };
-
-    // decodedKeystone.names.push(keystoneIdList);
-    // decodedKeystone.ids.push(keystoneNameList);
   }
 
-//   const runeEntries = Object.entries(summRuneData);
-//   for (const [rune, values] of runeEntries) {
-//     runeIdList.push(values.id);
-//     runeNameList.push(values.name);
-//
-//     decodedRune = {
-//       names: runeNameList,
-//       ids: runeIdList
-//     };
-//
-//     decodedRune.names.push(runeNameList);
-//     decodedRune.ids.push(runeIdList);
-//   }
-//
-//   decodedRunesReforged = {
-//     decodedKeystone,
-//     decodedRune
-//   }
+  // console.log()
+
+
+  // const runeEntries = Object.entries(summRuneData);
+  // for (const [rune, values] of runeEntries) {
+  //   runeIdList.push(values.slots[i].runes.id);
+  //   runeNameList.push(values.name);
+  //
+  //   decodedRune = {
+  //     names: runeNameList,
+  //     ids: runeIdList,
+  //   }
+  // }
 });
 
 app.get('/static/champions', async (req, res) => {
@@ -291,6 +258,10 @@ app.get('/static/spells', async (req, res) => {
   res.json(decodedSpell);
 });
 
+app.get('/static/keystones', async (req, res) => {
+  res.json(decodedRune);
+});
+
 app.get('/static/runes', async (req, res) => {
   res.json(decodedKeystone);
 });
@@ -299,17 +270,17 @@ app.get('/static/runes', async (req, res) => {
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.get('*', (req, res) => {
     res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
+  });
 }
 
 
 // catchall
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/public/index.html'));
+  res.sendFile(path.join(__dirname + '/client/public/index.html'));
 });
 
 app.listen(port, (req, res) => {
