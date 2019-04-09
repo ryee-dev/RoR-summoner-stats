@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface MatchProps {
   key: number;
+  gameMode: any;
   win: string;
   gameDuration: number;
   summonerName: string;
@@ -39,7 +40,9 @@ interface MatchProps {
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
+  // const [gameMode, setGameMode] = useState('');
   const {
+    gameMode,
     win,
     gameDuration,
     summAId,
@@ -74,7 +77,11 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     // runeData,
   } = props;
 
-  // console.log(win);
+  // const getGameMode = () => {
+  //   if (neutralMinionsKilledTeamJungle === undefined || neutralMinionsKilledEnemyJungle === undefined) {
+  //     setGameMode()
+  //   }
+  // }
 
   const getTotalCS = () => {
     let total;
@@ -154,11 +161,14 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return spellName;
   };
 
+  console.log(gameMode);
+
   return (
     <CardWrapper>
       <CardRow>
         <CardCol>
           {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
+          <p>{gameMode}</p>
           <p>{SecondsToMins(gameDuration)}</p>
         </CardCol>
         <CardCol>

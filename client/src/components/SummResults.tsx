@@ -19,6 +19,7 @@ const SummResults: React.FC<Props> = (props: Props) => {
         {data.hits.map((match: any) => (
           <MatchCard
             key={match.gameId}
+            gameMode={match.gameMode}
             win={match.outcome}
             gameDuration={match.gameDuration}
             summonerName={match.summonerName}
