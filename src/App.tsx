@@ -86,7 +86,7 @@ const App = () => {
       <FloatingContainer>
         <SummForm
           method="POST"
-          action="https://ror-stats-api.herokuapp.com//api/summoner"
+          action="https://ror-stats-api.herokuapp.com/api/summoner"
           autoComplete="off"
           onSubmit={findSummoner}
         >
