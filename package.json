@@ -11,12 +11,8 @@
     "dev": "concurrently \"node index.js\" \"yarn client\"",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
     "build": "cd client && yarn && yarn build",
-    "heroku-postbuild": "cd client/ && yarn && yarn build"
+    "heroku-postbuild": "cd client && yarn && yarn build"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ],
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
