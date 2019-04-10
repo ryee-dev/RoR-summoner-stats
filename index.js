@@ -284,14 +284,23 @@ app.get('/static/runes', async (req, res) => {
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
 if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
-  // app.get('*', (req, res) => {
-  //   res.sendfile(path.join((__dirname = 'client/build/index.html')));
-  // });
-  app.get('*', (req, res) => {
-    res.sendfile(path.join((__dirname + '/client/build/index.html')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+//   // app.get('*', (req, res) => {
+//   //   res.sendfile(path.join((__dirname = 'client/build/index.html')));
+//   // });
+//   app.get('*', (req, res) => {
+//     res.sendfile(path.join((__dirname + '/client/build/index.html')));
+//   });
+// }
 
 // catchall
 app.get('*', (req, res) => {
