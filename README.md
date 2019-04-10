@@ -6,7 +6,7 @@ This simple web application allows users to search a summoner's name and view th
 ## Serving Locally
 **Step 1. Clone Repository**
 
-- Enter `git clone https://github.com/ryee-dev/battlefy-leaguestats-app` in your preferred terminal.
+- Enter `git clone https://github.com/ryee-dev/LoL-summoner-stats` in your preferred terminal.
 
 **Step 2. Install Dependencies**
 
