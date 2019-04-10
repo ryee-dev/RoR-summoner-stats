@@ -31,12 +31,7 @@ let summonerName;
 
 app.post('/api/summoner', (req, res) => {
   summonerName = req.body.summName;
-  // if (summonerName !== undefined && summonerName.length >= 4) {
-  // }
   res.status(204).send();
-  // res.status(404).send();
-  // res.redirect('back');
-  // res.end();
 });
 
 const searchSummoner = async () => {
@@ -146,7 +141,6 @@ app.get('/api/summoner', async (req, res) => {
   if (summonerName !== undefined) {
     await searchSummoner().then(res => {
       output = res;
-      // console.log(output);
     });
     res.json(output);
   }
@@ -234,21 +228,10 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
 // serve summoner runes
 let summKeystoneData;
 let decodedKeystone;
-let keystoneIdList = [];
-let keystoneNameList = [];
-// let decodedRunesReforged;
-let runeList = [];
-let runeIdList = [];
-let runeNameList = [];
-// let runes = {
-//   runeIdList: [],
-//   runeNameList: [],
-// };
-
-let runeSlotList = [];
-
-let decodedRune;
-// let summRuneData;
+let decodedRunesReforged = {
+  runeNameList: [],
+  runeIdList: [],
+};
 
 fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {
@@ -257,71 +240,18 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   summKeystoneData = JSON.parse(data);
   const keystoneEntries = Object.entries(summKeystoneData);
   for (const [keystone, values] of keystoneEntries) {
-    keystoneIdList.push(values.id);
-    keystoneNameList.push(values.name);
+    decodedRunesReforged.runeNameList.push(values.name);
+    decodedRunesReforged.runeIdList.push(values.id);
 
-    // let runeEntries = Object.entries(values.slots.runes);
-    // for (const [rune, values] of runeEntries) {
-    //   runes.runeIdList.push(values.id);
-    // }
-
-    decodedKeystone = {
-      names: keystoneNameList,
-      ids: keystoneIdList,
-    };
-  }
-
-  for (const [rune, values] of keystoneEntries) {
     for (let i = 0; i < values.slots.length; i++) {
-      runeSlotList.push(values.slots[i].runes[i]);
+      for (let j = 0; j < values.slots[i].runes.length; j++) {
+        decodedRunesReforged.runeNameList.push(values.slots[i].runes[j].name);
+        decodedRunesReforged.runeIdList.push(values.slots[i].runes[j].id);
+      }
     }
   }
-  console.log(runeSlotList);
 
-  for (let i = 0; i < runeSlotList.length; i++) {
-    runeList.push(runeSlotList[i]);
-    // console.log(runeSlotList[i]);
-  }
-
-  // console.log(runeList);
-
-  // keystoneEntries.map(rune => {
-  //   // console.log(rune);
-  //   rune.map((x) => {
-  //     console.log(x[x]);
-  //   })
-  // });
-
-  // console.log(keystoneEntries[0].slots);
-
-  // for (let i = 0; i < values.slots.length; i++) {
-  //   runeSlotList.push(values.slots[i].runes);
-  // }
-  // console.log(runeSlotList.length);
-
-
-  // console.log()
-// let runeIdList = [];
-// let runeNameList = [];
-
-
-  // const runeEntries = Object.entries(summRuneData);
-  // let runeData = new Map(runeEntries);
-  //
-  // for (let i = 0; i < runeData.slots.length; i++) {
-  //   runeList.push(runeData.slots[i]);
-  // }
-  //
-  // console.log(runeList);
-  //
-  // for (const [rune, values] of runeEntries.slots) {
-  //   runeNameList.push(values.name);
-  //
-  //   decodedRune = {
-  //     names: runeNameList,
-  //     ids: runeIdList,
-  //   }
-  // }
+  // console.log(decodedRunesReforged.keystone.runes);
 });
 
 app.get('/static/champions', async (req, res) => {
@@ -341,7 +271,7 @@ app.get('/static/keystones', async (req, res) => {
 });
 
 app.get('/static/runes', async (req, res) => {
-  res.json(decodedRune);
+  res.json(decodedRunesReforged);
 });
 
 // fetch static data

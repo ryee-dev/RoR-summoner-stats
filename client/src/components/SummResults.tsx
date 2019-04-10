@@ -8,10 +8,11 @@ interface Props {
   champData: any;
   itemData: any;
   spellData: any;
+  runeData: any;
 }
 
 const SummResults: React.FC<Props> = (props: Props) => {
-  const { data, summQuery, champData, itemData, spellData } = props;
+  const { data, summQuery, champData, itemData, spellData, runeData } = props;
   return (
     <ResultsModal>
       <ListWrapper>
@@ -55,8 +56,7 @@ const SummResults: React.FC<Props> = (props: Props) => {
             champData={champData}
             itemData={itemData}
             spellData={spellData}
-            // keystoneData={keystoneData}
-            // runeData={runeData}
+            runeData={runeData}
           />
         ))}
       </ListWrapper>

@@ -16,14 +16,7 @@ const App = () => {
   const champData = useFetch('/static/champions', { method: 'GET' });
   const itemData = useFetch('/static/items', { method: 'GET' });
   const spellData = useFetch('/static/spells', { method: 'GET' });
-
-  // const keystoneData = useFetch('/static/keystones', {
-  //   method: 'GET',
-  // });
-
-  // const runeData = useFetch('/static/runes', {
-  //   method: 'GET',
-  // });
+  const runeData = useFetch('/static/runes', { method: 'GET' });
 
   const closeModal = () => {
     setModalStatus(false);
@@ -103,6 +96,7 @@ const App = () => {
             champData={champData}
             itemData={itemData}
             spellData={spellData}
+            runeData={runeData}
           />
         </ModalWrapper>
       )}

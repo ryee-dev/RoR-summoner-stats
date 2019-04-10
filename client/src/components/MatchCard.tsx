@@ -35,8 +35,7 @@ interface MatchProps {
   champData: any;
   itemData: any;
   spellData: any;
-  // keystoneData: any;
-  // runeData: any;
+  runeData: any;
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
@@ -73,15 +72,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     champData,
     itemData,
     spellData,
-    // keystoneData,
-    // runeData,
+    runeData,
   } = props;
-
-  // const getGameMode = () => {
-  //   if (neutralMinionsKilledTeamJungle === undefined || neutralMinionsKilledEnemyJungle === undefined) {
-  //     setGameMode()
-  //   }
-  // }
 
   const getTotalCS = () => {
     let total;
@@ -131,26 +123,6 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return itemName;
   };
 
-  // const getkeystoneName = (keystoneId: number) => {
-  //   let keystoneName;
-  //   for (let i = 0; i < keystoneData.keystoneIdList.length; i++) {
-  //     if (keystoneId.toString() === keystoneData.keystoneIdList[i]) {
-  //       keystoneName = keystoneData.keystoneNameList[i];
-  //     }
-  //   }
-  //   return keystoneName;
-  // };
-
-  // const getRuneName = (runeId: number) => {
-  //   let runeName;
-  //   for (let i = 0; i < runeData.runeIdList.length; i++) {
-  //     if (runeId.toString() === runeData.runeIDList[i]) {
-  //       runeName = runeData.runeNames[i];
-  //     }
-  //   }
-  //   return runeName;
-  // };
-
   const getSpellName = (spellKey: number) => {
     let spellName;
     for (let i = 0; i < spellData.spellKeys.length; i++) {
@@ -161,7 +133,15 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return spellName;
   };
 
-  console.log(gameMode);
+  const getRuneName = (runeId: number) => {
+    let runeName;
+    for (let i = 0; i < runeData.runeIdList.length; i++) {
+      if (runeId === runeData.runeIdList[i]) {
+        runeName = runeData.runeNameList[i];
+      }
+    }
+    return runeName;
+  };
 
   return (
     <CardWrapper>
@@ -204,12 +184,30 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         </CardCol>
       </CardRow>
       <CardRow>
-        <p>Keystone: {keystone}</p>
-        <p>Primary Rune 1: {primaryRune1}</p>
-        <p>Primary Rune 2: {primaryRune2}</p>
-        <p>Primary Rune 3: {primaryRune3}</p>
-        <p>Secondary Rune 1: {secondaryRune1}</p>
-        <p>Secondary Rune 2: {secondaryRune2}</p>
+        <CardCol>
+          <p>Keystone:</p>
+          <p>{getRuneName(keystone)}</p>
+        </CardCol>
+        <CardCol>
+          <p>Primary Rune 1:</p>
+          <p>{getRuneName(primaryRune1)}</p>
+        </CardCol>
+        <CardCol>
+          <p>Primary Rune 2:</p>
+          <p>{getRuneName(primaryRune2)}</p>
+        </CardCol>
+        <CardCol>
+          <p>Primary Rune 3:</p>
+          <p>{getRuneName(primaryRune3)}</p>
+        </CardCol>
+        <CardCol>
+          <p>Secondary Rune 1:</p>
+          <p>{getRuneName(secondaryRune1)}</p>
+        </CardCol>
+        <CardCol>
+          <p>Secondary Rune 2:</p>
+          <p>{getRuneName(secondaryRune2)}</p>
+        </CardCol>
       </CardRow>
     </CardWrapper>
   );

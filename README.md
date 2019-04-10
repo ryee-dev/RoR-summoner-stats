@@ -1,4 +1,4 @@
-# Reeg of Regends Summoner Rookup
+# Reeg of Regends Summoner Rook-Up
 
 ## Description 
 This simple web application allows users to search a summoner's name and view the inputted summoner's recent match history and respective match stats.
