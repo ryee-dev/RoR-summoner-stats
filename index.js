@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -295,3 +296,5 @@ app.get('*', (req, res) => {
 app.listen(port, (req, res) => {
   console.log(`server listening on port ${port}`);
 });
+
+module.exports = app;
