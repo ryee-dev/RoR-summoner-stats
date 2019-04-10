@@ -85,11 +85,8 @@ const App = () => {
         summName={summName}
         summQuery={summQuery}
       />
-
       {summQuery !== '' && loading && <Loading />}
-
       {!loading && modalStatus && error && <Error />}
-
       {modalStatus && !loading && data.hits && (
         <ModalWrapper ref={ref}>
           <SummResults

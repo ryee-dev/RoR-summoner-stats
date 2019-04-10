@@ -1,32 +1,21 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
+import AppRoutes from './routes';
+import { Loading } from './components';
 
-// @ts-ignore
 ReactDOM.render(
-  <Suspense
-    fallback={
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-        }}
-      >
-        <h1 style={{ color: 'white' }}>loading...</h1>
-      </div>
-    }
-  >
+  <Suspense fallback={<Loading />}>
     <Helmet>
       <link rel="stylesheet" href="https://use.typekit.net/jka5wdi.css" />
     </Helmet>
-    <App />
+    <Router>
+      <AppRoutes />
+    </Router>
   </Suspense>,
   document.querySelector('#root')
 );
