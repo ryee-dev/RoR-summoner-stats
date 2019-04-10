@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/template": "^7.4.0",
-    "@types/axios": "^0.14.0",
     "@types/jest": "24.0.9",
     "@types/node": "11.10.4",
     "@types/react": "16.8.6",
