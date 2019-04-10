@@ -18,19 +18,43 @@ const SummForm: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <SummonerForm method="POST" action="/api/summoner" onSubmit={findSummoner}>
-      <SummInput
-        placeholder="Summoner Name"
-        value={summName}
-        name="summName"
-        onChange={e => setSummName(e.target.value)}
-      />
-      <SubmitButt type="submit">submit</SubmitButt>
-    </SummonerForm>
+    <FormContainer>
+      <SummonerForm
+        method="POST"
+        action="/api/summoner"
+        onSubmit={findSummoner}
+      >
+        <SummInput
+          placeholder="Summoner Name"
+          value={summName}
+          name="summName"
+          onChange={e => setSummName(e.target.value)}
+        />
+        <SubmitButt type="submit">submit</SubmitButt>
+      </SummonerForm>
+    </FormContainer>
   );
 };
 
 export default SummForm;
+
+const FormContainer = styled.div`
+  height: 100%;
+  background-color: #151a27;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  //padding: 4rem 0;
+  overflow: auto;
+
+  h1 {
+    color: white;
+  }
+`;
 
 const SummonerForm = styled.form`
   width: 100%;

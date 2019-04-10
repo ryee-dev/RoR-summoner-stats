@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import useFetch from 'fetch-suspense';
-import SummForm from './components/SummForm';
-import SummResults from './components/SummResults';
+import useOnClickOutside from 'use-onclickoutside';
+import { SummForm, SummResults, Error, Loading } from './components';
+import { AppShell, ModalWrapper } from './App.css';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
@@ -23,6 +23,15 @@ const App = () => {
     setData({ hits: [] });
     setSummQuery('');
     setSummName('');
+  };
+
+  const ref = useRef(null);
+  useOnClickOutside(ref, closeModal);
+
+  const handleEscClose = (e: { keyCode: number }) => {
+    if (e.keyCode === 27) {
+      closeModal();
+    }
   };
 
   useEffect(() => {
@@ -69,27 +78,20 @@ const App = () => {
   }, [summQuery]);
 
   return (
-    <AppShell>
-      <FloatingContainer>
-        <SummForm
-          setSummName={setSummName}
-          setSummQuery={setSummQuery}
-          summName={summName}
-          summQuery={summQuery}
-        />
-      </FloatingContainer>
+    <AppShell onKeyDown={handleEscClose}>
+      <SummForm
+        setSummName={setSummName}
+        setSummQuery={setSummQuery}
+        summName={summName}
+        summQuery={summQuery}
+      />
 
-      {summQuery !== '' && loading && (
-        <TempPageWrapper>
-          <h1>loading...</h1>
-        </TempPageWrapper>
-      )}
+      {summQuery !== '' && loading && <Loading />}
+
+      {!loading && modalStatus && error && <Error />}
 
       {modalStatus && !loading && data.hits && (
-        <ModalWrapper>
-          <button type="button" onClick={closeModal}>
-            Close
-          </button>
+        <ModalWrapper ref={ref}>
           <SummResults
             data={data}
             summQuery={summQuery}
@@ -100,82 +102,8 @@ const App = () => {
           />
         </ModalWrapper>
       )}
-
-      {!loading && modalStatus && error && (
-        <TempPageWrapper>
-          <h1>data not found...</h1>
-        </TempPageWrapper>
-      )}
     </AppShell>
   );
 };
 
 export default App;
-
-const AppShell = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100vh;
-  padding: 2rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #06080b;
-  overflow: scroll;
-`;
-
-const TempPageWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-
-  h1 {
-    color: white;
-  }
-`;
-
-const FloatingContainer = styled.div`
-  height: 100%;
-  background-color: #151a27;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  //padding: 4rem 0;
-  overflow: scroll;
-
-  h1 {
-    color: white;
-  }
-
-  .data-wrapper {
-    position: absolute;
-    color: white;
-    margin: 2rem 0;
-    overflow: scroll;
-  }
-`;
-
-const ModalWrapper = styled.div`
-  position: absolute;
-  width: 80%;
-  height: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: scroll;
-
-  button {
-    position: fixed;
-    top: 0;
-    right: 0;
-    margin: 1rem;
-  }
-`;

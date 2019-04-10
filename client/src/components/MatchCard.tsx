@@ -39,7 +39,6 @@ interface MatchProps {
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
-  // const [gameMode, setGameMode] = useState('');
   const {
     gameMode,
     win,
@@ -116,6 +115,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   const getItemName = (itemKey: number) => {
     let itemName;
     for (let i = 0; i < itemData.itemKeys.length; i++) {
+
       if (itemKey.toString() === itemData.itemKeys[i]) {
         itemName = itemData.itemNames[i];
       }
@@ -133,6 +133,16 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return spellName;
   };
 
+  const getSpellId = (spellKey: number) => {
+    let spellId;
+    for (let i = 0; i < spellData.spellKeys.length; i++) {
+      if (spellKey.toString() === spellData.spellKeys[i]) {
+        spellId = spellData.spellIds[i];
+      }
+    }
+    return spellId;
+  };
+
   const getRuneName = (runeId: number) => {
     let runeName;
     for (let i = 0; i < runeData.runeIdList.length; i++) {
@@ -144,20 +154,44 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   };
 
   return (
-    <CardWrapper>
+    <CardWrapper
+      style={
+        win ? { backgroundColor: '#ebfffb' } : { backgroundColor: '#ffe0ec' }
+      }
+    >
       <CardRow>
         <CardCol>
-          {win === 'Win' ? <p>Win</p> : <p>Lose</p>}
           <p>{gameMode}</p>
+          {win === 'Win' ? <p>Victory</p> : <p>Defeat</p>}
           <p>{SecondsToMins(gameDuration)}</p>
         </CardCol>
         <CardCol>
           <p>{getChampionName(championId)}</p>
-          {/* <p>{championId}</p> */}
+          <img
+            className="champion"
+            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/${getChampionName(
+              championId
+            )}.png`}
+            alt={`${getChampionName(championId)}`}
+          />
         </CardCol>
         <CardCol>
           <p>{getSpellName(summAId)}</p>
+          <img
+            className="spell"
+            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${getSpellId(
+              summAId
+            )}.png`}
+            alt={`${getSpellName(summAId)}`}
+          />
           <p>{getSpellName(summBId)}</p>
+          <img
+            className="spell"
+            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${getSpellId(
+              summBId
+            )}.png`}
+            alt={`${getSpellName(summBId)}`}
+          />
         </CardCol>
         <CardCol>
           <p>
@@ -171,17 +205,49 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             {getTotalCS()} ({getCsPerMin()}) CS
           </p>
         </CardCol>
-        <CardCol>
-          <p>Item 1: {getItemName(item0)}</p>
-          <p>Item 2: {getItemName(item1)}</p>
-          <p>Item 3: {getItemName(item2)}</p>
-          <p>Item 4: {getItemName(item3)}</p>
+        <CardCol className="items">
+          <CardRow>
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item0}.png`}
+              alt={`${getItemName(item0)}`}
+            />
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item1}.png`}
+              alt={`${getItemName(item1)}`}
+            />
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item2}.png`}
+              alt={`${getItemName(item2)}`}
+            />
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item3}.png`}
+              alt={`${getItemName(item3)}`}
+            />
+          </CardRow>
+          <CardRow>
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item4}.png`}
+              alt={`${getItemName(item4)}`}
+            />
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item5}.png`}
+              alt={`${getItemName(item5)}`}
+            />
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item6}.png`}
+              alt={`${getItemName(item6)}`}
+            />
+          </CardRow>
+          {/* <p>Item 1: {getItemName(item0)}</p> */}
+          {/* <p>Item 2: {getItemName(item1)}</p> */}
+          {/* <p>Item 3: {getItemName(item2)}</p> */}
+          {/* <p>Item 4: {getItemName(item3)}</p> */}
         </CardCol>
-        <CardCol>
-          <p>Item 5: {getItemName(item4)}</p>
-          <p>Item 6: {getItemName(item5)}</p>
-          <p>Trinket: {getItemName(item6)}</p>
-        </CardCol>
+        {/* <CardCol> */}
+        {/*  <p>Item 5: {getItemName(item4)}</p> */}
+        {/*  <p>Item 6: {getItemName(item5)}</p> */}
+        {/*  <p>Trinket: {getItemName(item6)}</p> */}
+        {/* </CardCol> */}
       </CardRow>
       <CardRow>
         <CardCol>
@@ -224,7 +290,6 @@ const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: aliceblue;
   margin: 1rem 0;
 
   p {
@@ -242,12 +307,20 @@ const CardRow = styled.div`
 
 const CardCol = styled.div`
   height: 100%;
-  //width: 10%;
-  //max-width: 100px;
   margin: 0 0.4rem;
   display: flex;
-  align-items: flex=start;
+  align-items: flex-start;
   justify-content: space-evenly;
   flex-direction: column;
   border: 1px dotted black;
+
+  .spell {
+    max-width: 64px;
+  }
+
+  .items {
+    img {
+      margin: 1rem;
+    }
+  }
 `;

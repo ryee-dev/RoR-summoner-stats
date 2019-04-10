@@ -206,6 +206,7 @@ let summSpellData;
 let decodedSpell;
 let spellKeyList = [];
 let spellNameList = [];
+let spellIdList = [];
 
 fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
@@ -217,10 +218,12 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   for (const [spell, values] of entries) {
     spellKeyList.push(values.key);
     spellNameList.push(values.name);
+    spellIdList.push(values.id);
 
     decodedSpell = {
       spellNames: spellNameList,
       spellKeys: spellKeyList,
+      spellIds: spellIdList
     };
   }
 });

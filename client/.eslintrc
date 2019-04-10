@@ -40,7 +40,8 @@
     "no-param-reassign": "warn",
     "unicorn/prevent-abbreviations": "off",
     "no-plusplus": "warn",
-    "@typescript-eslint/no-var-requires": "warn"
+    "@typescript-eslint/no-var-requires": "warn",
+    "no-restricted-globals": "warn"
   },
   "settings": {
     "import/resolver": {

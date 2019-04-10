@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { Helmet } from 'react-helmet';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -22,6 +23,9 @@ ReactDOM.render(
       </div>
     }
   >
+    <Helmet>
+      <link rel="stylesheet" href="https://use.typekit.net/jka5wdi.css" />
+    </Helmet>
     <App />
   </Suspense>,
   document.querySelector('#root')

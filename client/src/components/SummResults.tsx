@@ -75,13 +75,7 @@ const ResultsModal = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  overflow: scroll;
-
-  button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-  }
+  overflow: auto;
 `;
 
 const ListWrapper = styled.div`
@@ -95,6 +89,14 @@ const ListWrapper = styled.div`
   flex-direction: column;
   background-color: aliceblue;
   overflow: scroll;
+
+  h1 {
+    font-family: Paralucent, sans-serif;
+    font-weight: lighter;
+    letter-spacing: 8px;
+    text-transform: lowercase;
+    font-size: 3rem;
+  }
 
   p {
     font-size: 0.6rem;
