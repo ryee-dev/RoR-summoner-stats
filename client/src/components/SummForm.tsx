@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as RorLogo } from '../assets/ror-logo.svg';
 
 interface Props {
   setSummName: Function;
@@ -19,6 +20,7 @@ const SummForm: React.FC<Props> = (props: Props) => {
 
   return (
     <FormContainer>
+      <RorLogo />
       <SummonerForm
         method="POST"
         action="/api/summoner"
@@ -27,10 +29,17 @@ const SummForm: React.FC<Props> = (props: Props) => {
         <SummInput
           placeholder="Summoner Name"
           value={summName}
+          autoComplete="off"
           name="summName"
           onChange={e => setSummName(e.target.value)}
         />
-        <SubmitButt type="submit">submit</SubmitButt>
+        <SubmitButt
+          type="submit"
+          // @ts-ignore
+          disabled={summName === ''}
+        >
+          submit
+        </SubmitButt>
       </SummonerForm>
     </FormContainer>
   );
@@ -48,7 +57,7 @@ const FormContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  //padding: 4rem 0;
+  //z-index: 2;
   overflow: auto;
 
   h1 {
@@ -58,6 +67,7 @@ const FormContainer = styled.div`
 
 const SummonerForm = styled.form`
   width: 100%;
+  margin-top: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,6 +99,7 @@ const SummInput = styled.input`
 
 const SubmitButt = styled.button`
   //width: 10%;
+  margin-top: 1rem;
   padding: 0.6rem 2rem;
   text-decoration: none;
   outline: none;
@@ -111,5 +122,15 @@ const SubmitButt = styled.button`
     background-color: #1380f0;
     //letter-spacing: 4px;
     color: #151a27;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+
+    &:hover {
+      background-color: transparent;
+      color: #1380f0;
+      cursor: default;
+    }
   }
 `;

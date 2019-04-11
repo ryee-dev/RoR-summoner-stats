@@ -15,6 +15,15 @@ export const AppShell = styled.div`
   font-family: 'Kyrial Display Pro', sans-serif;
 `;
 
+export const AppOverlay = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  opacity: 0.25;
+  z-index: 1;
+`;
+
 export const ModalWrapper = styled.div`
   position: absolute;
   width: 80%;
@@ -24,4 +33,5 @@ export const ModalWrapper = styled.div`
   justify-content: center;
   overflow: auto;
   border-radius: 6px;
+  z-index: 2;
 `;

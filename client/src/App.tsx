@@ -3,7 +3,7 @@ import axios from 'axios';
 import useFetch from 'fetch-suspense';
 import useOnClickOutside from 'use-onclickoutside';
 import { SummForm, SummResults, Error, Loading } from './components';
-import { AppShell, ModalWrapper } from './App.css';
+import { AppShell, ModalWrapper, AppOverlay } from './App.css';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
@@ -14,11 +14,6 @@ const App = () => {
   const [summQuery, setSummQuery] = useState('');
 
   const staticData = useFetch('/static', { method: 'GET' });
-
-  // const champData = useFetch('/static/champions', { method: 'GET' });
-  // const itemData = useFetch('/static/items', { method: 'GET' });
-  // const spellData = useFetch('/static/spells', { method: 'GET' });
-  // const runeData = useFetch('/static/runes', { method: 'GET' });
 
   const closeModal = () => {
     setModalStatus(false);
@@ -98,6 +93,7 @@ const App = () => {
           />
         </ModalWrapper>
       )}
+      {summQuery !== '' && <AppOverlay />}
     </AppShell>
   );
 };
