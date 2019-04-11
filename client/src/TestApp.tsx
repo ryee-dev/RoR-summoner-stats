@@ -6,48 +6,86 @@ const TestApp = () => {
   return (
     <AppShell>
       <CardWrapper>
-        <div className="col-1">
+        <CardCol>
           <p>ARAM</p>
           <p>Victory</p>
           <p>21m 31s</p>
-        </div>
+        </CardCol>
 
-        <div className="col-2">
-          <div className="subcol">
+        <CardCol>
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/Aatrox.png"
+            alt="test"
+          />
+        </CardCol>
+        <CardCol>
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/SummonerFlash.png"
+            alt="test"
+          />
+          <img
+            src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/SummonerDot.png"
+            alt="test"
+          />
+        </CardCol>
+        <CardCol>
+          <div className="rune-container">
             <img
-              src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/Aatrox.png"
+              src="http://opgg-static.akamaized.net/images/lol/perk/8128.png?image=w_40&v=1"
               alt="test"
             />
           </div>
-          <div className="subcol">
+          <div className="rune-container">
             <img
-              src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/SummonerFlash.png"
-              alt="test"
-            />
-            <img
-              src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/SummonerDot.png"
+              src="https://opgg-static.akamaized.net/images/lol/perkStyle/8000.png?image=w_40&v=2"
               alt="test"
             />
           </div>
-          <div className="subcol">
-            <div className="rune-container">
-              <img
-                src="http://opgg-static.akamaized.net/images/lol/perk/8128.png?image=w_40&v=1"
-                alt="test"
-              />
-            </div>
-            <div className="rune-container">
-              <img
-                src="https://opgg-static.akamaized.net/images/lol/perkStyle/8000.png?image=w_40&v=2"
-                alt="test"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-3">
+        </CardCol>
+        <CardCol>
           <p>1 / 2 / 3</p>
           <p>2.00:1 KDA</p>
-        </div>
+        </CardCol>
+        <CardCol>
+          <p>Level 10</p>
+          <p>100 (5.0) CS</p>
+        </CardCol>
+        <CardCol>
+          <ItemContainer>
+            <Row>
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+            </Row>
+            <Row>
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/1001.png"
+                alt="test"
+              />
+            </Row>
+          </ItemContainer>
+        </CardCol>
       </CardWrapper>
     </AppShell>
   );
@@ -63,53 +101,49 @@ const CardWrapper = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
+`;
 
-  div.col-1 {
-    padding: 0 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0.1rem 0;
+`;
+
+const CardCol = styled.div`
+  height: 100%;
+  margin: 0 0.4rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+  .spell {
+    max-width: 64px;
   }
 
-  div.col-2 {
-    padding: 0 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-    .subcol {
-      padding: 0 0.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-
-      .rune-container {
-        background-color: black;
-        height: 40px;
-        width: 40px;
-        padding: 0.25rem;
-        margin: 0.2rem 0;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      img {
-        margin: 0.4rem 0;
-      }
+  .items {
+    img {
+      margin: 1rem;
     }
   }
+`;
 
-  div.col-3 {
-    margin: 0 1rem;
-    padding: 0 0.4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+const ItemContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+  
+
+  img {
+    height: 50px;
+    width: 50px;
+    border: 2px solid white;
+    background-color: white;
+    margin: 0 0.1rem;
   }
 `;

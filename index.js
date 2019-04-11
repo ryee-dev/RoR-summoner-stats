@@ -147,42 +147,43 @@ app.get('/api/summoner', async (req, res) => {
   }
 });
 
-let summItemData;
-fs.readFile('./static/item.json', 'utf8', (err, data) => {
-  if (err) {
-    throw err;
-  }
-  summItemData = JSON.parse(data);
-});
+let staticData = {
+  champions: {
+    championNames: [],
+    championKeys: [],
+  },
 
-// serve champion.json
-let summChampiondata;
-let decodedChampion;
-let championKeyList = [];
-let championNameList = [];
+  items: {
+    itemNames: [],
+    itemKeys: [],
+  },
+
+  spells: {
+    spellNames: [],
+    spellKeys: [],
+    spellIds: [],
+  },
+
+  runes: {
+    runeNames: [],
+    runeIds: [],
+  },
+};
 
 fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
 
-  summChampiondata = JSON.parse(data);
+  let summChampiondata = JSON.parse(data);
   const entries = Object.entries(summChampiondata.data);
   for (const [champion, values] of entries) {
-    championKeyList.push(values.key);
-    championNameList.push(champion);
-
-    decodedChampion = {
-      championNames: championNameList,
-      championKeys: championKeyList,
-    };
+    staticData.champions.championNames.push(champion);
+    staticData.champions.championKeys.push(values.key);
   }
 });
 
 // serve item.json
-let decodedItem;
-let itemKeyList = [];
-let itemNameList = [];
 
 fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
@@ -192,22 +193,13 @@ fs.readFile('./static/item.json', 'utf8', (err, data) => {
   let summItemData = JSON.parse(data);
   const entries = Object.entries(summItemData.data);
   for (const [item, values] of entries) {
-    itemKeyList.push(item);
-    itemNameList.push(values.name);
-
-    decodedItem = {
-      itemNames: itemNameList,
-      itemKeys: itemKeyList,
-    };
+    staticData.items.itemNames.push(values.name);
+    staticData.items.itemKeys.push(item);
   }
 });
 
 // serve summoner spells
 let summSpellData;
-let decodedSpell;
-let spellKeyList = [];
-let spellNameList = [];
-let spellIdList = [];
 
 fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
@@ -217,25 +209,14 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   summSpellData = JSON.parse(data);
   const entries = Object.entries(summSpellData.data);
   for (const [spell, values] of entries) {
-    spellKeyList.push(values.key);
-    spellNameList.push(values.name);
-    spellIdList.push(values.id);
-
-    decodedSpell = {
-      spellNames: spellNameList,
-      spellKeys: spellKeyList,
-      spellIds: spellIdList
-    };
+    staticData.spells.spellKeys.push(values.key);
+    staticData.spells.spellNames.push(values.name);
+    staticData.spells.spellIds.push(values.id);
   }
 });
 
 // serve summoner runes
 let summKeystoneData;
-let decodedKeystone;
-let decodedRunesReforged = {
-  runeNameList: [],
-  runeIdList: [],
-};
 
 fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {
@@ -244,41 +225,21 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   summKeystoneData = JSON.parse(data);
   const keystoneEntries = Object.entries(summKeystoneData);
   for (const [keystone, values] of keystoneEntries) {
-    decodedRunesReforged.runeNameList.push(values.name);
-    decodedRunesReforged.runeIdList.push(values.id);
+    staticData.runes.runeNames.push(values.name);
+    staticData.runes.runeIds.push(values.id);
 
     for (let i = 0; i < values.slots.length; i++) {
       for (let j = 0; j < values.slots[i].runes.length; j++) {
-        decodedRunesReforged.runeNameList.push(values.slots[i].runes[j].name);
-        decodedRunesReforged.runeIdList.push(values.slots[i].runes[j].id);
+        staticData.runes.runeNames.push(values.slots[i].runes[j].name);
+        staticData.runes.runeIds.push(values.slots[i].runes[j].id);
       }
     }
   }
-
-  // console.log(decodedRunesReforged.keystone.runes);
 });
 
-app.get('/static/champions', async (req, res) => {
-  res.json(decodedChampion);
+app.get('/static', async (req, res) => {
+  res.json(staticData);
 });
-
-app.get('/static/items', async (req, res) => {
-  res.json(decodedItem);
-});
-
-app.get('/static/spells', async (req, res) => {
-  res.json(decodedSpell);
-});
-
-app.get('/static/keystones', async (req, res) => {
-  res.json(decodedKeystone);
-});
-
-app.get('/static/runes', async (req, res) => {
-  res.json(decodedRunesReforged);
-});
-
-// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // fetch static data
 app.use('/static', express.static(path.join(__dirname, 'static')));

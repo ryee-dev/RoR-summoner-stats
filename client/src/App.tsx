@@ -13,10 +13,12 @@ const App = () => {
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
 
-  const champData = useFetch('/static/champions', { method: 'GET' });
-  const itemData = useFetch('/static/items', { method: 'GET' });
-  const spellData = useFetch('/static/spells', { method: 'GET' });
-  const runeData = useFetch('/static/runes', { method: 'GET' });
+  const staticData = useFetch('/static', { method: 'GET' });
+
+  // const champData = useFetch('/static/champions', { method: 'GET' });
+  // const itemData = useFetch('/static/items', { method: 'GET' });
+  // const spellData = useFetch('/static/spells', { method: 'GET' });
+  // const runeData = useFetch('/static/runes', { method: 'GET' });
 
   const closeModal = () => {
     setModalStatus(false);
@@ -92,10 +94,7 @@ const App = () => {
           <SummResults
             data={data}
             summQuery={summQuery}
-            champData={champData}
-            itemData={itemData}
-            spellData={spellData}
-            runeData={runeData}
+            staticData={staticData}
           />
         </ModalWrapper>
       )}

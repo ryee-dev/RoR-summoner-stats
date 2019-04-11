@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
 
 interface MatchProps {
   key: number;
@@ -9,17 +10,20 @@ interface MatchProps {
   summonerName: string;
   summAId: number;
   summBId: number;
+  summAName: string;
+  summBName: string;
   keystone: number;
   primaryRune1: number;
   primaryRune2: number;
   primaryRune3: number;
   secondaryRune1: number;
   secondaryRune2: number;
-  championId: number;
+  championName: string;
   kills: number;
   deaths: number;
   assists: number;
   kda: number;
+  items: any;
   item0: number;
   item1: number;
   item2: number;
@@ -32,10 +36,6 @@ interface MatchProps {
   neutralMinionsKilled: number;
   neutralMinionsKilledTeamJungle: number;
   neutralMinionsKilledEnemyJungle: number;
-  champData: any;
-  itemData: any;
-  spellData: any;
-  runeData: any;
 }
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
@@ -45,17 +45,20 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     gameDuration,
     summAId,
     summBId,
+    summAName,
+    summBName,
     keystone,
     primaryRune1,
     primaryRune2,
     primaryRune3,
     secondaryRune1,
     secondaryRune2,
-    championId,
+    championName,
     kills,
     deaths,
     assists,
     kda,
+    items,
     item0,
     item1,
     item2,
@@ -68,10 +71,6 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     neutralMinionsKilled,
     neutralMinionsKilledTeamJungle,
     neutralMinionsKilledEnemyJungle,
-    champData,
-    itemData,
-    spellData,
-    runeData,
   } = props;
 
   const getTotalCS = () => {
@@ -102,96 +101,68 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return `${minutes}m ${seconds}s`;
   };
 
-  const getChampionName = (champKey: number) => {
-    let championName;
-    for (let i = 0; i < champData.championKeys.length; i++) {
-      if (champKey.toString() === champData.championKeys[i]) {
-        championName = champData.championNames[i];
-      }
-    }
-    return championName;
-  };
-
-  const getItemName = (itemKey: number) => {
-    let itemName;
-    for (let i = 0; i < itemData.itemKeys.length; i++) {
-
-      if (itemKey.toString() === itemData.itemKeys[i]) {
-        itemName = itemData.itemNames[i];
-      }
-    }
-    return itemName;
-  };
-
-  const getSpellName = (spellKey: number) => {
-    let spellName;
-    for (let i = 0; i < spellData.spellKeys.length; i++) {
-      if (spellKey.toString() === spellData.spellKeys[i]) {
-        spellName = spellData.spellNames[i];
-      }
-    }
-    return spellName;
-  };
-
-  const getSpellId = (spellKey: number) => {
-    let spellId;
-    for (let i = 0; i < spellData.spellKeys.length; i++) {
-      if (spellKey.toString() === spellData.spellKeys[i]) {
-        spellId = spellData.spellIds[i];
-      }
-    }
-    return spellId;
-  };
-
-  const getRuneName = (runeId: number) => {
-    let runeName;
-    for (let i = 0; i < runeData.runeIdList.length; i++) {
-      if (runeId === runeData.runeIdList[i]) {
-        runeName = runeData.runeNameList[i];
-      }
-    }
-    return runeName;
-  };
-
   return (
     <CardWrapper
       style={
         win ? { backgroundColor: '#ebfffb' } : { backgroundColor: '#ffe0ec' }
       }
     >
+      {/* eslint-disable jsx-a11y/anchor-is-valid */}
       <CardRow>
         <CardCol>
           <p>{gameMode}</p>
           {win === 'Win' ? <p>Victory</p> : <p>Defeat</p>}
           <p>{SecondsToMins(gameDuration)}</p>
         </CardCol>
-        <CardCol>
-          <p>{getChampionName(championId)}</p>
-          <img
-            className="champion"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/${getChampionName(
-              championId
-            )}.png`}
-            alt={`${getChampionName(championId)}`}
-          />
+        <CardCol className="center">
+          <a data-tip data-for="champion-name">
+            <img
+              className="champion"
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/${championName}.png`}
+              alt={`${championName}`}
+            />
+          </a>
+          <ReactTooltip
+            id="champion-name"
+            place="right"
+            type="dark"
+            effect="solid"
+          >
+            <p>{championName}</p>
+          </ReactTooltip>
         </CardCol>
         <CardCol>
-          <p>{getSpellName(summAId)}</p>
-          <img
-            className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${getSpellId(
-              summAId
-            )}.png`}
-            alt={`${getSpellName(summAId)}`}
-          />
-          <p>{getSpellName(summBId)}</p>
-          <img
-            className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${getSpellId(
-              summBId
-            )}.png`}
-            alt={`${getSpellName(summBId)}`}
-          />
+          <a data-tip data-for="spell-name-1">
+            <img
+              className="spell"
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${summAId}.png`}
+              alt={`${summAName}`}
+            />
+          </a>
+          <ReactTooltip
+            id="spell-name-1"
+            place="right"
+            type="dark"
+            effect="solid"
+          >
+            <p>{summAName}</p>
+          </ReactTooltip>
+
+          <a data-tip data-for="spell-name-2">
+            <img
+              className="spell"
+              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${summBId}.png`}
+              alt={`${summBName}`}
+            />
+          </a>
+          <ReactTooltip
+            id="spell-name-2"
+            place="right"
+            type="dark"
+            effect="solid"
+          >
+            <p>{summBName}</p>
+          </ReactTooltip>
         </CardCol>
         <CardCol>
           <p>
@@ -206,73 +177,108 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           </p>
         </CardCol>
         <CardCol className="items">
-          <CardRow>
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item0}.png`}
-              alt={`${getItemName(item0)}`}
-            />
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item1}.png`}
-              alt={`${getItemName(item1)}`}
-            />
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item2}.png`}
-              alt={`${getItemName(item2)}`}
-            />
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item3}.png`}
-              alt={`${getItemName(item3)}`}
-            />
-          </CardRow>
-          <CardRow>
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item4}.png`}
-              alt={`${getItemName(item4)}`}
-            />
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item5}.png`}
-              alt={`${getItemName(item5)}`}
-            />
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${item6}.png`}
-              alt={`${getItemName(item6)}`}
-            />
-          </CardRow>
-          {/* <p>Item 1: {getItemName(item0)}</p> */}
-          {/* <p>Item 2: {getItemName(item1)}</p> */}
-          {/* <p>Item 3: {getItemName(item2)}</p> */}
-          {/* <p>Item 4: {getItemName(item3)}</p> */}
+          <ItemContainer>
+            <div className="row">
+              <div className="img-wrapper">
+                {item0 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item0
+                    }.png`}
+                    alt={`${item0}`}
+                  />
+                )}
+              </div>
+              <div className="img-wrapper">
+                {item1 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item1
+                    }.png`}
+                    alt={`${item1}`}
+                  />
+                )}
+              </div>
+              <div className="img-wrapper">
+                {item2 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item2
+                    }.png`}
+                    alt={`${item2}`}
+                  />
+                )}
+              </div>
+              <div className="img-wrapper">
+                {item3 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item3
+                    }.png`}
+                    alt={`${item3}`}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="row">
+              <div className="img-wrapper">
+                {item4 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item4
+                    }.png`}
+                    alt={`${item4}`}
+                  />
+                )}
+              </div>
+              <div className="img-wrapper">
+                {item5 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item5
+                    }.png`}
+                    alt={`${item5}`}
+                  />
+                )}
+              </div>
+              <div className="img-wrapper">
+                {item6 !== 0 && (
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                      items.item6
+                    }.png`}
+                    alt={`${item6}`}
+                  />
+                )}
+              </div>
+            </div>
+          </ItemContainer>
         </CardCol>
-        {/* <CardCol> */}
-        {/*  <p>Item 5: {getItemName(item4)}</p> */}
-        {/*  <p>Item 6: {getItemName(item5)}</p> */}
-        {/*  <p>Trinket: {getItemName(item6)}</p> */}
-        {/* </CardCol> */}
       </CardRow>
       <CardRow>
         <CardCol>
           <p>Keystone:</p>
-          <p>{getRuneName(keystone)}</p>
+          <p>{keystone}</p>
         </CardCol>
         <CardCol>
           <p>Primary Rune 1:</p>
-          <p>{getRuneName(primaryRune1)}</p>
+          <p>{primaryRune1}</p>
         </CardCol>
         <CardCol>
           <p>Primary Rune 2:</p>
-          <p>{getRuneName(primaryRune2)}</p>
+          <p>{primaryRune2}</p>
         </CardCol>
         <CardCol>
           <p>Primary Rune 3:</p>
-          <p>{getRuneName(primaryRune3)}</p>
+          <p>{primaryRune3}</p>
         </CardCol>
         <CardCol>
           <p>Secondary Rune 1:</p>
-          <p>{getRuneName(secondaryRune1)}</p>
+          <p>{secondaryRune1}</p>
         </CardCol>
         <CardCol>
           <p>Secondary Rune 2:</p>
-          <p>{getRuneName(secondaryRune2)}</p>
+          <p>{secondaryRune2}</p>
         </CardCol>
       </CardRow>
     </CardWrapper>
@@ -309,10 +315,14 @@ const CardCol = styled.div`
   height: 100%;
   margin: 0 0.4rem;
   display: flex;
-  align-items: flex-start;
   justify-content: space-evenly;
   flex-direction: column;
   border: 1px dotted black;
+  align-items: flex-start;
+
+  &.center {
+    align-items: center;
+  }
 
   .spell {
     max-width: 64px;
@@ -322,5 +332,35 @@ const CardCol = styled.div`
     img {
       margin: 1rem;
     }
+  }
+`;
+
+const ItemContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+  div {
+    &.row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 0.1rem 0;
+    }
+
+    &.img-wrapper {
+      margin: 0 0.1rem;
+      border: 1px solid black;
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  img {
+    height: 50px;
+    width: 50px;
+    //border: 2px solid white;
+    //background-color: white;
   }
 `;

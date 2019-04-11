@@ -7,3 +7,4 @@ declare module 'react-hooks-lib';
 declare module 'use-onclickoutside';
 declare module 'react-use';
 declare module 'react-hot-loader';
+declare module 'react-tooltip';

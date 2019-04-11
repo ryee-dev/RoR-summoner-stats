@@ -5,14 +5,62 @@ import MatchCard from './MatchCard';
 interface Props {
   data: any;
   summQuery: string;
-  champData: any;
-  itemData: any;
-  spellData: any;
-  runeData: any;
+  staticData: any;
 }
 
 const SummResults: React.FC<Props> = (props: Props) => {
-  const { data, summQuery, champData, itemData, spellData, runeData } = props;
+  const { data, summQuery, staticData } = props;
+
+  const getChampionName = (champKey: number) => {
+    let championName;
+    for (let i = 0; i < staticData.champions.championKeys.length; i++) {
+      if (champKey.toString() === staticData.champions.championKeys[i]) {
+        championName = staticData.champions.championNames[i];
+      }
+    }
+    return championName;
+  };
+
+  const getItemName = (itemKey: number) => {
+    let itemName;
+    for (let i = 0; i < staticData.items.itemKeys.length; i++) {
+      if (itemKey.toString() === staticData.items.itemKeys[i]) {
+        itemName = staticData.items.itemNames[i];
+      }
+    }
+    return itemName;
+  };
+
+  const getSpellName = (spellKey: number) => {
+    let spellName;
+    for (let i = 0; i < staticData.spells.spellKeys.length; i++) {
+      if (spellKey.toString() === staticData.spells.spellKeys[i]) {
+        spellName = staticData.spells.spellNames[i];
+      }
+    }
+    return spellName;
+  };
+
+  const getSpellId = (spellKey: number) => {
+    let spellId;
+    for (let i = 0; i < staticData.spells.spellKeys.length; i++) {
+      if (spellKey.toString() === staticData.spells.spellKeys[i]) {
+        spellId = staticData.spells.spellIds[i];
+      }
+    }
+    return spellId;
+  };
+
+  const getRuneName = (runeId: number) => {
+    let runeName;
+    for (let i = 0; i < staticData.runes.runeIds.length; i++) {
+      if (runeId === staticData.runes.runeIds[i]) {
+        runeName = staticData.runes.runeNames[i];
+      }
+    }
+    return runeName;
+  };
+
   return (
     <ResultsModal>
       <ListWrapper>
@@ -24,26 +72,29 @@ const SummResults: React.FC<Props> = (props: Props) => {
             win={match.outcome}
             gameDuration={match.gameDuration}
             summonerName={match.summonerName}
-            summAId={match.spell1Id}
-            summBId={match.spell2Id}
-            keystone={match.runes.keystone}
-            primaryRune1={match.runes.primaryRune1}
-            primaryRune2={match.runes.primaryRune2}
-            primaryRune3={match.runes.primaryRune3}
-            secondaryRune1={match.runes.secondaryRune1}
-            secondaryRune2={match.runes.secondaryRune2}
-            championId={match.championId}
+            summAId={getSpellId(match.spell1Id)}
+            summBId={getSpellId(match.spell2Id)}
+            summAName={getSpellName(match.spell1Id)}
+            summBName={getSpellName(match.spell2Id)}
+            keystone={getRuneName(match.runes.keystone)}
+            primaryRune1={getRuneName(match.runes.primaryRune1)}
+            primaryRune2={getRuneName(match.runes.primaryRune2)}
+            primaryRune3={getRuneName(match.runes.primaryRune3)}
+            secondaryRune1={getRuneName(match.runes.secondaryRune1)}
+            secondaryRune2={getRuneName(match.runes.secondaryRune2)}
+            championName={getChampionName(match.championId)}
             kills={match.kills}
             deaths={match.deaths}
             assists={match.assists}
             kda={match.kda}
-            item0={match.items.item0}
-            item1={match.items.item1}
-            item2={match.items.item2}
-            item3={match.items.item3}
-            item4={match.items.item4}
-            item5={match.items.item5}
-            item6={match.items.item6}
+            items={match.items}
+            item0={getItemName(match.items.item0)}
+            item1={getItemName(match.items.item1)}
+            item2={getItemName(match.items.item2)}
+            item3={getItemName(match.items.item3)}
+            item4={getItemName(match.items.item4)}
+            item5={getItemName(match.items.item5)}
+            item6={getItemName(match.items.item6)}
             champLevel={match.championLevel}
             totalMinionsKilled={match.creepScore.totalMinionsKilled}
             neutralMinionsKilled={match.creepScore.neutralMinionsKilled}
@@ -53,10 +104,6 @@ const SummResults: React.FC<Props> = (props: Props) => {
             neutralMinionsKilledEnemyJungle={
               match.creepScore.neutralMinionsKilledEnemyJungle
             }
-            champData={champData}
-            itemData={itemData}
-            spellData={spellData}
-            runeData={runeData}
           />
         ))}
       </ListWrapper>
