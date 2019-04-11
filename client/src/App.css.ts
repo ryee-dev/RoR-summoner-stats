@@ -11,6 +11,8 @@ export const AppShell = styled.div`
   flex-direction: column;
   background-color: #06080b;
   overflow: auto;
+
+  font-family: 'Kyrial Display Pro', sans-serif;
 `;
 
 export const ModalWrapper = styled.div`
@@ -22,31 +24,4 @@ export const ModalWrapper = styled.div`
   justify-content: center;
   overflow: auto;
   border-radius: 6px;
-`;
-
-export const LoadingRing = styled.div`
-  display: inline-block;
-  width: 500px;
-  height: 500px;
-
-  &:after {
-    content: ' ';
-    display: block;
-    width: 500px;
-    height: 500px;
-    margin: 1px;
-    border-radius: 50%;
-    border: 5px solid #fff;
-    border-color: #fff transparent #ebfffb transparent;
-    animation: loading-ring 1.2s linear infinite;
-  }
-
-  @keyframes loading-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 `;

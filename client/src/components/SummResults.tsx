@@ -77,6 +77,7 @@ const SummResults: React.FC<Props> = (props: Props) => {
             summAName={getSpellName(match.spell1Id)}
             summBName={getSpellName(match.spell2Id)}
             keystone={getRuneName(match.runes.keystone)}
+            runes={match.runes}
             primaryRune1={getRuneName(match.runes.primaryRune1)}
             primaryRune2={getRuneName(match.runes.primaryRune2)}
             primaryRune3={getRuneName(match.runes.primaryRune3)}
@@ -134,8 +135,8 @@ const ListWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  background-color: aliceblue;
-  overflow: scroll;
+  background-color: #27303f;
+  overflow: auto;
 
   h1 {
     font-family: Paralucent, sans-serif;
@@ -143,9 +144,6 @@ const ListWrapper = styled.div`
     letter-spacing: 8px;
     text-transform: lowercase;
     font-size: 3rem;
-  }
-
-  p {
-    font-size: 0.6rem;
+    color: white;
   }
 `;
