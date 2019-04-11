@@ -124,6 +124,13 @@ const ResultsModal = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   overflow: auto;
+
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+  }
 `;
 
 const ListWrapper = styled.div`

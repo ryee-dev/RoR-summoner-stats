@@ -29,7 +29,7 @@ const SummForm: React.FC<Props> = (props: Props) => {
         <SummInput
           placeholder="Summoner Name"
           value={summName}
-          autoComplete="off"
+          // autoComplete="off"
           name="summName"
           onChange={e => setSummName(e.target.value)}
         />

@@ -3,7 +3,7 @@ import axios from 'axios';
 import useFetch from 'fetch-suspense';
 import useOnClickOutside from 'use-onclickoutside';
 import { SummForm, SummResults, Error, Loading } from './components';
-import { AppShell, ModalWrapper, AppOverlay } from './App.css';
+import { AppShell, ModalWrapper, AppOverlay, Close } from './App.css';
 
 const App = () => {
   const [modalStatus, setModalStatus] = useState(false);
@@ -94,6 +94,7 @@ const App = () => {
         </ModalWrapper>
       )}
       {summQuery !== '' && <AppOverlay />}
+      {modalStatus && !loading && <Close onClick={closeModal} />}
     </AppShell>
   );
 };
