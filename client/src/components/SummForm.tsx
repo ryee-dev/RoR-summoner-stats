@@ -49,7 +49,7 @@ export default SummForm;
 
 const FormContainer = styled.div`
   height: 100%;
-  background-color: #151a27;
+  background-color: #dadddf;
   border-radius: 4px;
   width: 100%;
   max-width: 1200px;
@@ -58,6 +58,8 @@ const FormContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   //z-index: 2;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
+
   overflow: auto;
 
   h1 {
@@ -76,7 +78,7 @@ const SummonerForm = styled.form`
 `;
 
 const SummInput = styled.input`
-  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.25);
+  //box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.25);
   outline: none;
   border: none;
   padding: 0.6rem 1rem;
@@ -106,9 +108,9 @@ const SubmitButt = styled.button`
   //border: none;
   border-radius: 6px;
   background-color: transparent;
-  border: solid #1380f0 1px;
+  border: solid #5d5e5a 1px;
   //color: white;
-  color: #1380f0;
+  color: #5d5e5a;
   cursor: pointer;
   font-weight: bold;
   letter-spacing: 1px;
@@ -119,9 +121,9 @@ const SubmitButt = styled.button`
 
   &:hover {
     //width: 25%;
-    background-color: #1380f0;
+    background-color: #5d5e5a;
     //letter-spacing: 4px;
-    color: #151a27;
+    color: white;
   }
 
   &:disabled {
@@ -129,7 +131,8 @@ const SubmitButt = styled.button`
 
     &:hover {
       background-color: transparent;
-      color: #1380f0;
+      color: #5d5e5a;
+      //color: #1380f0;
       cursor: default;
     }
   }

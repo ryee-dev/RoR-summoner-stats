@@ -142,7 +142,7 @@ const ListWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  background-color: #27303f;
+  background-color: #dadddf;
   overflow: auto;
 
   h1 {
@@ -151,6 +151,6 @@ const ListWrapper = styled.div`
     letter-spacing: 8px;
     text-transform: lowercase;
     font-size: 3rem;
-    color: white;
+    color: #5d5e5a;
   }
 `;

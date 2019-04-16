@@ -5,12 +5,12 @@ export const AppShell = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  padding: 2rem 3rem;
+  padding: 4rem 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #06080b;
+  background-color: #f6f5f5;
   overflow: auto;
 
   font-family: 'Kyrial Display Pro', sans-serif;

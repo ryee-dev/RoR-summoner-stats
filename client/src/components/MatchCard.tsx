@@ -106,7 +106,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   return (
     <CardWrapper
       style={
-        win ? { backgroundColor: '#ebfffb' } : { backgroundColor: '#ffe0ec' }
+        win ? { backgroundColor: '#b6f7c1' } : { backgroundColor: '#ffcccc' }
       }
     >
       {/* eslint-disable jsx-a11y/anchor-is-valid */}
