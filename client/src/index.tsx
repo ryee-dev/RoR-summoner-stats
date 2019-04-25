@@ -12,6 +12,7 @@ ReactDOM.render(
   <Suspense fallback={<Loading />}>
     <Helmet>
       <link rel="stylesheet" href="https://use.typekit.net/jka5wdi.css" />
+      <title>RoR</title>
     </Helmet>
     <Router>
       <AppRoutes />
