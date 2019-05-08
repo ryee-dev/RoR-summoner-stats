@@ -25,6 +25,7 @@ const SummForm: React.FC<Props> = (props: Props) => {
         method="POST"
         action="/api/summoner"
         onSubmit={findSummoner}
+        autoComplete="off"
       >
         <SummInput
           placeholder="Summoner Name"
@@ -85,7 +86,7 @@ const SummInput = styled.input`
   width: 25%;
   border-radius: 2px;
   margin: 1rem;
-  transition: width 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   background-color: #f3f8ff;
   caret-color: #565b63;
   color: #565b63;
@@ -96,6 +97,7 @@ const SummInput = styled.input`
 
   &:focus {
     width: 40%;
+    //box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.25);
   }
 `;
 
