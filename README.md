@@ -3,6 +3,16 @@
 ## Description 
 This simple web application allows users to search a summoner's name and view the inputted summoner's recent match history and respective match stats.
 
+To view a working version in action, click [here](https://ror-stats-app.herokuapp.com/).
+If you are unfamiliar with League of Legends or don't know of any summoner names to search, feel free to try the summoner names listed below.
+
+These are currently the top 5 players in League of Legends:
+1. tarzaned5
+2. SHERNFlRE
+3. SHERNICE
+4. Santorin
+5. TSM Johnsun
+
 ## Serving Locally
 **Step 1. Clone Repository**
 
