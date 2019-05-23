@@ -123,7 +123,8 @@ const ResultsModal = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   svg {
     position: absolute;

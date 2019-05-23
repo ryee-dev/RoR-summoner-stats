@@ -32,7 +32,8 @@ export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 6px;
   z-index: 2;
 `;

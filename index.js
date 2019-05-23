@@ -35,6 +35,10 @@ app.post('/api/summoner', (req, res) => {
   res.status(204).send();
 });
 
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+});
+
 const searchSummoner = async () => {
   let accountId;
   let matchHistory;
@@ -136,6 +140,16 @@ const searchSummoner = async () => {
   }
 };
 
+let currentRotation;
+
+const getCurrentRotation = async () => {
+  let fetchCurrentRotation = await axios.get(
+    `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${process.env.API_KEY}
+      }`
+  );
+  currentRotation = fetchCurrentRotation.data.freeChampionIds;
+};
+
 let output;
 
 app.get('/api/summoner', async (req, res) => {
@@ -145,6 +159,16 @@ app.get('/api/summoner', async (req, res) => {
     });
     res.json(output);
   }
+});
+
+let rotation;
+
+app.get('/api/current-rotation', async (req, res) => {
+  await getCurrentRotation().then(res => {
+    rotation = res;
+  });
+  res.json(rotation);
+  console.log(rotation);
 });
 
 let staticData = {

@@ -72,6 +72,7 @@ const App = () => {
       response: data,
       query: summQuery,
     });
+
   }, [summQuery]);
 
   return (
