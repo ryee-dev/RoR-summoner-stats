@@ -34,10 +34,10 @@ app.post('/api/summoner', (req, res) => {
   summonerName = req.body.summName;
   res.status(204).send();
 });
-
-app.use(function (req, res, next) {
-  res.status(404).send("Sorry can't find that!")
-});
+//
+// app.use(function (req, res, next) {
+//   res.status(404).send("Sorry can't find that!")
+// });
 
 const searchSummoner = async () => {
   let accountId;

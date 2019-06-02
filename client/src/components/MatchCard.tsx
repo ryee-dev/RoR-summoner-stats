@@ -119,19 +119,19 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         <CardCol className="center">
           <img
             className="champion"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/champion/${championName}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/${championName}.png`}
             alt={`${championName}`}
           />
         </CardCol>
         <CardCol>
           <img
             className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${summAId}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/spell/${summAId}.png`}
             alt={`${summAName}`}
           />
           <img
             className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/spell/${summBId}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/spell/${summBId}.png`}
             alt={`${summBName}`}
           />
         </CardCol>
@@ -153,7 +153,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item0 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item0
                     }.png`}
                     alt={`${item0}`}
@@ -163,7 +163,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item1 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item1
                     }.png`}
                     alt={`${item1}`}
@@ -173,7 +173,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item2 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item2
                     }.png`}
                     alt={`${item2}`}
@@ -183,7 +183,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item3 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item3
                     }.png`}
                     alt={`${item3}`}
@@ -195,7 +195,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item4 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item4
                     }.png`}
                     alt={`${item4}`}
@@ -205,7 +205,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item5 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item5
                     }.png`}
                     alt={`${item5}`}
@@ -215,7 +215,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item6 !== 0 && (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.7.1/img/item/${
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.11.1/img/item/${
                       items.item6
                     }.png`}
                     alt={`${item6}`}
