@@ -55,6 +55,10 @@ PORT: 3001
 - Express
 - Axios
 
+
+### Currently in the works
+[] mobile/tablet compatibility
+[] additional data on-hover
 ___
 
 Created By Roger Yee | 4/7/19
