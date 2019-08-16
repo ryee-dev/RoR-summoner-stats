@@ -65,13 +65,13 @@ const App = () => {
       fetchData();
     }
 
-    console.log({
-      loadingStatus: loading,
-      errorStatus: error,
-      modal: modalStatus,
-      response: data,
-      query: summQuery,
-    });
+    // console.log({
+    //   loadingStatus: loading,
+    //   errorStatus: error,
+    //   modal: modalStatus,
+    //   response: data,
+    //   query: summQuery,
+    // });
 
   }, [summQuery]);
 
