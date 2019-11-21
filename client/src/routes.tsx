@@ -1,13 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import App from './App';
-import TestApp from './TestApp';
+import SummonersRift from './pages/SummonersRift';
+import TeamfightTactics from './pages/TeamfightTactics';
+import App from "./App";
 
 const AppRoutes = () => {
   return (
     <Switch>
       <Route exact path="/" component={App} />
-      <Route path="/test" component={TestApp} />
+      <Route path="/summoners-rift" component={SummonersRift} />
+      <Route path="/teamfight-tactics" component={TeamfightTactics} />
     </Switch>
   );
 };
