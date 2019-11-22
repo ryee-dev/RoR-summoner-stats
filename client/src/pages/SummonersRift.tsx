@@ -1,6 +1,5 @@
-// @ts-ignore
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import ky from 'ky';
 import useFetch from 'fetch-suspense';
 import useOnClickOutside from 'use-onclickoutside';
 import { SummForm, SummResults, Error, Loading } from '../components';
@@ -10,7 +9,7 @@ const SummonersRift = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [data, setData] = useState({ hits: [] });
+  const [summData, setSummData] = useState({ hits: [] });
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
 
@@ -18,7 +17,7 @@ const SummonersRift = () => {
 
   const closeModal = () => {
     setModalStatus(false);
-    setData({ hits: [] });
+    setSummData({ hits: [] });
     setSummQuery('');
     setSummName('');
   };
@@ -33,8 +32,7 @@ const SummonersRift = () => {
   };
 
   useEffect(() => {
-    setData({ hits: [] });
-
+    setSummData({ hits: [] });
     const fetchData = async () => {
       setModalStatus(false);
       setLoading(true);
@@ -43,36 +41,20 @@ const SummonersRift = () => {
         setLoading(true);
         console.log('fetching');
 
-        await axios
-          .get('/api/summoner')
-          .then(res => {
-            setData({
-              hits: res.data,
-            });
-            setError(false);
-            setLoading(false);
-            setModalStatus(true);
-            console.log(summQuery, 'fetched');
-            return data;
-          })
-          .catch(() => {
-            setError(true);
-            console.log('error');
-          });
+        setSummData({
+          hits: await ky.get('/api/summoner').json(),
+        });
+
+        setError(false);
+        setLoading(false);
+        setModalStatus(true);
+        console.log(summQuery, 'fetched');
       }
     };
 
     if (summQuery !== '') {
       fetchData();
     }
-
-    // console.log({
-    //   loadingStatus: loading,
-    //   errorStatus: error,
-    //   modal: modalStatus,
-    //   response: data,
-    //   query: summQuery,
-    // });
   }, [summQuery]);
 
   return (
@@ -85,10 +67,10 @@ const SummonersRift = () => {
       />
       {summQuery !== '' && loading && <Loading />}
       {!loading && modalStatus && error && <Error />}
-      {modalStatus && !loading && data.hits && (
+      {modalStatus && !loading && summData.hits && (
         <ModalWrapper ref={ref}>
           <SummResults
-            data={data}
+            data={summData}
             summQuery={summQuery}
             staticData={staticData}
           />
@@ -100,4 +82,4 @@ const SummonersRift = () => {
   );
 };
 
-export default SummonersRift
+export default SummonersRift;

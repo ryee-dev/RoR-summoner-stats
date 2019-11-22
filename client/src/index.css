@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Leixo';
+  font-weight: 500;
+  src: local('Leixo'), local('LEIXO'),
+    url('./assets/fonts/LEIXO-Bold.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   padding: 0;
