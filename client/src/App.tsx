@@ -12,7 +12,7 @@ const PageContainer = styled(Flex)`
   h1 {
     font-family: Leixo;
     font-size: 1.8rem;
-    transition: letter-spacing 0.2s ease-in-out, font-size 0.2s ease-in-out;
+    transition: letter-spacing 0.4s ease-in-out, font-size 0.4s ease-in-out;
   }
 
   a {
@@ -29,8 +29,11 @@ const SummRiftBlock = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  //transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 
   &:hover {
+    //background-color: #fafafa;
+    //color: #171e2c;
     h1 {
       letter-spacing: 10px;
       font-size: 2.2rem;
@@ -46,8 +49,11 @@ const TFTBlock = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  //transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 
   &:hover {
+    //background-color: #031017;
+    //color: #fafafa;
     h1 {
       letter-spacing: 10px;
       font-size: 2.2rem;

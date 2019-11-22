@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import useFetch from 'fetch-suspense';
 import useOnClickOutside from 'use-onclickoutside';
-import { SummForm, SummResults, Error, Loading } from '../components';
-import { AppShell, ModalWrapper, AppOverlay, Close } from '../App.css';
+import { SummForm, SummResults, Error, Loading } from './components';
+import { AppShell, ModalWrapper, AppOverlay, Close } from '../../App.css';
 
 const TeamfightTactics = () => {
   const [modalStatus, setModalStatus] = useState(false);

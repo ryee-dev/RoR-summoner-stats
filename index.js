@@ -1,36 +1,37 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-const fs = require('fs');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const axios = require("axios");
+const fs = require("fs");
+const got = require("got");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 // Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(express.static(path.resolve(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
 
 let summonerName;
 
-app.post('/api/summoner', (req, res) => {
+app.post("/api/summoner", (req, res) => {
   summonerName = req.body.summName;
   res.status(204).send();
 });
@@ -41,37 +42,39 @@ app.post('/api/summoner', (req, res) => {
 
 const searchSummoner = async () => {
   let accountId;
-  let matchHistory;
+  let riftMatchHistory;
   let matchStats;
   let playerMatchStatsList = [];
   let matchIdList = [];
   let matchData;
 
   if (summonerName !== undefined) {
+    let gotFetchAccountId = await got(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`
+    );
+
+    // let acctId = "accountId";
+
+    // console.log(gotFetchAccountId["body"["accountId"]]);
+
     let fetchAccountId = await axios.get(
-      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${
-        process.env.API_KEY
-      }`
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`
     );
 
     accountId = fetchAccountId.data.accountId;
 
-    let fetchMatchHistory = await axios.get(
-      `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${
-        process.env.API_KEY
-      }`
+    let fetchRiftMatchHistory = await axios.get(
+      `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${process.env.API_KEY}`
     );
-    matchHistory = fetchMatchHistory.data.matches;
+    riftMatchHistory = fetchRiftMatchHistory.data.matches;
 
-    for (let i = 0; i < matchHistory.length; i++) {
-      matchIdList.push(matchHistory[i].gameId);
+    for (let i = 0; i < riftMatchHistory.length; i++) {
+      matchIdList.push(riftMatchHistory[i].gameId);
     }
 
     for (let i = 0; i < 10; i++) {
       matchData = await axios.get(
-        `https://na1.api.riotgames.com/lol/match/v4/matches/${
-          matchIdList[i]
-        }?api_key=${process.env.API_KEY}`
+        `https://na1.api.riotgames.com/lol/match/v4/matches/${matchIdList[i]}?api_key=${process.env.API_KEY}`
       );
 
       for (let i = 0; i < matchData.data.participants.length; i++) {
@@ -95,7 +98,7 @@ const searchSummoner = async () => {
               primaryRune2: matchData.data.participants[i].stats.perk2,
               primaryRune3: matchData.data.participants[i].stats.perk3,
               secondaryRune1: matchData.data.participants[i].stats.perk4,
-              secondaryRune2: matchData.data.participants[i].stats.perk5,
+              secondaryRune2: matchData.data.participants[i].stats.perk5
             },
             championId: matchData.data.participants[i].championId,
             kills: matchData.data.participants[i].stats.kills,
@@ -113,7 +116,7 @@ const searchSummoner = async () => {
               item3: matchData.data.participants[i].stats.item3,
               item4: matchData.data.participants[i].stats.item4,
               item5: matchData.data.participants[i].stats.item5,
-              item6: matchData.data.participants[i].stats.item6,
+              item6: matchData.data.participants[i].stats.item6
             },
             championLevel: matchData.data.participants[i].stats.champLevel,
             creepScore: {
@@ -126,8 +129,8 @@ const searchSummoner = async () => {
                   .neutralMinionsKilledTeamJungle,
               neutralMinionsKilledEnemyJungle:
                 matchData.data.participants[i].stats
-                  .neutralMinionsKilledEnemyJungle,
-            },
+                  .neutralMinionsKilledEnemyJungle
+            }
           };
 
           playerMatchStatsList.push(matchStats);
@@ -136,7 +139,7 @@ const searchSummoner = async () => {
     }
     return playerMatchStatsList;
   } else {
-    console.log('error');
+    console.log("error");
   }
 };
 
@@ -152,7 +155,7 @@ const getCurrentRotation = async () => {
 
 let output;
 
-app.get('/api/summoner', async (req, res) => {
+app.get("/api/summoner", async (req, res) => {
   if (summonerName !== undefined) {
     await searchSummoner().then(res => {
       output = res;
@@ -163,7 +166,7 @@ app.get('/api/summoner', async (req, res) => {
 
 let rotation;
 
-app.get('/api/current-rotation', async (req, res) => {
+app.get("/api/current-rotation", async (req, res) => {
   await getCurrentRotation().then(res => {
     rotation = res;
   });
@@ -174,27 +177,27 @@ app.get('/api/current-rotation', async (req, res) => {
 let staticData = {
   champions: {
     championNames: [],
-    championKeys: [],
+    championKeys: []
   },
 
   items: {
     itemNames: [],
-    itemKeys: [],
+    itemKeys: []
   },
 
   spells: {
     spellNames: [],
     spellKeys: [],
-    spellIds: [],
+    spellIds: []
   },
 
   runes: {
     runeNames: [],
-    runeIds: [],
-  },
+    runeIds: []
+  }
 };
 
-fs.readFile('./static/champion.json', 'utf8', (err, data) => {
+fs.readFile("./static/champion.json", "utf8", (err, data) => {
   if (err) {
     throw err;
   }
@@ -209,7 +212,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
 
 // serve item.json
 
-fs.readFile('./static/item.json', 'utf8', (err, data) => {
+fs.readFile("./static/item.json", "utf8", (err, data) => {
   if (err) {
     throw err;
   }
@@ -225,7 +228,7 @@ fs.readFile('./static/item.json', 'utf8', (err, data) => {
 // serve summoner spells
 let summSpellData;
 
-fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
+fs.readFile("./static/summoner.json", "utf8", (err, data) => {
   if (err) {
     throw err;
   }
@@ -242,7 +245,7 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
 // serve summoner runes
 let summKeystoneData;
 
-fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
+fs.readFile("./static/runesReforged.json", "utf8", (err, data) => {
   if (err) {
     throw err;
   }
@@ -261,19 +264,19 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   }
 });
 
-app.get('/static', async (req, res) => {
+app.get("/static", async (req, res) => {
   res.json(staticData);
 });
 
 // fetch static data
-app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  app.use(express.static(path.join(__dirname, "client/build")));
+  // Handle React routing, return all requests to React app
+  app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
 
@@ -288,8 +291,8 @@ if (process.env.NODE_ENV === 'production') {
 // }
 
 // catchall
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/public/index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/public/index.html"));
 });
 
 app.listen(port, (req, res) => {

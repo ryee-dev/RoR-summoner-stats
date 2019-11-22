@@ -6,7 +6,7 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AppRoutes from './routes';
-import { Loading } from './components';
+import { Loading } from './pages/summoners-rift/components';
 
 ReactDOM.render(
   <Suspense fallback={<Loading />}>

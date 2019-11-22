@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as RorLogo } from '../assets/ror-logo.svg';
 
 interface Props {
   setSummName: Function;
@@ -20,7 +19,7 @@ const SummForm: React.FC<Props> = (props: Props) => {
 
   return (
     <FormContainer>
-      <RorLogo />
+      <h1>Teamfight Tactics</h1>
       <SummonerForm
         method="POST"
         action="/api/summoner"
@@ -64,13 +63,15 @@ const FormContainer = styled.div`
   overflow: auto;
 
   h1 {
+    font-family: Leixo, sans-serif;
+    font-size: 3rem;
     color: white;
   }
 `;
 
 const SummonerForm = styled.form`
   width: 100%;
-  margin-top: 5rem;
+  margin-top: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
