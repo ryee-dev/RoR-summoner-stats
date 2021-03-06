@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MatchCard from './MatchCard';
+import MatchCard from './MatchCard/MatchCard';
 
 interface Props {
   data: any;

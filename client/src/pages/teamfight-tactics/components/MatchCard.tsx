@@ -109,7 +109,6 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         win ? { backgroundColor: '#b6f7c1' } : { backgroundColor: '#ffcccc' }
       }
     >
-      {/* eslint-disable jsx-a11y/anchor-is-valid */}
       <CardRow>
         <CardCol>
           <p>{gameMode}</p>

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  setSummName: Function;
+  setSummName: any;
   summQuery: string;
-  setSummQuery: Function;
+  setSummQuery: any;
   summName: string;
 }
 

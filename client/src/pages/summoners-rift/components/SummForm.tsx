@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { ReactComponent as RorLogo } from '../../../assets/ror-logo.svg';
 
 interface Props {
-  setSummName: Function;
+  setSummName: any;
   summQuery: string;
-  setSummQuery: Function;
+  setSummQuery: any;
   summName: string;
 }
 
