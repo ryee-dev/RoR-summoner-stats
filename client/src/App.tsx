@@ -41,7 +41,7 @@ const SummRiftBlock = styled(Link)`
   }
 `;
 
-const TFTBlock = styled(Link)`
+const TFTBlock = styled(Flex)`
   width: 150%;
   height: 100%;
   background-color: #fafafa;
@@ -51,9 +51,28 @@ const TFTBlock = styled(Link)`
   justify-content: flex-start;
   //transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 
+  .tft-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50vw;
+    background-color: black;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
   &:hover {
     //background-color: #031017;
     //color: #fafafa;
+
+    .tft-overlay {
+      opacity: 0.8;
+    }
+
     h1 {
       letter-spacing: 10px;
       font-size: 2.2rem;
@@ -67,7 +86,10 @@ const App = () => {
       <SummRiftBlock to="/summoners-rift">
         <h1>SUMMONER'S RIFT</h1>
       </SummRiftBlock>
-      <TFTBlock to="/teamfight-tactics">
+      <TFTBlock>
+        <Flex className="tft-overlay">
+          <h1>coming soon</h1>
+        </Flex>
         <h1>TEAMFIGHT TACTICS</h1>
       </TFTBlock>
     </PageContainer>
