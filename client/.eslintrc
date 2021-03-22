@@ -27,7 +27,7 @@
     "import"
   ],
   "extends": [
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "env": {
     "es6": true,
