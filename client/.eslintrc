@@ -30,7 +30,7 @@
     "eslint:recommended",
     //    "eslint-config-prettier/@typescript-eslint",
     "prettier",
-    "plugin:prettier/recommended",
+//    "plugin:prettier/recommended",
     "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
