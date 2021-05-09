@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 const CardWrapper = styled.div`
   height: auto;
-  width: 100%;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  margin: 1rem 0;
+  justify-content: center;
+  margin: 0.4rem 0;
   color: #1c222b;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 800px;
 
   p {
     font-size: 1rem;
@@ -17,17 +18,24 @@ const CardWrapper = styled.div`
   }
 
   img.spell {
-    margin: 0.2rem 0;
+    //margin: 0.2rem 0;
   }
 
   img.rune {
-    max-height: 50px;
-    max-width: 50px;
+    max-height: 30px;
+    max-width: 30px;
+    margin: 0.2rem;
+  }
+
+  .list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
 `;
 
 const CardRow = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -44,10 +52,12 @@ const CardCol = styled.div`
 
   &.center {
     align-items: center;
+    padding: 0 0.5rem;
   }
 
   .spell {
-    max-width: 64px;
+    max-width: 40px;
+    margin: 0.5rem 5px 0 5px;
   }
 
   .items {
@@ -75,6 +85,13 @@ const ItemContainer = styled.div`
       margin: 0 0.1rem;
       height: 50px;
       width: 50px;
+
+      .empty {
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        opacity: 0.5;
+      }
     }
   }
 
@@ -88,12 +105,20 @@ const ItemContainer = styled.div`
 
 const RuneWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  margin-bottom: 0.2rem;
+  //margin-bottom: 0.2rem;
+  margin: 0 0.4rem 0.2rem 0.4rem;
 
   img {
     margin: 0 0.2rem;
+  }
+
+  .col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
   }
 `;
 

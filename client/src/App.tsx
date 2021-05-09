@@ -30,13 +30,17 @@ const SummRiftBlock = styled(Link)`
   align-items: center;
   justify-content: flex-end;
   //transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+  h1 {
+    transition: all 0.3s ease-in-out;
+  }
 
   &:hover {
     //background-color: #fafafa;
     //color: #171e2c;
     h1 {
-      letter-spacing: 10px;
-      font-size: 2.2rem;
+      //letter-spacing: 10px;
+      //font-size: 2.2rem;
+      transform: scale(1.2) translateX(-60%);
     }
   }
 `;
@@ -59,7 +63,7 @@ const TFTBlock = styled(Flex)`
     width: 50vw;
     background-color: black;
     opacity: 0;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
     align-items: center;
     justify-content: center;
     color: white;
@@ -71,11 +75,12 @@ const TFTBlock = styled(Flex)`
 
     .tft-overlay {
       opacity: 0.8;
+      //transform: scale(1.2);
     }
 
     h1 {
-      letter-spacing: 10px;
-      font-size: 2.2rem;
+      //letter-spacing: 10px;
+      //font-size: 2.2rem;
     }
   }
 `;

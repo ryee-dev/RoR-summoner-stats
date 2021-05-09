@@ -104,7 +104,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return csPerMin.toFixed(1);
   };
 
-  const SecondsToMins = (secs: number) => {
+  const handleConvertSecToMin = (secs: number) => {
     const minutes = Math.floor(secs / 60);
     const seconds = secs % 60;
     return `${minutes}m ${seconds}s`;
@@ -116,38 +116,42 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         win ? { backgroundColor: '#b6f7c1' } : { backgroundColor: '#ffcccc' }
       }
     >
-      <CardRow>
+      <CardRow className="list">
         <CardCol>
-          <p>{gameMode}</p>
-          {win ? <p>Victory</p> : <p>Defeat</p>}
-          <p>{SecondsToMins(gameDuration)}</p>
+          <h3 style={{ fontWeight: 'bold' }}>{gameMode}</h3>
+          {win ? (
+            <h3 style={{ color: '#91b859' }}>Victory</h3>
+          ) : (
+            <h3 style={{ color: '#f07178' }}>Defeat</h3>
+          )}
+          <p>{handleConvertSecToMin(gameDuration)}</p>
         </CardCol>
         <CardCol className="center">
           <img
             className="champion"
-            src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/${championName}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/${championName}.png`}
             alt={`${championName}`}
           />
+          <CardRow>
+            <img
+              className="spell"
+              src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/${summAId}.png`}
+              alt={`${summAName}`}
+            />
+            <img
+              className="spell"
+              src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/${summBId}.png`}
+              alt={`${summBName}`}
+            />
+          </CardRow>
         </CardCol>
-        <CardCol>
-          <img
-            className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/spell/${summAId}.png`}
-            alt={`${summAName}`}
-          />
-          <img
-            className="spell"
-            src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/spell/${summBId}.png`}
-            alt={`${summBName}`}
-          />
-        </CardCol>
+
         <CardCol className="center">
           <p>
             {kills}/<span style={{ color: '#be3044' }}>{deaths}</span>/{assists}
           </p>
           {deaths === 0 ? <p>Perfect</p> : <p>{kda}:1 KDA</p>}
-        </CardCol>
-        <CardCol>
+
           <p>level: {champLevel}</p>
           <p>
             {getTotalCS()} ({getCsPerMin()}) CS
@@ -159,65 +163,46 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item0 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item0}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item0}.png`}
                     alt={`${item0}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
               <div className="img-wrapper">
                 {items.item1 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item1}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item1}.png`}
                     alt={`${item1}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
               <div className="img-wrapper">
                 {items.item2 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item2}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item2}.png`}
                     alt={`${item2}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
               <div className="img-wrapper">
                 {items.item6 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item6}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item6}.png`}
                     alt={`${item6}`}
-                  />
-                ) : (
-                  <div
                     style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
+                      marginLeft: '0.4rem',
+                      maxWidth: '25px',
+                      maxHeight: '25px',
                     }}
                   />
+                ) : (
+                  <div className="empty" />
                 )}
               </div>
             </div>
@@ -225,56 +210,38 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item4 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item4}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item4}.png`}
                     alt={`${item4}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
               <div className="img-wrapper">
                 {items.item5 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item5}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item5}.png`}
                     alt={`${item5}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
               <div className="img-wrapper">
                 {items.item3 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.11.1/img/item/${items.item3}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${items.item3}.png`}
                     alt={`${item3}`}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '50px',
-                      width: '50px',
-                      border: '1px solid black',
-                    }}
-                  />
+                  <div className="empty" />
                 )}
               </div>
             </div>
           </ItemContainer>
         </CardCol>
-        <CardCol>
-          <RuneWrapper>
+        <RuneWrapper>
+          <div className="col">
             <img
               className="rune"
               src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.keystone}.png`}
@@ -295,8 +262,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.primaryRune3}.png`}
               alt={`${primaryRune3}`}
             />
-          </RuneWrapper>
-          <RuneWrapper>
+          </div>
+          <div className="col">
             <img
               className="rune"
               src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.secondaryRune1}.png`}
@@ -307,8 +274,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.secondaryRune2}.png`}
               alt={`${secondaryRune2}`}
             />
-          </RuneWrapper>
-        </CardCol>
+          </div>
+        </RuneWrapper>
       </CardRow>
     </CardWrapper>
   );
