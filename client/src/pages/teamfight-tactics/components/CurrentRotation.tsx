@@ -7,7 +7,7 @@ const CurrentRotation = () => {
     <Container>
       current rotation
     </Container>
-  )
+  );
 };
 
 export default CurrentRotation;
