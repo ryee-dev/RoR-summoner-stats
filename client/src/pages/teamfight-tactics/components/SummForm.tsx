@@ -31,7 +31,7 @@ const SummForm: React.FC<Props> = (props: Props) => {
           value={summName}
           // autoComplete="off"
           name="summName"
-          onChange={e => setSummName(e.target.value)}
+          onChange={(e) => setSummName(e.target.value)}
         />
         <SubmitButt
           type="submit"

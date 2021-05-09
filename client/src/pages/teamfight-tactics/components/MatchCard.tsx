@@ -152,88 +152,116 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {items.item0 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item0
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item0}.png`}
                     alt={`${item0}`}
                   />
-                ) :
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
               <div className="img-wrapper">
                 {items.item1 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item1
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item1}.png`}
                     alt={`${item1}`}
                   />
-                ):
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
               <div className="img-wrapper">
                 {items.item2 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item2
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item2}.png`}
                     alt={`${item2}`}
                   />
-                ) :
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
               <div className="img-wrapper">
                 {items.item6 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item6
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item6}.png`}
                     alt={`${item6}`}
                   />
-                ) : <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
             </div>
             <div className="row">
               <div className="img-wrapper">
                 {items.item4 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item4
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item4}.png`}
                     alt={`${item4}`}
                   />
-                ) :
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
               <div className="img-wrapper">
                 {items.item5 !== 0 ? (
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                      items.item5
-                    }.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item5}.png`}
                     alt={`${item5}`}
                   />
-                ) :
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
               <div className="img-wrapper">
-
                 {items.item3 !== 0 ? (
-                    <img
-                      src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${
-                        items.item3
-                      }.png`}
-                      alt={`${item3}`}
-                    />
-                  ) :
-                  <div style={{ height: '50px', width: '50px', border: '1px solid black' }} />
-                }
+                  <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/9.20.1/img/item/${items.item3}.png`}
+                    alt={`${item3}`}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      border: '1px solid black',
+                    }}
+                  />
+                )}
               </div>
             </div>
           </ItemContainer>
@@ -242,46 +270,34 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           <RuneWrapper>
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.keystone
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.keystone}.png`}
               alt={`${keystone}`}
             />
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.primaryRune1
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.primaryRune1}.png`}
               alt={`${primaryRune1}`}
             />
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.primaryRune2
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.primaryRune2}.png`}
               alt={`${primaryRune2}`}
             />
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.primaryRune3
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.primaryRune3}.png`}
               alt={`${primaryRune3}`}
             />
           </RuneWrapper>
           <RuneWrapper>
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.secondaryRune1
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.secondaryRune1}.png`}
               alt={`${secondaryRune1}`}
             />
             <img
               className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${
-                runes.secondaryRune2
-              }.png`}
+              src={`https://opgg-static.akamaized.net/images/lol/perk/${runes.secondaryRune2}.png`}
               alt={`${secondaryRune2}`}
             />
           </RuneWrapper>

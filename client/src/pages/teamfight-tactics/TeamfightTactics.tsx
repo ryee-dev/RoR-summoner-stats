@@ -45,7 +45,7 @@ const TeamfightTactics = () => {
 
         await axios
           .get('/api/summoner')
-          .then(res => {
+          .then((res) => {
             setData({
               hits: res.data,
             });

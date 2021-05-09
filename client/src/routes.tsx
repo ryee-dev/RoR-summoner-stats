@@ -12,7 +12,7 @@ const AppRoutes: () => any[ReactElement] = () => {
   const location = useLocation();
   const routeTransitions = useTransition(
     location,
-    location => location.pathname,
+    (location) => location.pathname,
     {
       from: { opacity: 0 },
       enter: { opacity: 1 },
