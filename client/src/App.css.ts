@@ -21,12 +21,13 @@ export const AppOverlay = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  opacity: 0.4;
+  opacity: 0.75;
   z-index: 1;
 `;
 
 export const ModalWrapper = styled.div`
   position: absolute;
+  max-width: 960px;
   width: 80%;
   height: 80%;
   display: flex;
@@ -36,6 +37,8 @@ export const ModalWrapper = styled.div`
   overflow-x: hidden;
   border-radius: 6px;
   z-index: 2;
+  //padding: 0 2rem;
+  box-sizing: border-box;
 `;
 
 export const Close = styled(CloseIcon)`
@@ -43,7 +46,7 @@ export const Close = styled(CloseIcon)`
   top: 0;
   right: 0;
   padding: 2rem 2rem 0 0;
-  z-index: 2;
+  z-index: 3;
 
   &:hover {
     cursor: pointer;
