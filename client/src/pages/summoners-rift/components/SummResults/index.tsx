@@ -1,15 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import MatchCard from './MatchCard';
+import React, { useState, useEffect } from 'react';
+import MatchCard from '../MatchCard';
 
-interface Props {
+import { ListWrapper, ResultsModal } from './SummResults.css';
+
+interface ResultsProps {
   data: any;
   summQuery: string;
   staticData: any;
 }
 
-const SummResults: React.FC<Props> = (props: Props) => {
+const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
   const { data, summQuery, staticData } = props;
+  // const [champName, setChampName] = useState('');
+  // const [itemList, setItemList] = useState([]);
+  // const [spellList, setSpellList] = useState([]);
+  // const [runeList, setRuneList] = useState([]);
+
+  // const [matchData, setMatchData] = useState({});
 
   const getChampionName = (champKey: number) => {
     let championName;
@@ -61,13 +68,24 @@ const SummResults: React.FC<Props> = (props: Props) => {
     return runeName;
   };
 
+  /*
+
+  1. calculate all data values before rendering
+
+  */
+
+  // useEffect(() => {
+  //   console.log(data.hits[0]);
+  // }),
+  //   [data];
+
   return (
     <ResultsModal>
       <ListWrapper>
         <h1>{summQuery}</h1>
         {data.hits.map((match: any) => (
           <MatchCard
-            key={match.gameId}
+            key={match.gameDuration}
             gameMode={match.gameMode}
             win={match.outcome}
             gameDuration={match.gameDuration}
@@ -113,45 +131,3 @@ const SummResults: React.FC<Props> = (props: Props) => {
 };
 
 export default SummResults;
-
-const ResultsModal = styled.div`
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  //padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1rem;
-  }
-`;
-
-const ListWrapper = styled.div`
-  //height: 50%;
-  position: absolute;
-  padding: 0 1rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  background-color: #dadddf;
-  overflow: auto;
-
-  h1 {
-    font-family: Paralucent, sans-serif;
-    font-weight: lighter;
-    letter-spacing: 8px;
-    text-transform: lowercase;
-    font-size: 3rem;
-    color: #5d5e5a;
-  }
-`;

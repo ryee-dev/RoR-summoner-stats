@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-// import ReactTooltip from 'react-tooltip';
+// import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+
 import {
   CardWrapper,
   RuneWrapper,
@@ -105,6 +106,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   };
 
   const handleConvertSecToMin = (secs: number) => {
+    console.log(gameDuration);
     const minutes = Math.floor(secs / 60);
     const seconds = secs % 60;
     return `${minutes}m ${seconds}s`;
@@ -131,7 +133,9 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             className="champion"
             src={`http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/${championName}.png`}
             alt={`${championName}`}
+            data-tip={`${championName}`}
           />
+          <ReactTooltip place="top" type="dark" effect="float" />
           <CardRow>
             <img
               className="spell"
