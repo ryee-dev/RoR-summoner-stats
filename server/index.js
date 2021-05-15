@@ -115,7 +115,7 @@ const searchSummoner = async () => {
 
     for (let i = 0; i < 10; i++) {
       matchData = await handleGetMatch(riftMatchHistory[i]);
-      console.log(matchData);
+      // console.log(matchData);
 
       const {
         // participants,
@@ -135,12 +135,7 @@ const searchSummoner = async () => {
       for (let i = 0; i < participants.length; i++) {
         let {
           win,
-          perk0,
-          perk1,
-          perk2,
-          perk3,
-          perk4,
-          perk5,
+          perks,
           kills,
           deaths,
           assists,
@@ -157,26 +152,28 @@ const searchSummoner = async () => {
           neutralMinionsKilledTeamJungle,
           neutralMinionsKilledEnemyJungle,
           championId,
+          summoner1Id,
+          summoner2Id,
         } = participants[i];
 
         if (name === summonerName) {
           matchStats = {
-            gameId: gameId,
-            gameMode: gameMode,
+            gameId,
+            gameMode,
             outcome: win,
-            gameDuration: gameDuration,
-            summonerName: summonerName,
-            spell1Id: participants[i].summoner1Id,
-            spell2Id: participants[i].summoner2Id,
+            gameDuration,
+            summonerName,
+            spell1Id: summoner1Id,
+            spell2Id: summoner2Id,
             runes: {
-              keystone: perk0,
-              primaryRune1: perk1,
-              primaryRune2: perk2,
-              primaryRune3: perk3,
-              secondaryRune1: perk4,
-              secondaryRune2: perk5,
+              keystone: perks.styles[0].selections[0].perk,
+              primaryRune1: perks.styles[0].selections[1].perk,
+              primaryRune2: perks.styles[0].selections[2].perk,
+              primaryRune3: perks.styles[0].selections[3].perk,
+              secondaryRune1: perks.styles[1].selections[0].perk,
+              secondaryRune2: perks.styles[1].selections[1].perk,
             },
-            championId: championId,
+            championId,
             kills,
             deaths,
             assists,
@@ -199,47 +196,48 @@ const searchSummoner = async () => {
             },
           };
 
+          // console.log(matchStats.runes);
           playerMatchStatsList.push(matchStats);
         }
       }
     }
-    console.log(playerMatchStatsList);
+    // console.log(playerMatchStatsList);
     return playerMatchStatsList;
   } else {
     console.log('error');
   }
 };
 
-let currentRotation;
+// let currentRotation;
+//
+// const getCurrentRotation = async () => {
+//   let fetchCurrentRotation = await axios.get(
+//     `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}
+//       }`
+//   );
+//   currentRotation = fetchCurrentRotation.data.freeChampionIds;
+// };
 
-const getCurrentRotation = async () => {
-  let fetchCurrentRotation = await axios.get(
-    `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}
-      }`
-  );
-  currentRotation = fetchCurrentRotation.data.freeChampionIds;
-};
+// let output;
+//
+// app.get('/api/summoner', async (req, res) => {
+//   if (summonerName !== undefined) {
+//     await searchSummoner().then((res) => {
+//       output = res;
+//     });
+//     res.json(output);
+//   }
+// });
 
-let output;
-
-app.get('/api/summoner', async (req, res) => {
-  if (summonerName !== undefined) {
-    await searchSummoner().then((res) => {
-      output = res;
-    });
-    res.json(output);
-  }
-});
-
-let rotation;
-
-app.get('/api/current-rotation', async (req, res) => {
-  await getCurrentRotation().then((res) => {
-    rotation = res;
-  });
-  res.json(rotation);
-  // console.log(rotation);
-});
+// let rotation;
+//
+// app.get('/api/current-rotation', async (req, res) => {
+//   await getCurrentRotation().then((res) => {
+//     rotation = res;
+//   });
+//   res.json(rotation);
+//   // console.log(rotation);
+// });
 
 let staticData = {
   champions: {
@@ -266,7 +264,7 @@ let staticData = {
 
 fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
-    // throw err;
+    throw err;
   }
 
   let summChampiondata = JSON.parse(data);
@@ -281,7 +279,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
 
 fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
-    // throw err;
+    throw err;
   }
 
   let summItemData = JSON.parse(data);
@@ -297,7 +295,7 @@ let summSpellData;
 
 fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
-    // throw err;
+    throw err;
   }
 
   summSpellData = JSON.parse(data);
@@ -314,7 +312,7 @@ let summKeystoneData;
 
 fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {
-    // throw err;
+    throw err;
   }
   summKeystoneData = JSON.parse(data);
   const keystoneEntries = Object.entries(summKeystoneData);
