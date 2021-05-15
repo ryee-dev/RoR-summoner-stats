@@ -54,9 +54,51 @@ app.post('/api/summoner', (req, res) => {
   res.status(204).send();
 });
 
+const summByName =
+  'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
+const matchListByPuuid =
+  'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/';
+const matchByMatchID =
+  'https://americas.api.riotgames.com/lol/match/v5/matches/';
+
+const handleGetPuuid = async (summName) => {
+  let summPuuid = await got(`${summByName}${summName}?api_key=${API_KEY}`, {
+    responseType: 'json',
+    resolveBodyOnly: true,
+  });
+  return summPuuid.puuid;
+};
+
+const handleGetMatchHistory = async (name) => {
+  const acctPuuid = await handleGetPuuid(name);
+  // console.log(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`);
+  let allMatches = await got(
+    `${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`,
+    {
+      responseType: 'json',
+      resolveBodyOnly: true,
+    }
+  );
+
+  return allMatches;
+};
+
+const handleGetMatch = async (matchId) => {
+  let singleMatch = await got(
+    `${matchByMatchID}${matchId}?api_key=${API_KEY}`,
+    {
+      responseType: 'json',
+      resolveBodyOnly: true,
+    }
+  );
+
+  // console.log(singleMatch);
+
+  return singleMatch;
+};
+
 const searchSummoner = async () => {
   let {
-    accountId,
     riftMatchHistory,
     matchStats,
     playerMatchStatsList,
@@ -64,117 +106,68 @@ const searchSummoner = async () => {
     matchData,
   } = SummonerData;
 
-  const summByName =
-    'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
-  const matchListByAcctId =
-    'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/';
-  const matchesByMatchID =
-    'https://na1.api.riotgames.com/lol/match/v4/matches/';
-
   if (summonerName !== undefined) {
-    await got(`${summByName}${summonerName}?api_key=${API_KEY}`, {
-      responseType: 'json',
-      resolveBodyOnly: true,
-    }).then((res) => {
-      // console.log(`${matchListByAcctId}${res.id}?api_key=${API_KEY}`);
-      got(`${matchListByAcctId}${res.id}?api_key=${API_KEY}`, {
-        responseType: 'json',
-        resolveBodyOnly: true,
-      }).then((res) => {
-        console.log(res);
-        // SummonerData.riftMatchHistory = res.matches;
-      });
-    });
-
-    // .catch((err) => {
-    //   console.log(err.response);
-    // });
-    // await got(`${summonerName}?api_key=${API_KEY}`, { prefixUrl: summByName })
-    //   .then((res) => {
-    //     let parsedData = JSON.parse(res.body);
-    //     SummonerData.accountId = parsedData.id;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    //
-    // await got(`${accountId}?api_key=${API_KEY}`, {
-    //   prefixUrl: matchListByAcctId,
-    // })
-    //   .then((res) => {
-    //     let parsedData = JSON.parse(res.body);
-    //     console.log(parsedData);
-    //     SummonerData.riftMatchHistory = parsedData.matches;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    riftMatchHistory = await handleGetMatchHistory(summonerName);
 
     for (let i = 0; i < riftMatchHistory.length; i++) {
       matchIdList.push(riftMatchHistory[i].gameId);
     }
 
     for (let i = 0; i < 10; i++) {
-      await got(`${matchIdList[i]}?api_key=${API_KEY}`, {
-        prefixUrl: matchesByMatchID,
-      })
-        .then((res) => {
-          let parsedData = JSON.parse(res.body);
-          SummonerData.matchData = parsedData.matchData;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      matchData = await handleGetMatch(riftMatchHistory[i]);
+      console.log(matchData);
 
-      const { participants, name, participantIdentities } =
-        SummonerData.matchData;
+      const {
+        // participants,
+        name,
+        summonerName,
+        // gameId,
+        // gameMode,
+        // gameDuration,
+      } = matchData;
+
+      const {
+        info: { gameDuration, gameId, gameMode, participants },
+      } = matchData;
+
+      // console.log(participants);
 
       for (let i = 0; i < participants.length; i++) {
         let {
-          player: { summonerName },
-          participantId,
-        } = participantIdentities[i];
-        let {
-          stats: {
-            win,
-            perk0,
-            perk1,
-            perk2,
-            perk3,
-            perk4,
-            perk5,
-            kills,
-            deaths,
-            assists,
-            item0,
-            item1,
-            item2,
-            item3,
-            item4,
-            item5,
-            item6,
-            champLevel,
-            totalMinionsKilled,
-            neutralMinionsKilled,
-            neutralMinionsKilledTeamJungle,
-            neutralMinionsKilledEnemyJungle,
-            championId,
-          },
+          win,
+          perk0,
+          perk1,
+          perk2,
+          perk3,
+          perk4,
+          perk5,
+          kills,
+          deaths,
+          assists,
+          item0,
+          item1,
+          item2,
+          item3,
+          item4,
+          item5,
+          item6,
+          champLevel,
+          totalMinionsKilled,
+          neutralMinionsKilled,
+          neutralMinionsKilledTeamJungle,
+          neutralMinionsKilledEnemyJungle,
+          championId,
         } = participants[i];
-        const { gameId, gameMode, gameDuration } = matchData;
 
-        if (
-          name === summonerName &&
-          participantId === participants[i].participantId
-        ) {
+        if (name === summonerName) {
           matchStats = {
             gameId: gameId,
             gameMode: gameMode,
             outcome: win,
             gameDuration: gameDuration,
             summonerName: summonerName,
-            spell1Id: participants[i].spell1Id,
-            spell2Id: participants[i].spell2Id,
+            spell1Id: participants[i].summoner1Id,
+            spell2Id: participants[i].summoner2Id,
             runes: {
               keystone: perk0,
               primaryRune1: perk1,
@@ -210,6 +203,7 @@ const searchSummoner = async () => {
         }
       }
     }
+    console.log(playerMatchStatsList);
     return playerMatchStatsList;
   } else {
     console.log('error');
@@ -272,7 +266,7 @@ let staticData = {
 
 fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
-    throw err;
+    // throw err;
   }
 
   let summChampiondata = JSON.parse(data);
@@ -287,7 +281,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
 
 fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
-    throw err;
+    // throw err;
   }
 
   let summItemData = JSON.parse(data);
@@ -303,7 +297,7 @@ let summSpellData;
 
 fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
-    throw err;
+    // throw err;
   }
 
   summSpellData = JSON.parse(data);
@@ -320,7 +314,7 @@ let summKeystoneData;
 
 fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {
-    throw err;
+    // throw err;
   }
   summKeystoneData = JSON.parse(data);
   const keystoneEntries = Object.entries(summKeystoneData);
