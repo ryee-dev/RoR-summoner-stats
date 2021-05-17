@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const axios = require('axios');
 const fs = require('fs');
 const got = require('got');
 
@@ -66,35 +65,27 @@ const handleGetPuuid = async (summName) => {
     responseType: 'json',
     resolveBodyOnly: true,
   });
-  return summPuuid.puuid;
+
+  const { puuid } = summPuuid;
+  return puuid;
 };
 
 const handleGetMatchHistory = async (name) => {
   const acctPuuid = await handleGetPuuid(name);
   // console.log(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`);
-  let allMatches = await got(
-    `${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`,
-    {
-      responseType: 'json',
-      resolveBodyOnly: true,
-    }
-  );
-
-  return allMatches;
+  return got(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`, {
+    responseType: 'json',
+    resolveBodyOnly: true,
+  });
 };
 
 const handleGetMatch = async (matchId) => {
-  let singleMatch = await got(
-    `${matchByMatchID}${matchId}?api_key=${API_KEY}`,
-    {
-      responseType: 'json',
-      resolveBodyOnly: true,
-    }
-  );
-
   // console.log(singleMatch);
 
-  return singleMatch;
+  return got(`${matchByMatchID}${matchId}?api_key=${API_KEY}`, {
+    responseType: 'json',
+    resolveBodyOnly: true,
+  });
 };
 
 const searchSummoner = async () => {
@@ -129,8 +120,6 @@ const searchSummoner = async () => {
       const {
         info: { gameDuration, gameId, gameMode, participants },
       } = matchData;
-
-      // console.log(participants);
 
       for (let i = 0; i < participants.length; i++) {
         let {
@@ -209,7 +198,7 @@ const searchSummoner = async () => {
 };
 
 // let currentRotation;
-//
+
 // const getCurrentRotation = async () => {
 //   let fetchCurrentRotation = await axios.get(
 //     `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}
@@ -218,16 +207,16 @@ const searchSummoner = async () => {
 //   currentRotation = fetchCurrentRotation.data.freeChampionIds;
 // };
 
-// let output;
-//
-// app.get('/api/summoner', async (req, res) => {
-//   if (summonerName !== undefined) {
-//     await searchSummoner().then((res) => {
-//       output = res;
-//     });
-//     res.json(output);
-//   }
-// });
+let output;
+
+app.get('/api/summoner', async (req, res) => {
+  if (summonerName !== undefined) {
+    await searchSummoner().then((res) => {
+      output = res;
+    });
+    res.json(output);
+  }
+});
 
 // let rotation;
 //
@@ -345,15 +334,15 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, 'client/build')));
-//   // app.get('*', (req, res) => {
-//   //   res.sendfile(path.join((__dirname = 'client/build/index.html')));
-//   // });
-//   app.get('*', (req, res) => {
-//     res.sendfile(path.join((__dirname + '/client/build/index.html')));
-//   });
-// }
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // app.get('*', (req, res) => {
+  //   res.sendfile(path.join((__dirname = 'client/build/index.html')));
+  // });
+  app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 // catchall
 app.get('/', (req, res) => {
