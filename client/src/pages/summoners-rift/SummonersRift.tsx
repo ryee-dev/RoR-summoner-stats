@@ -45,6 +45,8 @@ const SummonersRift = () => {
           hits: await ky.get('/api/summoner').json(),
         });
 
+        console.log(summData);
+
         setError(false);
         setLoading(false);
         setModalStatus(true);
@@ -53,7 +55,9 @@ const SummonersRift = () => {
     };
 
     if (summQuery !== '') {
-      fetchData();
+      fetchData().catch(() => {
+        console.log('error');
+      });
     }
   }, [summQuery]);
 

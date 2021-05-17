@@ -72,7 +72,7 @@ const handleGetPuuid = async (summName) => {
 
 const handleGetMatchHistory = async (name) => {
   const acctPuuid = await handleGetPuuid(name);
-  // console.log(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`);
+  console.log(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`);
   return got(`${matchListByPuuid}${acctPuuid}/ids?api_key=${API_KEY}`, {
     responseType: 'json',
     resolveBodyOnly: true,

@@ -1,11 +1,11 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './index.css';
-// import App from './App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
-import AppRoutes from './routes';
+// import AppRoutes from './routes';
 import { Loading } from './pages/summoners-rift/components';
 
 ReactDOM.render(
@@ -14,9 +14,10 @@ ReactDOM.render(
       <link rel="stylesheet" href="https://use.typekit.net/jka5wdi.css" />
       <title>Reeg of Regends</title>
     </Helmet>
-    <Router>
-      <AppRoutes />
-    </Router>
+    <App />
+    {/*<Router>*/}
+    {/*  <AppRoutes />*/}
+    {/*</Router>*/}
   </Suspense>,
   document.querySelector('#root')
 );
