@@ -2,10 +2,7 @@ import React, { ReactElement } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 import SummonersRift from './pages/summoners-rift/SummonersRift';
-// import TeamfightTactics from './pages/teamfight-tactics/TeamfightTactics';
 import App from './App';
-
-// interface RouteProps {}
 
 // @ts-ignore
 const AppRoutes: () => any[ReactElement] = () => {
@@ -25,7 +22,6 @@ const AppRoutes: () => any[ReactElement] = () => {
       <Switch location={location}>
         <Route exact path="/" component={App} />
         <Route path="/summoners-rift" component={SummonersRift} />
-        {/*<Route path="/teamfight-tactics" component={TeamfightTactics} />*/}
       </Switch>
     </animated.div>
   ));
