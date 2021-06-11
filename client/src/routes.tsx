@@ -9,19 +9,15 @@ import App from './App';
 // @ts-ignore
 const AppRoutes: () => any[ReactElement] = () => {
   const location = useLocation();
-  const routeTransitions = useTransition(
-    location,
-    (location) => location.pathname,
-    {
-      from: { opacity: 0 },
-      enter: { opacity: 1 },
-      leave: { opacity: 0 },
-    }
-  );
+  const routeTransitions = useTransition(location, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
-  return routeTransitions.map(({ item: location, props, key }) => (
-    <animated.div key={key} style={props}>
-      <Switch location={location}>
+  return routeTransitions((props, item) => (
+    <animated.div style={props}>
+      <Switch location={item}>
         <Route exact path="/" component={App} />
         <Route path="/summoners-rift" component={SummonersRift} />
       </Switch>

@@ -97,36 +97,33 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
 
   useEffect(() => {
     const { item0, item1, item2, item3, item4, item5, item6 } = items;
-    matchData &&
-      setMatchData({
-        championName: getChampionName(championName, staticData),
-        runes: {
-          keystone: getRuneName(keystone, staticData),
-          primaryRune1: getRuneName(primaryRune1, staticData),
-          primaryRune2: getRuneName(primaryRune2, staticData),
-          primaryRune3: getRuneName(primaryRune3, staticData),
-          secondaryRune1: getRuneName(secondaryRune1, staticData),
-          secondaryRune2: getRuneName(secondaryRune2, staticData),
-        },
-        spells: {
-          summAName: getSpellName(summAId, staticData),
-          summBName: getSpellName(summBId, staticData),
-          summAId: getSpellId(summAId, staticData),
-          summBId: getSpellId(summBId, staticData),
-        },
-        items: {
-          item0: getItemName(item0, staticData),
-          item1: getItemName(item1, staticData),
-          item2: getItemName(item2, staticData),
-          item3: getItemName(item3, staticData),
-          item4: getItemName(item4, staticData),
-          item5: getItemName(item5, staticData),
-          item6: getItemName(item6, staticData),
-        },
-      });
-
-    console.log(matchData);
-  }, [matchData]);
+    setMatchData({
+      championName: getChampionName(championName, staticData),
+      runes: {
+        keystone: getRuneName(keystone, staticData),
+        primaryRune1: getRuneName(primaryRune1, staticData),
+        primaryRune2: getRuneName(primaryRune2, staticData),
+        primaryRune3: getRuneName(primaryRune3, staticData),
+        secondaryRune1: getRuneName(secondaryRune1, staticData),
+        secondaryRune2: getRuneName(secondaryRune2, staticData),
+      },
+      spells: {
+        summAName: getSpellName(summAId, staticData),
+        summBName: getSpellName(summBId, staticData),
+        summAId: getSpellId(summAId, staticData),
+        summBId: getSpellId(summBId, staticData),
+      },
+      items: {
+        item0: getItemName(item0, staticData),
+        item1: getItemName(item1, staticData),
+        item2: getItemName(item2, staticData),
+        item3: getItemName(item3, staticData),
+        item4: getItemName(item4, staticData),
+        item5: getItemName(item5, staticData),
+        item6: getItemName(item6, staticData),
+      },
+    });
+  }, []);
 
   return (
     <CardWrapper

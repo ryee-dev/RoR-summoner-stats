@@ -61,6 +61,10 @@ const SummonersRift = () => {
     }
   }, [summQuery]);
 
+  useEffect(() => {
+    console.log(staticData);
+  }, []);
+
   return (
     <AppShell onKeyDown={handleEscClose}>
       <SummForm

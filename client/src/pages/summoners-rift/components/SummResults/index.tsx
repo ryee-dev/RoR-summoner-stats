@@ -11,7 +11,7 @@ const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
     <ResultsModal>
       <ListWrapper>
         <h1>{summQuery}</h1>
-        {data.hits.map((match: any) => (
+        {data.hits.slice(0, 5).map((match: any) => (
           <MatchCard
             staticData={staticData}
             key={match.gameDuration}
