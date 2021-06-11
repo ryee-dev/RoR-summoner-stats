@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
-// import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
+import { MatchProps, MatchDataProps } from '../../../../utils/types';
+
+import {
+  getChampionName,
+  getSpellId,
+  getSpellName,
+  getRuneName,
+  getItemName,
+  handleConvertSecToMin,
+} from '../../../../utils/helpers';
 
 import {
   CardWrapper,
@@ -10,36 +19,8 @@ import {
   ItemContainer,
 } from './MatchCard.css';
 
-interface MatchProps {
-  staticData: any;
-  key: number;
-  gameMode: any;
-  win: string;
-  gameDuration: number;
-  summonerName: string;
-  summAId: number;
-  summBId: number;
-  keystone: number;
-  primaryRune1: number;
-  primaryRune2: number;
-  primaryRune3: number;
-  secondaryRune1: number;
-  secondaryRune2: number;
-  championName: string;
-  kills: number;
-  deaths: number;
-  assists: number;
-  kda: number;
-  items: any;
-  champLevel: number;
-  totalMinionsKilled: number;
-  neutralMinionsKilled: number;
-  neutralMinionsKilledTeamJungle: number;
-  neutralMinionsKilledEnemyJungle: number;
-}
-
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
-  const [matchData, setMatchData] = useState({
+  const [matchData, setMatchData] = useState<MatchDataProps>({
     championName: '',
     spells: {
       summAName: '',
@@ -92,56 +73,6 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     neutralMinionsKilledEnemyJungle,
   } = props;
 
-  const getChampionName = (champKey: any) => {
-    let championName;
-    for (let i = 0; i < staticData.champions.championKeys.length; i++) {
-      if (champKey.toString() === staticData.champions.championKeys[i]) {
-        championName = staticData.champions.championNames[i];
-      }
-    }
-    return championName;
-  };
-
-  const getItemName = (itemKey: number) => {
-    let itemName;
-    for (let i = 0; i < staticData.itemKeys.length; i++) {
-      if (itemKey.toString() === staticData.itemKeys[i]) {
-        itemName = staticData.itemNames[i];
-      }
-    }
-    return itemName;
-  };
-
-  const getSpellName = (spellKey: number) => {
-    let spellName;
-    for (let i = 0; i < staticData.spells.spellKeys.length; i++) {
-      if (spellKey.toString() === staticData.spells.spellKeys[i]) {
-        spellName = staticData.spells.spellNames[i];
-      }
-    }
-    return spellName;
-  };
-
-  const getSpellId = (spellKey: number) => {
-    let spellId;
-    for (let i = 0; i < staticData.spells.spellKeys.length; i++) {
-      if (spellKey.toString() === staticData.spells.spellKeys[i]) {
-        spellId = staticData.spells.spellIds[i];
-      }
-    }
-    return spellId;
-  };
-
-  const getRuneName = (runeId: number) => {
-    let runeName;
-    for (let i = 0; i < staticData.runeIds.length; i++) {
-      if (runeId === staticData.runeIds[i]) {
-        runeName = staticData.runeNames[i];
-      }
-    }
-    return runeName;
-  };
-
   const getTotalCS = () => {
     let total;
     if (
@@ -164,40 +95,35 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     return csPerMin.toFixed(1);
   };
 
-  const handleConvertSecToMin = (secs: number) => {
-    const minutes = Math.floor(secs / 60);
-    const seconds = secs % 60;
-    return `${minutes}m ${seconds}s`;
-  };
-
   useEffect(() => {
     const { item0, item1, item2, item3, item4, item5, item6 } = items;
-    setMatchData({
-      championName: getChampionName(championName),
-      runes: {
-        keystone: getRuneName(keystone),
-        primaryRune1: getRuneName(primaryRune1),
-        primaryRune2: getRuneName(primaryRune2),
-        primaryRune3: getRuneName(primaryRune3),
-        secondaryRune1: getRuneName(secondaryRune1),
-        secondaryRune2: getRuneName(secondaryRune2),
-      },
-      spells: {
-        summAName: getSpellName(summAId),
-        summBName: getSpellName(summBId),
-        summAId: getSpellId(summAId),
-        summBId: getSpellId(summBId),
-      },
-      items: {
-        item0: getItemName(item0),
-        item1: getItemName(item1),
-        item2: getItemName(item2),
-        item3: getItemName(item3),
-        item4: getItemName(item4),
-        item5: getItemName(item5),
-        item6: getItemName(item6),
-      },
-    });
+    matchData &&
+      setMatchData({
+        championName: getChampionName(championName, staticData),
+        runes: {
+          keystone: getRuneName(keystone, staticData),
+          primaryRune1: getRuneName(primaryRune1, staticData),
+          primaryRune2: getRuneName(primaryRune2, staticData),
+          primaryRune3: getRuneName(primaryRune3, staticData),
+          secondaryRune1: getRuneName(secondaryRune1, staticData),
+          secondaryRune2: getRuneName(secondaryRune2, staticData),
+        },
+        spells: {
+          summAName: getSpellName(summAId, staticData),
+          summBName: getSpellName(summBId, staticData),
+          summAId: getSpellId(summAId, staticData),
+          summBId: getSpellId(summBId, staticData),
+        },
+        items: {
+          item0: getItemName(item0, staticData),
+          item1: getItemName(item1, staticData),
+          item2: getItemName(item2, staticData),
+          item3: getItemName(item3, staticData),
+          item4: getItemName(item4, staticData),
+          item5: getItemName(item5, staticData),
+          item6: getItemName(item6, staticData),
+        },
+      });
 
     console.log(matchData);
   }, [matchData]);

@@ -2,12 +2,7 @@ import React from 'react';
 import MatchCard from '../MatchCard';
 
 import { ListWrapper, ResultsModal } from './SummResults.css';
-
-interface ResultsProps {
-  data: any;
-  summQuery: string;
-  staticData: any;
-}
+import { ResultsProps } from '../../../../utils/types';
 
 const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
   const { data, summQuery, staticData } = props;
