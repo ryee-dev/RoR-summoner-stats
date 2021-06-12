@@ -62,7 +62,7 @@ const SummonersRift = () => {
   }, [summQuery]);
 
   useEffect(() => {
-    console.log(staticData);
+    // console.log(staticData);
   }, []);
 
   return (

@@ -8,12 +8,12 @@ interface MatchProps {
   championName: string;
   summAId: number;
   summBId: number;
-  keystone: number;
-  primaryRune1: number;
-  primaryRune2: number;
-  primaryRune3: number;
-  secondaryRune1: number;
-  secondaryRune2: number;
+  // keystone: number;
+  // primaryRune1: number;
+  // primaryRune2: number;
+  // primaryRune3: number;
+  // secondaryRune1: number;
+  // secondaryRune2: number;
   items: {
     item0: number;
     item1: number;
@@ -43,14 +43,14 @@ interface MatchDataProps {
     summAId: number | Promise<any>;
     summBId: number | Promise<any>;
   };
-  runes: {
-    keystone: number | Promise<any>;
-    primaryRune1: number | Promise<any>;
-    primaryRune2: number | Promise<any>;
-    primaryRune3: number | Promise<any>;
-    secondaryRune1: number | Promise<any>;
-    secondaryRune2: number | Promise<any>;
-  };
+  // runes: {
+  //   keystone: number | Promise<any>;
+  //   primaryRune1: number | Promise<any>;
+  //   primaryRune2: number | Promise<any>;
+  //   primaryRune3: number | Promise<any>;
+  //   secondaryRune1: number | Promise<any>;
+  //   secondaryRune2: number | Promise<any>;
+  // };
   items: {
     item0: number | Promise<any>;
     item1: number | Promise<any>;

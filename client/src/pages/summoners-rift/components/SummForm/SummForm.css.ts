@@ -1,52 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as RorLogo } from '../../../assets/ror-logo.svg';
-
-interface Props {
-  setSummName: any;
-  summQuery: string;
-  setSummQuery: any;
-  summName: string;
-}
-
-const SummForm: React.FC<Props> = (props: Props) => {
-  const { setSummName, setSummQuery, summQuery, summName } = props;
-  const summonerFormData = new FormData();
-
-  const findSummoner = () => {
-    setSummQuery(summName);
-    summonerFormData.set('summonerName', summQuery);
-  };
-
-  return (
-    <FormContainer>
-      <RorLogo />
-      <SummonerForm
-        method="POST"
-        action="/api/summoner"
-        onSubmit={findSummoner}
-        autoComplete="off"
-      >
-        <SummInput
-          placeholder="Summoner Name"
-          value={summName}
-          // autoComplete="off"
-          name="summName"
-          onChange={(e) => setSummName(e.target.value)}
-        />
-        <SubmitButt
-          type="submit"
-          // @ts-ignore
-          disabled={summName === ''}
-        >
-          submit
-        </SubmitButt>
-      </SummonerForm>
-    </FormContainer>
-  );
-};
-
-export default SummForm;
 
 const FormContainer = styled.div`
   height: 100%;
@@ -139,3 +91,5 @@ const SubmitButt = styled.button`
     }
   }
 `;
+
+export { SummonerForm, FormContainer, SummInput, SubmitButt };

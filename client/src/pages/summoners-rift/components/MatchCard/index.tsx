@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { MatchProps, MatchDataProps } from '../../../../utils/types';
 
-import {
-  getChampionName,
-  getSpellId,
-  getSpellName,
-  getRuneName,
-  getItemName,
-  handleConvertSecToMin,
-} from '../../../../utils/helpers';
+import { handleConvertSecToMin } from '../../../../utils/helpers';
+
+import RunesLayout from '../RunesLayout';
 
 import {
   CardWrapper,
@@ -28,14 +23,14 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
       summAId: 0,
       summBId: 0,
     },
-    runes: {
-      keystone: 0,
-      primaryRune1: 0,
-      primaryRune2: 0,
-      primaryRune3: 0,
-      secondaryRune1: 0,
-      secondaryRune2: 0,
-    },
+    // runes: {
+    //   keystone: 0,
+    //   primaryRune1: 0,
+    //   primaryRune2: 0,
+    //   primaryRune3: 0,
+    //   secondaryRune1: 0,
+    //   secondaryRune2: 0,
+    // },
     items: {
       item0: 0,
       item1: 0,
@@ -55,12 +50,12 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     summAId,
     summBId,
     items,
-    keystone,
-    primaryRune1,
-    primaryRune2,
-    primaryRune3,
-    secondaryRune1,
-    secondaryRune2,
+    // keystone,
+    // primaryRune1,
+    // primaryRune2,
+    // primaryRune3,
+    // secondaryRune1,
+    // secondaryRune2,
     championName,
     kills,
     deaths,
@@ -96,34 +91,41 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   };
 
   useEffect(() => {
+    console.log(staticData);
+    // console.log(`gameDuration: ${gameDuration}`);
     const { item0, item1, item2, item3, item4, item5, item6 } = items;
     setMatchData({
-      championName: getChampionName(championName, staticData),
-      runes: {
-        keystone: getRuneName(keystone, staticData),
-        primaryRune1: getRuneName(primaryRune1, staticData),
-        primaryRune2: getRuneName(primaryRune2, staticData),
-        primaryRune3: getRuneName(primaryRune3, staticData),
-        secondaryRune1: getRuneName(secondaryRune1, staticData),
-        secondaryRune2: getRuneName(secondaryRune2, staticData),
-      },
+      championName: staticData.champions[championName],
+      // runes: {
+      //   keystone: getRuneName(keystone, staticData),
+      //   primaryRune1: getRuneName(primaryRune1, staticData),
+      //   primaryRune2: getRuneName(primaryRune2, staticData),
+      //   primaryRune3: getRuneName(primaryRune3, staticData),
+      //   secondaryRune1: getRuneName(secondaryRune1, staticData),
+      //   secondaryRune2: getRuneName(secondaryRune2, staticData),
+      // },
       spells: {
-        summAName: getSpellName(summAId, staticData),
-        summBName: getSpellName(summBId, staticData),
-        summAId: getSpellId(summAId, staticData),
-        summBId: getSpellId(summBId, staticData),
+        summAName: staticData.spells[summAId],
+        summBName: staticData.spells[summBId],
+        summAId,
+        summBId,
       },
       items: {
-        item0: getItemName(item0, staticData),
-        item1: getItemName(item1, staticData),
-        item2: getItemName(item2, staticData),
-        item3: getItemName(item3, staticData),
-        item4: getItemName(item4, staticData),
-        item5: getItemName(item5, staticData),
-        item6: getItemName(item6, staticData),
+        item0,
+        item1,
+        item2,
+        item3,
+        item4,
+        item5,
+        item6,
       },
     });
   }, []);
+
+  useEffect(() => {
+    // console.log(matchData.spells);
+    console.log(gameDuration);
+  }, [matchData]);
 
   return (
     <CardWrapper
@@ -144,7 +146,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         <CardCol className="center">
           <img
             className="champion"
-            src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/${matchData.championName}.png`}
+            src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/champion/${matchData.championName}.png`}
             alt={`${matchData.championName}`}
             data-tip={`${matchData.championName}`}
           />
@@ -152,12 +154,12 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           <CardRow>
             <img
               className="spell"
-              src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/${matchData.spells.summAId}.png`}
+              src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/spell/${matchData.spells.summAName}.png`}
               alt={`${matchData.spells.summAName}`}
             />
             <img
               className="spell"
-              src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/${matchData.spells.summBId}.png`}
+              src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/spell/${matchData.spells.summBName}.png`}
               alt={`${matchData.spells.summBName}`}
             />
           </CardRow>
@@ -180,7 +182,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item0 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item0}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item0}.png`}
                     alt={`${matchData.items.item0}`}
                   />
                 ) : (
@@ -190,7 +192,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item1 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item1}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item1}.png`}
                     alt={`${matchData.items.item1}`}
                   />
                 ) : (
@@ -200,7 +202,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item2 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item2}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item2}.png`}
                     alt={`${matchData.items.item2}`}
                   />
                 ) : (
@@ -210,7 +212,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item6 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item6}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item6}.png`}
                     alt={`${matchData.items.item6}`}
                     style={{
                       marginLeft: '0.4rem',
@@ -227,7 +229,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item4 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item4}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item4}.png`}
                     alt={`${matchData.items.item4}`}
                   />
                 ) : (
@@ -237,7 +239,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item5 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item5}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item5}.png`}
                     alt={`${matchData.items.item5}`}
                   />
                 ) : (
@@ -247,7 +249,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               <div className="img-wrapper">
                 {matchData.items.item3 !== 0 ? (
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/${matchData.items.item3}.png`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/11.12.1/img/item/${matchData.items.item3}.png`}
                     alt={`${matchData.items.item3}`}
                   />
                 ) : (
@@ -257,42 +259,43 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             </div>
           </ItemContainer>
         </CardCol>
-        <RuneWrapper>
-          <div className="col">
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.keystone}.png`}
-              alt={`${matchData.runes.keystone}`}
-            />
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune1}.png`}
-              alt={`${matchData.runes.primaryRune1}`}
-            />
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune2}.png`}
-              alt={`${matchData.runes.primaryRune2}`}
-            />
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune3}.png`}
-              alt={`${matchData.runes.primaryRune3}`}
-            />
-          </div>
-          <div className="col">
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.secondaryRune1}.png`}
-              alt={`${matchData.runes.secondaryRune1}`}
-            />
-            <img
-              className="rune"
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.secondaryRune2}.png`}
-              alt={`${matchData.runes.secondaryRune2}`}
-            />
-          </div>
-        </RuneWrapper>
+        <RunesLayout />
+        {/*<RuneWrapper>*/}
+        {/*<div className="col">*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.keystone}.png`}*/}
+        {/*    alt={`${matchData.runes.keystone}`}*/}
+        {/*  />*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune1}.png`}*/}
+        {/*    alt={`${matchData.runes.primaryRune1}`}*/}
+        {/*  />*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune2}.png`}*/}
+        {/*    alt={`${matchData.runes.primaryRune2}`}*/}
+        {/*  />*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.primaryRune3}.png`}*/}
+        {/*    alt={`${matchData.runes.primaryRune3}`}*/}
+        {/*  />*/}
+        {/*</div>*/}
+        {/*<div className="col">*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.secondaryRune1}.png`}*/}
+        {/*    alt={`${matchData.runes.secondaryRune1}`}*/}
+        {/*  />*/}
+        {/*  <img*/}
+        {/*    className="rune"*/}
+        {/*    src={`https://opgg-static.akamaized.net/images/lol/perk/${matchData.runes.secondaryRune2}.png`}*/}
+        {/*    alt={`${matchData.runes.secondaryRune2}`}*/}
+        {/*  />*/}
+        {/*</div>*/}
+        {/*</RuneWrapper>*/}
       </CardRow>
     </CardWrapper>
   );

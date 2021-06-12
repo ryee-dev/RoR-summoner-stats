@@ -11,22 +11,22 @@ const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
     <ResultsModal>
       <ListWrapper>
         <h1>{summQuery}</h1>
-        {data.hits.slice(0, 5).map((match: any) => (
+        {data.hits.slice(0, 5).map((match: any, index: number) => (
           <MatchCard
             staticData={staticData}
-            key={match.gameDuration}
+            key={index}
             gameMode={match.gameMode}
             win={match.outcome}
             gameDuration={match.gameDuration}
             summonerName={match.summonerName}
             summAId={match.spell1Id}
             summBId={match.spell2Id}
-            keystone={match.runes.keystone}
-            primaryRune1={match.runes.primaryRune1}
-            primaryRune2={match.runes.primaryRune2}
-            primaryRune3={match.runes.primaryRune3}
-            secondaryRune1={match.runes.secondaryRune1}
-            secondaryRune2={match.runes.secondaryRune2}
+            // keystone={match.runes.keystone}
+            // primaryRune1={match.runes.primaryRune1}
+            // primaryRune2={match.runes.primaryRune2}
+            // primaryRune3={match.runes.primaryRune3}
+            // secondaryRune1={match.runes.secondaryRune1}
+            // secondaryRune2={match.runes.secondaryRune2}
             championName={match.championId}
             kills={match.kills}
             deaths={match.deaths}
