@@ -1,10 +1,12 @@
-require('dotenv').config();
+import 'dotenv/config.js';
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import * as fs from 'fs';
 
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const got = require('got');
+import { PlatformId, RiotAPI } from '@fightmegg/riot-api';
+
+const __dirname = path.resolve();
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -30,6 +32,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const rAPI = new RiotAPI(API_KEY);
+
 let summonerName;
 let accountId;
 let riftMatchHistory;
@@ -40,12 +44,8 @@ let matchData;
 
 let SummonerData = {
   summonerName,
-  accountId,
-  riftMatchHistory,
-  matchStats,
   playerMatchStatsList,
   matchIdList,
-  matchData,
 };
 
 app.post('/api/summoner', (req, res) => {
@@ -53,47 +53,33 @@ app.post('/api/summoner', (req, res) => {
   res.status(204).send();
 });
 
-const summByName =
-  'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
-const matchListByPuuid =
-  'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/';
-const matchByMatchID =
-  'https://americas.api.riotgames.com/lol/match/v5/matches/';
-
 const handleGetPuuid = async (summName) => {
-  let summPuuid = await got(`${summByName}${summName}?api_key=${API_KEY}`, {
-    responseType: 'json',
-    resolveBodyOnly: true,
-  });
+  let summPuuid = await (rAPI.summoner.getBySummonerName({
+    region: PlatformId.NA1,
+    summonerName: summName,
+  }));
   
-  const { puuid } = summPuuid;
-  return puuid;
+  return summPuuid.puuid;
 };
 
 const handleGetMatchHistory = async (name) => {
-  let acctPuuid;
-  await handleGetPuuid(name)
-  .then((r) => {
-    acctPuuid = r;
-  })
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  .catch((e) => {
-  });
+  let acctPuuid = await handleGetPuuid(name);
   
-  return got(
-    `${matchListByPuuid}${acctPuuid}/ids?start=0&count=10&api_key=${API_KEY}`,
-    {
-      responseType: 'json',
-      resolveBodyOnly: true,
+  return await (rAPI.matchV5.getIdsbyPuuid({
+    cluster: PlatformId.AMERICAS,
+    puuid: `${acctPuuid}`,
+    params: {
+      start: 0,
+      count: 5,
     },
-  );
+  }));
 };
 
 const handleGetMatch = async (matchId) => {
-  return got(`${matchByMatchID}${matchId}?api_key=${API_KEY}`, {
-    responseType: 'json',
-    resolveBodyOnly: true,
-  });
+  return await (rAPI.matchV5.getMatchById({
+    cluster: PlatformId.AMERICAS,
+    matchId: `${matchId}`,
+  }));
 };
 
 const searchSummoner = async () => {
@@ -107,31 +93,24 @@ const searchSummoner = async () => {
   
   if (summonerName !== undefined) {
     riftMatchHistory = await handleGetMatchHistory(summonerName);
-    // for (let i = 0; i < riftMatchHistory.length; i++) {
+    console.log(riftMatchHistory);
+    
     for (let i = 0; i < riftMatchHistory.length; i++) {
       matchIdList.push(riftMatchHistory[i].gameId);
     }
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < matchIdList.length; i++) {
       await handleGetMatch(riftMatchHistory[i])
       .then((r) => {
         matchData = r;
       })
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch((e) => {
+        console.log(e);
       });
-      // console.log(matchData);
       
       const {
-        // participants,
         name,
         summonerName,
-        // gameId,
-        // gameMode,
-        // gameDuration,
-      } = matchData;
-      
-      const {
         info: { gameDuration, gameStartTimestamp, gameId, gameMode, participants },
       } = matchData;
       
@@ -200,49 +179,26 @@ const searchSummoner = async () => {
             },
           };
           
-          // console.log(matchStats.gameDuration);
           playerMatchStatsList.push(matchStats);
         }
       }
     }
-    // console.log(playerMatchStatsList);
+    
     return playerMatchStatsList;
-  } else {
-    console.log('error');
   }
 };
-
-// let currentRotation;
-
-// const getCurrentRotation = async () => {
-//   let fetchCurrentRotation = await axios.get(
-//     `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}
-//       }`
-//   );
-//   currentRotation = fetchCurrentRotation.data.freeChampionIds;
-// };
 
 let output;
 
 app.get('/api/summoner', async (req, res) => {
   if (summonerName !== undefined) {
     await searchSummoner().then((res) => {
-      // console.log(`line #230\n${res}`);
       output = res;
     });
+    
     res.json(output);
   }
 });
-
-// let rotation;
-//
-// app.get('/api/current-rotation', async (req, res) => {
-//   await getCurrentRotation().then((res) => {
-//     rotation = res;
-//   });
-//   res.json(rotation);
-//   // console.log(rotation);
-// });
 
 let staticData = {
   champions: {},
@@ -256,17 +212,14 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
     throw err;
   }
   
-  let summChampiondata = JSON.parse(data);
-  const entries = Object.entries(summChampiondata.data);
+  let summChampionData = JSON.parse(data);
+  const entries = Object.entries(summChampionData.data);
   for (const [champion, values] of entries) {
     staticData.champions[values.key] = champion;
-    // staticData.champions.championNames.push(champion);
-    // staticData.champions.championKeys.push(values.key);
   }
 });
 
 // serve item.json
-
 fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
@@ -276,8 +229,6 @@ fs.readFile('./static/item.json', 'utf8', (err, data) => {
   const entries = Object.entries(summItemData.data);
   for (const [item, values] of entries) {
     staticData.items[item] = values.name;
-    // staticData.items.itemNames.push(values.name);
-    // staticData.items.itemKeys.push(item);
   }
 });
 
@@ -293,9 +244,6 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   const entries = Object.entries(summSpellData.data);
   for (const [spell, values] of entries) {
     staticData.spells[values.key] = values.id;
-    // staticData.spells.spellKeys.push(values.key);
-    // staticData.spells.spellNames.push(values.name);
-    // staticData.spells.spellIds.push(values.id);
   }
 });
 
@@ -330,11 +278,8 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
-  // app.get('*', (req, res) => {
-  //   res.sendfile(path.join((__dirname = 'client/build/index.html')));
-  // });
   app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname + '/client/build/index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
   });
 }
 
@@ -347,4 +292,4 @@ app.listen(port, (req, res) => {
   console.log(`server listening on port ${port}`);
 });
 
-module.exports = app;
+export default app;

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "bin-start": "node ./bin/www",
@@ -10,6 +11,7 @@
     "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\""
   },
   "dependencies": {
+    "@fightmegg/riot-api": "^0.0.8",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "concurrently": "^6.2.0",
