@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MatchCard from '../MatchCard';
 
 import { ListWrapper, ResultsModal } from './SummResults.css';

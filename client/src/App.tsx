@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
+
+import SummonersRift from 'pages/summoners-rift/SummonersRift';
 
 const PageContainer = styled(Flex)`
   height: 100vh;
@@ -20,34 +21,10 @@ const PageContainer = styled(Flex)`
   }
 `;
 
-const SummRiftBlock = styled(Link)`
-  bottom: 0;
-  width: 150%;
-  height: 100%;
-  background-color: #171e2c;
-  color: #fafafa;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  h1 {
-    transition: all 0.3s ease-in-out;
-  }
-
-  &:hover {
-    h1 {
-      transform: scale(1.2) translateX(-60%);
-    }
-  }
-`;
-
-const App = () => {
+const App: React.FC = () => {
   return (
-    <PageContainer alignItems="center" justifyContent="center">
-      <SummRiftBlock to="/summoners-rift">
-        {/* eslint-disable-next-line react/no-unescaped-entities */}
-        <h1>SUMMONER'S RIFT</h1>
-      </SummRiftBlock>
+    <PageContainer alignItems='center' justifyContent='center'>
+      <SummonersRift />
     </PageContainer>
   );
 };

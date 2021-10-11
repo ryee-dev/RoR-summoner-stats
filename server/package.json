@@ -7,7 +7,7 @@
     "start": "node index.js",
     "bin-start": "node ./bin/www",
     "server": "nodemon index.js",
-    "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\""
+    "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\""
   },
   "dependencies": {
     "axios": "^0.21.1",

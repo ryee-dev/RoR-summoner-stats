@@ -4,15 +4,17 @@
   "main": "server/index.js",
   "license": "MIT",
   "scripts": {
-    "client-install": "cd client && yarn",
-    "client": "cd client && yarn start",
-    "start": "cd server && yarn start",
+    "install-all": "pnpm install && concurrently \"pnpm client-install\" \"pnpm server-install\"",
+    "client-install": "cd client && pnpm install",
+    "server-install": "cd server && pnpm install",
+    "client": "cd client && pnpm start",
+    "start": "cd server && pnpm start",
     "bin-start": "node server/bin/www",
-    "server": "cd server && yarn server",
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
-    "build": "cd client && yarn && yarn build",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "server": "cd server && pnpm server",
+    "dev": "concurrently \"pnpm server\" \"pnpm client\"",
+    "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\"",
+    "build": "cd client && pnpm && pnpm build",
+    "heroku-postbuild": "cd client && pnpm && pnpm build"
   },
   "devDependencies": {
     "@babel/template": "^7.10.1",

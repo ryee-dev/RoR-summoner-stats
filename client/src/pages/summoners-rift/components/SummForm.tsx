@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as RorLogo } from '../../../assets/ror-logo.svg';
+import RorLogo from '../../../assets/ror-logo.svg';
 
 interface Props {
   setSummName: any;
@@ -20,22 +20,22 @@ const SummForm: React.FC<Props> = (props: Props) => {
 
   return (
     <FormContainer>
-      <RorLogo />
+      <img src={RorLogo} alt='ror-logo' />
       <SummonerForm
-        method="POST"
-        action="/api/summoner"
+        method='POST'
+        action='/api/summoner'
         onSubmit={findSummoner}
-        autoComplete="off"
+        autoComplete='off'
       >
         <SummInput
-          placeholder="Summoner Name"
+          placeholder='Summoner Name'
           value={summName}
           // autoComplete="off"
-          name="summName"
+          name='summName'
           onChange={(e) => setSummName(e.target.value)}
         />
         <SubmitButt
-          type="submit"
+          type='submit'
           // @ts-ignore
           disabled={summName === ''}
         >
@@ -119,7 +119,7 @@ const SubmitButt = styled.button`
   text-align: center;
 
   transition: background-color 0.2s ease-in-out, letter-spacing 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+  color 0.2s ease-in-out;
 
   &:hover {
     //width: 25%;
