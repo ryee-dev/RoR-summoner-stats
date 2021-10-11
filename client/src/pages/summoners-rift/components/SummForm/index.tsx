@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ReactComponent as RorLogo } from '../../../../assets/ror-logo.svg';
+import RorLogo from '../../../../assets/ror-logo.svg';
 
 import {
   FormContainer,
@@ -43,19 +43,19 @@ const SummForm: React.FC<Props> = (props: Props) => {
 
   return (
     <FormContainer>
-      <RorLogo />
+      <img src={RorLogo} alt='ror-logo' />
       <SummonerForm
-        method="POST"
-        action="/api/summoner"
+        method='POST'
+        action='/api/summoner'
         onSubmit={findSummoner}
       >
         <SummInput
-          placeholder="Summoner Name"
+          placeholder='Summoner Name'
           value={summName}
-          name="summName"
+          name='summName'
           onChange={(e) => setSummName(e.target.value)}
         />
-        <SubmitButt type="submit" disabled={summName === ''}>
+        <SubmitButt type='submit' disabled={summName === ''}>
           submit
         </SubmitButt>
       </SummonerForm>

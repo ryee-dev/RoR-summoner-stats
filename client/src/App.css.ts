@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ReactComponent as CloseIcon } from './assets/close.svg';
 
 export const AppShell = styled.div`
   box-sizing: border-box;
@@ -12,8 +11,17 @@ export const AppShell = styled.div`
   flex-direction: column;
   background-color: #f6f5f5;
   overflow: auto;
-
   font-family: 'Kyrial Display Pro', sans-serif;
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2rem 2rem 0 0;
+    z-index: 3;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const AppOverlay = styled.div`
@@ -39,16 +47,4 @@ export const ModalWrapper = styled.div`
   z-index: 2;
   //padding: 0 2rem;
   box-sizing: border-box;
-`;
-
-export const Close = styled(CloseIcon)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 2rem 2rem 0 0;
-  z-index: 3;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;

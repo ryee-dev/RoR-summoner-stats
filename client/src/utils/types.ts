@@ -4,6 +4,7 @@ interface MatchProps {
   gameMode: any;
   win: string;
   gameDuration: number;
+  gameStartTimestamp: number;
   summonerName: string;
   championName: string;
   summAId: number;

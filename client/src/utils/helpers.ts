@@ -8,7 +8,9 @@ const getChampionName = async (champKey: any, staticData: any) => {
           return res;
         })
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+        .catch((e) => {
+          console.log(e.code);
+        });
     }
   }
 };
@@ -21,7 +23,9 @@ const getItemName = async (itemKey: number, staticData: any) => {
           return res;
         })
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+        .catch((e) => {
+          console.log(e.code);
+        });
     }
   }
 };
@@ -33,7 +37,9 @@ const getSpellName = async (spellKey: number, staticData: any) => {
         .then((res) => {
           return res;
         }) // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+        .catch((e) => {
+          console.log(e.code);
+        });
     }
   }
 };
@@ -45,7 +51,9 @@ const getSpellId = async (spellKey: number, staticData: any) => {
         .then((res) => {
           return res;
         }) // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+        .catch((e) => {
+          console.log(e.code);
+        });
     }
   }
 };
@@ -57,16 +65,24 @@ const getRuneName = async (runeId: number, staticData: any) => {
         .then((res) => {
           return res;
         }) // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+        .catch((e) => {
+          console.log(e.code);
+        });
     }
   }
 };
 
-const handleConvertSecToMin = (secs: number) => {
-  const minutes = Math.floor(secs / 60);
-  const seconds = secs % 60;
+const handleConvertSecToMin = (milliseconds: number) => {
+  const minutes = Math.floor(milliseconds / 60000);
+  const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
+
+  console.log(minutes, seconds);
   return `${minutes}m ${seconds}s`;
 };
+
+// const handleCalcGameLength = (startTime, endTime) => {
+//   let difference = endTime - startTime;
+//
 
 export {
   getChampionName,

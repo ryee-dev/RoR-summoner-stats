@@ -3,9 +3,10 @@ import ky from 'ky';
 import useFetch from 'fetch-suspense';
 import useOnClickOutside from 'use-onclickoutside';
 import { SummForm, SummResults, Error, Loading } from './components';
-import { AppShell, ModalWrapper, AppOverlay, Close } from '../../App.css';
+import { AppShell, ModalWrapper, AppOverlay } from 'App.css';
+import CloseIcon from '../../assets/close.svg';
 
-const SummonersRift = () => {
+const SummonersRift: React.FC = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -45,8 +46,6 @@ const SummonersRift = () => {
           hits: await ky.get('/api/summoner').json(),
         });
 
-        console.log(summData);
-
         setError(false);
         setLoading(false);
         setModalStatus(true);
@@ -55,15 +54,9 @@ const SummonersRift = () => {
     };
 
     if (summQuery !== '') {
-      fetchData().catch(() => {
-        console.log('error');
-      });
+      fetchData();
     }
   }, [summQuery]);
-
-  useEffect(() => {
-    // console.log(staticData);
-  }, []);
 
   return (
     <AppShell onKeyDown={handleEscClose}>
@@ -85,7 +78,7 @@ const SummonersRift = () => {
         </ModalWrapper>
       )}
       {summQuery !== '' && <AppOverlay />}
-      {modalStatus && !loading && <Close onClick={closeModal} />}
+      {modalStatus && !loading && <img src={CloseIcon} alt='close-icon' onClick={closeModal} />}
     </AppShell>
   );
 };

@@ -2,10 +2,14 @@ import React from 'react';
 import MatchCard from '../MatchCard';
 
 import { ListWrapper, ResultsModal } from './SummResults.css';
-import { ResultsProps } from '../../../../utils/types';
+import { ResultsProps } from 'utils/types';
 
 const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
   const { data, summQuery, staticData } = props;
+
+  // for (let i = 0; i < 5; i++) {
+  //   console.log(data.hits[i].gameDuration + data.hits[i].gameStartTimestamp);
+  // }
 
   return (
     <ResultsModal>
@@ -18,15 +22,10 @@ const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
             gameMode={match.gameMode}
             win={match.outcome}
             gameDuration={match.gameDuration}
+            gameStartTimestamp={match.gameStartTimestamp}
             summonerName={match.summonerName}
             summAId={match.spell1Id}
             summBId={match.spell2Id}
-            // keystone={match.runes.keystone}
-            // primaryRune1={match.runes.primaryRune1}
-            // primaryRune2={match.runes.primaryRune2}
-            // primaryRune3={match.runes.primaryRune3}
-            // secondaryRune1={match.runes.secondaryRune1}
-            // secondaryRune2={match.runes.secondaryRune2}
             championName={match.championId}
             kills={match.kills}
             deaths={match.deaths}

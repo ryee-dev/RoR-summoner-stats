@@ -7,7 +7,7 @@ const fs = require('fs');
 const got = require('got');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 const API_KEY = process.env.API_KEY;
 
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept',
   );
   next();
 });
@@ -65,7 +65,7 @@ const handleGetPuuid = async (summName) => {
     responseType: 'json',
     resolveBodyOnly: true,
   });
-
+  
   const { puuid } = summPuuid;
   return puuid;
 };
@@ -73,18 +73,19 @@ const handleGetPuuid = async (summName) => {
 const handleGetMatchHistory = async (name) => {
   let acctPuuid;
   await handleGetPuuid(name)
-    .then((r) => {
-      acctPuuid = r;
-    })
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    .catch((e) => {});
-
+  .then((r) => {
+    acctPuuid = r;
+  })
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  .catch((e) => {
+  });
+  
   return got(
     `${matchListByPuuid}${acctPuuid}/ids?start=0&count=10&api_key=${API_KEY}`,
     {
       responseType: 'json',
       resolveBodyOnly: true,
-    }
+    },
   );
 };
 
@@ -103,23 +104,24 @@ const searchSummoner = async () => {
     matchIdList,
     matchData,
   } = SummonerData;
-
+  
   if (summonerName !== undefined) {
     riftMatchHistory = await handleGetMatchHistory(summonerName);
     // for (let i = 0; i < riftMatchHistory.length; i++) {
     for (let i = 0; i < riftMatchHistory.length; i++) {
       matchIdList.push(riftMatchHistory[i].gameId);
     }
-
+    
     for (let i = 0; i < 10; i++) {
       await handleGetMatch(riftMatchHistory[i])
-        .then((r) => {
-          matchData = r;
-        })
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .catch((e) => {});
+      .then((r) => {
+        matchData = r;
+      })
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch((e) => {
+      });
       // console.log(matchData);
-
+      
       const {
         // participants,
         name,
@@ -128,11 +130,11 @@ const searchSummoner = async () => {
         // gameMode,
         // gameDuration,
       } = matchData;
-
+      
       const {
-        info: { gameDuration, gameId, gameMode, participants },
+        info: { gameDuration, gameStartTimestamp, gameId, gameMode, participants },
       } = matchData;
-
+      
       for (let i = 0; i < participants.length; i++) {
         let {
           win,
@@ -156,13 +158,14 @@ const searchSummoner = async () => {
           summoner1Id,
           summoner2Id,
         } = participants[i];
-
+        
         if (name === summonerName) {
           matchStats = {
             gameId,
             gameMode,
             outcome: win,
             gameDuration,
+            gameStartTimestamp,
             summonerName,
             spell1Id: summoner1Id,
             spell2Id: summoner2Id,
@@ -196,7 +199,7 @@ const searchSummoner = async () => {
               neutralMinionsKilledEnemyJungle,
             },
           };
-
+          
           // console.log(matchStats.gameDuration);
           playerMatchStatsList.push(matchStats);
         }
@@ -252,7 +255,7 @@ fs.readFile('./static/champion.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
-
+  
   let summChampiondata = JSON.parse(data);
   const entries = Object.entries(summChampiondata.data);
   for (const [champion, values] of entries) {
@@ -268,7 +271,7 @@ fs.readFile('./static/item.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
-
+  
   let summItemData = JSON.parse(data);
   const entries = Object.entries(summItemData.data);
   for (const [item, values] of entries) {
@@ -285,7 +288,7 @@ fs.readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
   }
-
+  
   summSpellData = JSON.parse(data);
   const entries = Object.entries(summSpellData.data);
   for (const [spell, values] of entries) {
@@ -303,9 +306,9 @@ fs.readFile('./static/runesReforged.json', 'utf8', (err, data) => {
     throw err;
   }
   summKeystoneData = JSON.parse(data);
-
+  
   const keystoneEntries = Object.entries(summKeystoneData);
-
+  
   staticData.runes = keystoneEntries.map((x) => x[1]);
 });
 
@@ -320,7 +323,7 @@ if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', function (req, res) {
+  app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
