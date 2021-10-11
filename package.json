@@ -10,36 +10,36 @@
     "client": "cd client && pnpm start",
     "start": "cd server && pnpm start",
     "bin-start": "node server/bin/www",
-    "server": "cd server && pnpm server",
-    "dev": "concurrently \"pnpm server\" \"pnpm client\"",
-    "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\"",
-    "build": "cd client && pnpm && pnpm build",
-    "heroku-postbuild": "cd client && pnpm && pnpm build"
+    "server": "cd server && pnpm run server",
+    "dev": "concurrently \"pnpm run server\" \"pnpm run client\"",
+    "dev-build": "concurrently \"pnpm run server\" \"pnpm run heroku-postbuild\"",
+    "build": "cd client && pnpm install && pnpm run build",
+    "heroku-postbuild": "cd client && pnpm install && pnpm run build"
   },
   "devDependencies": {
-    "@babel/template": "^7.10.1",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
+    "@babel/template": "^7.14.5",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "babel-plugin-root-import": "^6.6.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jest": "^24.3.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-unicorn": "^29.0.0",
-    "prettier": "^2.2.1",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "prettier": "^2.3.1",
     "stylelint": "^13.12.0",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-recommended": "^4.0.0",
+    "stylelint-config-recommended": "^5.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "concurrently": "^6.1.0"
+    "concurrently": "^6.2.0"
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Error: React.FC = () => {
+const Error : React.FC = () => {
   return (
     <ErrorWrapper>
       <h1>data not found...</h1>

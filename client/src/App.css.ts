@@ -11,16 +11,13 @@ export const AppShell = styled.div`
   flex-direction: column;
   background-color: #f6f5f5;
   overflow: auto;
-
   font-family: 'Kyrial Display Pro', sans-serif;
-
   .close {
     position: absolute;
     top: 0;
     right: 0;
     padding: 2rem 2rem 0 0;
     z-index: 3;
-
     &:hover {
       cursor: pointer;
     }

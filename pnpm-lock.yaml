@@ -1,28 +1,28 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@babel/template': ^7.10.1
-  '@typescript-eslint/eslint-plugin': ^4.18.0
-  '@typescript-eslint/parser': ^4.18.0
+  '@babel/template': ^7.14.5
+  '@typescript-eslint/eslint-plugin': ^4.26.1
+  '@typescript-eslint/parser': ^4.26.1
   babel-plugin-root-import: ^6.6.0
-  concurrently: ^6.1.0
-  eslint: ^7.22.0
+  concurrently: ^6.2.0
+  eslint: ^7.28.0
   eslint-config-airbnb: ^18.2.1
   eslint-config-prettier: ^8.3.0
-  eslint-plugin-import: ^2.22.1
+  eslint-plugin-import: ^2.23.4
   eslint-plugin-jest: ^24.3.2
   eslint-plugin-jsx-a11y: ^6.4.1
   eslint-plugin-prettier: ^3.3.1
-  eslint-plugin-react: ^7.22.0
+  eslint-plugin-react: ^7.24.0
   eslint-plugin-react-hooks: ^4.2.0
-  eslint-plugin-unicorn: ^29.0.0
-  prettier: ^2.2.1
+  eslint-plugin-unicorn: ^33.0.1
+  prettier: ^2.3.1
   stylelint: ^13.12.0
   stylelint-config-prettier: ^8.0.2
-  stylelint-config-recommended: ^4.0.0
+  stylelint-config-recommended: ^5.0.0
   stylelint-config-styled-components: ^0.1.1
   stylelint-processor-styled-components: ^1.10.0
-  typescript: ^4.2.3
+  typescript: ^4.3.2
 
 dependencies:
   concurrently: 6.3.0
@@ -41,11 +41,11 @@ devDependencies:
   eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
   eslint-plugin-react: 7.26.1_eslint@7.32.0
   eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
-  eslint-plugin-unicorn: 29.0.0_eslint@7.32.0
+  eslint-plugin-unicorn: 33.0.1_eslint@7.32.0
   prettier: 2.4.1
   stylelint: 13.13.1
   stylelint-config-prettier: 8.0.2_stylelint@13.13.1
-  stylelint-config-recommended: 4.0.0_stylelint@13.13.1
+  stylelint-config-recommended: 5.0.0_stylelint@13.13.1
   stylelint-config-styled-components: 0.1.1
   stylelint-processor-styled-components: 1.10.0
   typescript: 4.4.3
@@ -698,6 +698,11 @@ packages:
       picocolors: 0.2.1
     dev: true
 
+  /builtin-modules/3.2.0:
+    resolution: {integrity: sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==}
+    engines: {node: '>=6'}
+    dev: true
+
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
@@ -1217,19 +1222,19 @@ packages:
       string.prototype.matchall: 4.0.6
     dev: true
 
-  /eslint-plugin-unicorn/29.0.0_eslint@7.32.0:
-    resolution: {integrity: sha512-R9jGLKb2p6LuOixviByGlH2mkfY72EBELXAPeUufveebN0M2Woa7B7dUO3gN2xPn/+eGjrIm4I2u7dDtr9G4iA==}
-    engines: {node: '>=10'}
+  /eslint-plugin-unicorn/33.0.1_eslint@7.32.0:
+    resolution: {integrity: sha512-VxX/L/9DUEyB3D0v00185LrgsB5/fBwkgA4IC7ehHRu5hFSgA6VecmdpFybhsr4GQ/Y1iyXMHf6q+JKvcR2MwA==}
+    engines: {node: '>=12'}
     peerDependencies:
-      eslint: '>=7.20.0'
+      eslint: '>=7.23.0'
     dependencies:
       ci-info: 3.2.0
       clean-regexp: 1.0.0
       eslint: 7.32.0
       eslint-template-visitor: 2.3.2_eslint@7.32.0
-      eslint-utils: 2.1.0
-      eslint-visitor-keys: 2.1.0
+      eslint-utils: 3.0.0_eslint@7.32.0
       import-modules: 2.1.0
+      is-builtin-module: 3.1.0
       lodash: 4.17.21
       pluralize: 8.0.0
       read-pkg-up: 7.0.1
@@ -1748,6 +1753,13 @@ packages:
   /is-buffer/2.0.5:
     resolution: {integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==}
     engines: {node: '>=4'}
+    dev: true
+
+  /is-builtin-module/3.1.0:
+    resolution: {integrity: sha512-OV7JjAgOTfAFJmHZLvpSTb4qi0nIILDV1gWPYDnDJUTNFM5aGlRAhk4QcT8i7TuAleeEV5Fdkqn3t4mS+Q11fg==}
+    engines: {node: '>=6'}
+    dependencies:
+      builtin-modules: 3.2.0
     dev: true
 
   /is-callable/1.2.4:
@@ -2891,10 +2903,10 @@ packages:
       stylelint: 13.13.1
     dev: true
 
-  /stylelint-config-recommended/4.0.0_stylelint@13.13.1:
-    resolution: {integrity: sha512-sgna89Ng+25Hr9kmmaIxpGWt2LStVm1xf1807PdcWasiPDaOTkOHRL61sINw0twky7QMzafCGToGDnHT/kTHtQ==}
+  /stylelint-config-recommended/5.0.0_stylelint@13.13.1:
+    resolution: {integrity: sha512-c8aubuARSu5A3vEHLBeOSJt1udOdS+1iue7BmJDTSXoCBmfEQmmWX+59vYIj3NQdJBY6a/QRv1ozVFpaB9jaqA==}
     peerDependencies:
-      stylelint: ^13.12.0
+      stylelint: ^13.13.0
     dependencies:
       stylelint: 13.13.1
     dev: true

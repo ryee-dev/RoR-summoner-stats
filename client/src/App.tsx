@@ -9,13 +9,11 @@ const PageContainer = styled(Flex)`
   width: 100%;
   box-sizing: border-box;
   overflow: auto;
-
   h1 {
     font-family: Leixo, sans-serif;
     font-size: 1.8rem;
     transition: letter-spacing 0.4s ease-in-out, font-size 0.4s ease-in-out;
   }
-
   a {
     text-decoration: none;
   }
