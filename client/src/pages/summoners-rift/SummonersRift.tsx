@@ -10,7 +10,7 @@ const SummonersRift: React.FC = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [summData, setSummData] = useState({ hits: [] });
+  const [summData, setSummData] = useState(null);
   const [summName, setSummName] = useState('');
   const [summQuery, setSummQuery] = useState('');
 
@@ -18,7 +18,7 @@ const SummonersRift: React.FC = () => {
 
   const closeModal = () => {
     setModalStatus(false);
-    setSummData({ hits: [] });
+    setSummData(null);
     setSummQuery('');
     setSummName('');
   };
@@ -33,7 +33,22 @@ const SummonersRift: React.FC = () => {
   };
 
   useEffect(() => {
-    setSummData({ hits: [] });
+    const handleToggle = () => {
+      if (summData.length !== 0) {
+        setError(false);
+        setLoading(false);
+        setModalStatus(true);
+        console.log(summQuery, 'fetched');
+      }
+    };
+
+    if (summQuery !== '' && summData) {
+      console.log(summData);
+      handleToggle();
+    }
+  }, [summData]);
+
+  useEffect(() => {
     const fetchData = async () => {
       setModalStatus(false);
       setLoading(true);
@@ -42,20 +57,24 @@ const SummonersRift: React.FC = () => {
         setLoading(true);
         console.log('fetching');
 
-        setSummData({
-          hits: await ky.get('/api/summoner').json(),
-        });
-
-        setError(false);
-        setLoading(false);
-        setModalStatus(true);
-        console.log(summQuery, 'fetched');
+        await ky
+          .get('/api/summoner')
+          .json()
+          .then((res) => {
+            setSummData(res);
+          });
       }
     };
 
     if (summQuery !== '') {
       fetchData();
     }
+
+    // console.log(`
+    //   loading: ${loading}\n
+    //   error: ${error}\n
+    //   modal status: ${modalStatus}
+    // `);
   }, [summQuery]);
 
   return (
@@ -68,7 +87,7 @@ const SummonersRift: React.FC = () => {
       />
       {summQuery !== '' && loading && <Loading />}
       {!loading && modalStatus && error && <Error />}
-      {modalStatus && !loading && summData.hits && (
+      {modalStatus && !loading && summData && (
         <ModalWrapper ref={ref}>
           <SummResults
             data={summData}
@@ -78,7 +97,9 @@ const SummonersRift: React.FC = () => {
         </ModalWrapper>
       )}
       {summQuery !== '' && <AppOverlay />}
-      {modalStatus && !loading && <img src={CloseIcon} alt='close-icon' onClick={closeModal} />}
+      {modalStatus && !loading && (
+        <img src={CloseIcon} alt="close-icon" onClick={closeModal} />
+      )}
     </AppShell>
   );
 };

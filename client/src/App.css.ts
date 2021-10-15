@@ -12,15 +12,27 @@ export const AppShell = styled.div`
   background-color: #f6f5f5;
   overflow: auto;
   font-family: 'Kyrial Display Pro', sans-serif;
+
   .close {
     position: absolute;
     top: 0;
     right: 0;
     padding: 2rem 2rem 0 0;
     z-index: 3;
+
     &:hover {
       cursor: pointer;
     }
+  }
+
+  h1 {
+    font-family: Leixo, sans-serif;
+    font-size: 1.8rem;
+    transition: letter-spacing 0.4s ease-in-out, font-size 0.4s ease-in-out;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 

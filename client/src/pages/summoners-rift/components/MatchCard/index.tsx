@@ -2,16 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { MatchProps, MatchDataProps } from 'utils/types';
 
-import { handleConvertSecToMin } from 'utils/helpers';
-
 import RunesLayout from '../RunesLayout';
 
-import {
-  CardWrapper,
-  CardRow,
-  CardCol,
-  ItemContainer,
-} from './MatchCard.css';
+import { CardWrapper, CardRow, CardCol, ItemContainer } from './MatchCard.css';
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   const {
@@ -109,13 +102,17 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     }
   }, [gameDuration, gameStartTimestamp]);
 
+  useEffect(() => {
+    console.log(props);
+  }, [props]);
+
   return (
     <CardWrapper
       style={
         win ? { backgroundColor: '#b6f7c1' } : { backgroundColor: '#ffcccc' }
       }
     >
-      <CardRow className='list'>
+      <CardRow className="list">
         <CardCol>
           <h3 style={{ fontWeight: 'bold' }}>{gameMode}</h3>
           {win ? (
@@ -125,29 +122,29 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           )}
           {/*<p>{gameLength}</p>*/}
         </CardCol>
-        <CardCol className='center'>
+        <CardCol className="center">
           <img
-            className='champion'
+            className="champion"
             src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/champion/${matchData.championName}.png`}
             alt={`${matchData.championName}`}
             data-tip={`${matchData.championName}`}
           />
-          <ReactTooltip place='top' type='dark' effect='float' />
+          <ReactTooltip place="top" type="dark" effect="float" />
           <CardRow>
             <img
-              className='spell'
+              className="spell"
               src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/spell/${matchData.spells.summAName}.png`}
               alt={`${matchData.spells.summAName}`}
             />
             <img
-              className='spell'
+              className="spell"
               src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/spell/${matchData.spells.summBName}.png`}
               alt={`${matchData.spells.summBName}`}
             />
           </CardRow>
         </CardCol>
 
-        <CardCol className='center'>
+        <CardCol className="center">
           <p>
             {kills}/<span style={{ color: '#be3044' }}>{deaths}</span>/{assists}
           </p>
@@ -158,40 +155,40 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             {getTotalCS()} ({getCsPerMin()}) CS
           </p>
         </CardCol>
-        <CardCol className='items'>
+        <CardCol className="items">
           <ItemContainer>
-            <div className='row'>
-              <div className='img-wrapper'>
+            <div className="row">
+              <div className="img-wrapper">
                 {matchData.items.item0 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item0}.png`}
                     alt={`${matchData.items.item0}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
-              <div className='img-wrapper'>
+              <div className="img-wrapper">
                 {matchData.items.item1 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item1}.png`}
                     alt={`${matchData.items.item1}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
-              <div className='img-wrapper'>
+              <div className="img-wrapper">
                 {matchData.items.item2 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item2}.png`}
                     alt={`${matchData.items.item2}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
-              <div className='img-wrapper'>
+              <div className="img-wrapper">
                 {matchData.items.item6 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item6}.png`}
@@ -203,39 +200,39 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
                     }}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
             </div>
-            <div className='row'>
-              <div className='img-wrapper'>
+            <div className="row">
+              <div className="img-wrapper">
                 {matchData.items.item4 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item4}.png`}
                     alt={`${matchData.items.item4}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
-              <div className='img-wrapper'>
+              <div className="img-wrapper">
                 {matchData.items.item5 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item5}.png`}
                     alt={`${matchData.items.item5}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
-              <div className='img-wrapper'>
+              <div className="img-wrapper">
                 {matchData.items.item3 !== 0 ? (
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/item/${matchData.items.item3}.png`}
                     alt={`${matchData.items.item3}`}
                   />
                 ) : (
-                  <div className='empty' />
+                  <div className="empty" />
                 )}
               </div>
             </div>
