@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 
-const CardWrapper = styled.div`
+const cardWrapper = css`
   height: auto;
   padding: 1rem 2rem;
   display: flex;
@@ -35,14 +35,15 @@ const CardWrapper = styled.div`
   }
 `;
 
-const CardRow = styled.div`
+const cardRow = css`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   //border: 1px dotted black;
 `;
 
-const CardCol = styled.div`
+const cardCol = css`
+  width: 100%;
   height: 100%;
   margin: 0 0.4rem;
   display: flex;
@@ -67,7 +68,7 @@ const CardCol = styled.div`
   }
 `;
 
-const ItemContainer = styled.div`
+const itemContainer = css`
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -103,7 +104,7 @@ const ItemContainer = styled.div`
   }
 `;
 
-const RuneWrapper = styled.div`
+const runeWrapper = css`
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -122,4 +123,4 @@ const RuneWrapper = styled.div`
   }
 `;
 
-export { CardCol, CardRow, CardWrapper, RuneWrapper, ItemContainer };
+export { cardCol, cardRow, cardWrapper, runeWrapper, itemContainer };

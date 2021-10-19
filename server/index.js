@@ -96,7 +96,7 @@ const handleBuildData = (matchData) => {
     summonerName,
   } of participants) {
     if (summNameInput === summonerName) {
-      const matchStats = {
+      return {
         gameId,
         gameMode,
         outcome: win,
@@ -135,12 +135,8 @@ const handleBuildData = (matchData) => {
           neutralMinionsKilledEnemyJungle,
         },
       };
-      // console.log(matchStats.creepScore.neutralMinionsKilled);
-      return matchStats;
     }
   }
-
-  // return playerMatchStatsList;
 };
 
 const handleGetMatch = async (matchId) =>
@@ -216,19 +212,20 @@ readFile('./static/item.json', 'utf8', (err, data) => {
 });
 
 // serve summoner spells
-// let summSpellData;
+let summSpellData;
 //
-// readFile('./static/summoner.json', 'utf8', (err, data) => {
-//   if (err) {
-//     throw err;
-//   }
-//
-//   summSpellData = JSON.parse(data);
-//   const entries = Object.entries(summSpellData.data);
-//   for (const [spell, values] of entries) {
-//     staticData.spells[values.key] = values.id;
-//   }
-// });
+readFile('./static/summoner.json', 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+
+  summSpellData = JSON.parse(data);
+  const entries = Object.entries(summSpellData.data);
+  for (const [spell, values] of entries) {
+    console.log(spell);
+    staticData.spells[values.key] = values.id;
+  }
+});
 
 readFile('./static/runesReforged.json', 'utf8', (err, data) => {
   if (err) {

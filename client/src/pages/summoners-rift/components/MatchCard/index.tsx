@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { MatchProps, MatchDataProps } from 'utils/types';
-
+import { Box } from 'theme-ui';
 import RunesLayout from '../RunesLayout';
+import { handleConvertSecToMin } from 'utils/helpers';
 
-import { CardWrapper, CardRow, CardCol, ItemContainer } from './MatchCard.css';
+import { cardWrapper, cardRow, cardCol, itemContainer } from './MatchCard.css';
 
 const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   const {
@@ -47,7 +48,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
     },
   });
 
-  // const [gameLength, setGameLength] = useState('');
+  const [gameLength, setGameLength] = useState('');
 
   const getTotalCS = () => {
     let total;
@@ -94,35 +95,31 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   }, []);
 
   useEffect(() => {
-    // setGameLength(handleConvertSecToMin(gameDuration));
     if (gameStartTimestamp !== undefined && gameDuration !== undefined) {
       console.log(gameDuration, gameStartTimestamp);
-      // const endTime = gameStartTimestamp + gameDuration;
-      // console.log(handleConvertSecToMin(endTime - gameStartTimestamp));
     }
+
+    setGameLength(handleConvertSecToMin(gameDuration));
   }, [gameDuration, gameStartTimestamp]);
 
-  useEffect(() => {
-    console.log(props);
-  }, [props]);
-
   return (
-    <CardWrapper
+    <Box
+      css={cardWrapper}
       style={
         win ? { backgroundColor: '#b6f7c1' } : { backgroundColor: '#ffcccc' }
       }
     >
-      <CardRow className="list">
-        <CardCol>
+      <Box css={cardRow} className="list">
+        <Box css={cardCol}>
           <h3 style={{ fontWeight: 'bold' }}>{gameMode}</h3>
           {win ? (
             <h3 style={{ color: '#91b859' }}>Victory</h3>
           ) : (
             <h3 style={{ color: '#f07178' }}>Defeat</h3>
           )}
-          {/*<p>{gameLength}</p>*/}
-        </CardCol>
-        <CardCol className="center">
+          <p>{gameLength}</p>
+        </Box>
+        <Box css={cardCol} className="center">
           <img
             className="champion"
             src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/champion/${matchData.championName}.png`}
@@ -130,7 +127,7 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
             data-tip={`${matchData.championName}`}
           />
           <ReactTooltip place="top" type="dark" effect="float" />
-          <CardRow>
+          <Box css={cardRow}>
             <img
               className="spell"
               src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/spell/${matchData.spells.summAName}.png`}
@@ -141,10 +138,10 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
               src={`https://ddragon.leagueoflegends.com/cdn/11.20.1/img/spell/${matchData.spells.summBName}.png`}
               alt={`${matchData.spells.summBName}`}
             />
-          </CardRow>
-        </CardCol>
+          </Box>
+        </Box>
 
-        <CardCol className="center">
+        <Box css={cardCol} className="center">
           <p>
             {kills}/<span style={{ color: '#be3044' }}>{deaths}</span>/{assists}
           </p>
@@ -154,9 +151,9 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
           <p>
             {getTotalCS()} ({getCsPerMin()}) CS
           </p>
-        </CardCol>
-        <CardCol className="items">
-          <ItemContainer>
+        </Box>
+        <Box css={cardCol} className="items">
+          <Box css={itemContainer}>
             <div className="row">
               <div className="img-wrapper">
                 {matchData.items.item0 !== 0 ? (
@@ -236,8 +233,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
                 )}
               </div>
             </div>
-          </ItemContainer>
-        </CardCol>
+          </Box>
+        </Box>
         <RunesLayout />
         {/*<RuneWrapper>*/}
         {/*<div className="col">*/}
@@ -275,8 +272,8 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
         {/*  />*/}
         {/*</div>*/}
         {/*</RuneWrapper>*/}
-      </CardRow>
-    </CardWrapper>
+      </Box>
+    </Box>
   );
 };
 

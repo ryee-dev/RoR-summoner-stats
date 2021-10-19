@@ -73,8 +73,8 @@ const getRuneName = async (runeId: number, staticData: any) => {
 };
 
 const handleConvertSecToMin = (milliseconds: number) => {
-  const minutes = Math.floor(milliseconds / 60000);
-  const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
+  const minutes = Math.floor(milliseconds / 60);
+  const seconds = (milliseconds % 60).toFixed(0);
 
   console.log(minutes, seconds);
   return `${minutes}m ${seconds}s`;
