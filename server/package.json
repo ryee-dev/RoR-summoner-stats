@@ -8,7 +8,7 @@
     "start": "node index.js",
     "bin-start": "node ./bin/www",
     "server": "nodemon index.js --ignore client",
-    "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\""
+    "dev-build": "concurrently \"npm server\" \"npm heroku-postbuild\""
   },
   "dependencies": {
     "@fightmegg/riot-api": "^0.0.8",

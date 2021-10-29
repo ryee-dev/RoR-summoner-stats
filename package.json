@@ -4,17 +4,17 @@
   "main": "server/index.js",
   "license": "MIT",
   "scripts": {
-    "install-all": "pnpm install && concurrently \"pnpm client-install\" \"pnpm server-install\"",
-    "client-install": "cd client && pnpm install",
-    "server-install": "cd server && pnpm install",
-    "client": "cd client && pnpm start",
-    "start": "cd server && pnpm start",
+    "install-all": "npm install && concurrently \"npm client-install\" \"npm server-install\"",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "client": "cd client && npm start",
+    "start": "cd server && npm start",
     "bin-start": "node server/bin/www",
-    "server": "cd server && pnpm run server",
-    "dev": "concurrently \"pnpm run server\" \"pnpm run client\"",
-    "dev-build": "concurrently \"pnpm run server\" \"pnpm run heroku-postbuild\"",
-    "build": "cd client && pnpm install && pnpm run build",
-    "heroku-postbuild": "cd client && pnpm install && pnpm run build"
+    "server": "cd server && npm run server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-build": "concurrently \"npm run server\" \"npm run heroku-postbuild\"",
+    "build": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "devDependencies": {
     "@babel/template": "^7.14.5",
