@@ -222,7 +222,6 @@ readFile('./static/summoner.json', 'utf8', (err, data) => {
   summSpellData = JSON.parse(data);
   const entries = Object.entries(summSpellData.data);
   for (const [spell, values] of entries) {
-    console.log(spell);
     staticData.spells[values.key] = values.id;
   }
 });
