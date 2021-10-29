@@ -213,7 +213,7 @@ readFile('./static/item.json', 'utf8', (err, data) => {
 
 // serve summoner spells
 let summSpellData;
-//
+
 readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
     throw err;
