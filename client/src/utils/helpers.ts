@@ -76,13 +76,8 @@ const handleConvertSecToMin = (milliseconds: number) => {
   const minutes = Math.floor(milliseconds / 60);
   const seconds = (milliseconds % 60).toFixed(0);
 
-  console.log(minutes, seconds);
   return `${minutes}m ${seconds}s`;
 };
-
-// const handleCalcGameLength = (startTime, endTime) => {
-//   let difference = endTime - startTime;
-//
 
 export {
   getChampionName,

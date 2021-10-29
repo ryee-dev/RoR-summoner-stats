@@ -11,7 +11,7 @@ const FormContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   //z-index: 2;
-  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
 
   overflow: auto;
 
@@ -35,21 +35,22 @@ const SummInput = styled.input`
   outline: none;
   border: none;
   padding: 0.6rem 1rem;
-  width: 25%;
+  //width: 25%;
   border-radius: 2px;
   margin: 1rem;
-  transition: width 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: #f3f8ff;
   caret-color: #565b63;
   color: #565b63;
+  width: 25%;
 
   ::placeholder {
     color: #565b63;
   }
 
   &:focus {
-    width: 40%;
-    //box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+    transform: scale(1.15);
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15);
   }
 `;
 

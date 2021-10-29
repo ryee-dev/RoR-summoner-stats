@@ -7,9 +7,9 @@ import { ResultsProps } from 'utils/types';
 const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
   const { data, summQuery, staticData } = props;
 
-  React.useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // React.useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   // for (let i = 0; i < 5; i++) {
   //   console.log(data.hits[i].gameDuration + data.hits[i].gameStartTimestamp);
@@ -20,7 +20,7 @@ const SummResults: React.FC<ResultsProps> = (props: ResultsProps) => {
       <ListWrapper>
         <h1>{summQuery}</h1>
         {data.map((match: any, index: number) => {
-          console.log(match);
+          // console.log(match);
           return (
             match.creepScore !== undefined && (
               <MatchCard

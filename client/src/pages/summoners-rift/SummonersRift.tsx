@@ -43,7 +43,7 @@ const SummonersRift: React.FC = () => {
     };
 
     if (summQuery !== '' && summData) {
-      console.log(summData);
+      // console.log(summData);
       handleToggle();
     }
   }, [summData]);
@@ -69,12 +69,6 @@ const SummonersRift: React.FC = () => {
     if (summQuery !== '') {
       fetchData();
     }
-
-    // console.log(`
-    //   loading: ${loading}\n
-    //   error: ${error}\n
-    //   modal status: ${modalStatus}
-    // `);
   }, [summQuery]);
 
   return (

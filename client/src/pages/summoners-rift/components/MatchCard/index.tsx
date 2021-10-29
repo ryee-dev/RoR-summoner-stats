@@ -95,10 +95,6 @@ const MatchCard: React.FC<MatchProps> = (props: MatchProps) => {
   }, []);
 
   useEffect(() => {
-    if (gameStartTimestamp !== undefined && gameDuration !== undefined) {
-      console.log(gameDuration, gameStartTimestamp);
-    }
-
     setGameLength(handleConvertSecToMin(gameDuration));
   }, [gameDuration, gameStartTimestamp]);
 
