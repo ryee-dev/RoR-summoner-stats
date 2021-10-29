@@ -148,7 +148,6 @@ const handleGetMatch = async (matchId) =>
 const searchSummoner = async () => {
   const matchIdList = [];
   const finalResponse = [];
-  // let matchData = null;
 
   const riftMatchHistory = await handleGetMatchHistory(summNameInput);
   // const riftMatchHistory = await handleGetMatchHistory('buttslayer');
