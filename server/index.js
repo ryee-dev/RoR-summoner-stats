@@ -150,7 +150,6 @@ const searchSummoner = async () => {
   const finalResponse = [];
 
   const riftMatchHistory = await handleGetMatchHistory(summNameInput);
-  // const riftMatchHistory = await handleGetMatchHistory('buttslayer');
 
   for (const element of riftMatchHistory) {
     matchIdList.push(element.gameId);
