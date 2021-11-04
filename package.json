@@ -9,12 +9,12 @@
     "server-install": "cd server && yarn install",
     "client": "cd client && yarn start",
     "start": "cd server && yarn start",
-    "bin-start": "node server/bin/www",
+    "bin-start": "node index.js",
     "server": "cd server && yarn server",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
     "build": "cd client && yarn install && yarn build",
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development yarn install --only=dev --dev",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn build"
   },
   "devDependencies": {

@@ -5,8 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www",
-    "bin-start": "node ./bin/www",
+    "start": "node index.js",
+    "bin-start": "index.js",
     "server": "nodemon index.js --ignore client",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\""
   },
