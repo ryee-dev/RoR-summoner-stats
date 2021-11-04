@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "bin-start": "node index.js",
+    "bin-start": "node ./bin/www",
     "server": "nodemon index.js --ignore client",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\""
   },
