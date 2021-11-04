@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container, Image } from 'theme-ui';
 import styled from 'styled-components';
 
