@@ -9,7 +9,7 @@
     "server-install": "cd server && yarn install",
     "client": "cd client && yarn start",
     "start": "cd server && yarn start",
-    "bin-start": "node server/bin/www.js",
+    "bin-start": "node server/index.js",
     "server": "cd server && yarn server",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "dev-build": "concurrently \"yarn server\" \"yarn heroku-postbuild\"",
