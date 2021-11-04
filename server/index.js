@@ -148,10 +148,8 @@ const handleGetMatch = async (matchId) =>
 const searchSummoner = async () => {
   const matchIdList = [];
   const finalResponse = [];
-  // let matchData = null;
 
   const riftMatchHistory = await handleGetMatchHistory(summNameInput);
-  // const riftMatchHistory = await handleGetMatchHistory('buttslayer');
 
   for (const element of riftMatchHistory) {
     matchIdList.push(element.gameId);
@@ -213,7 +211,7 @@ readFile('./static/item.json', 'utf8', (err, data) => {
 
 // serve summoner spells
 let summSpellData;
-//
+
 readFile('./static/summoner.json', 'utf8', (err, data) => {
   if (err) {
     throw err;

@@ -23,39 +23,26 @@ const SummForm: React.FC<Props> = (props: Props) => {
     setSummQuery(summName);
   };
 
-  // const handleFetchData = async () => {
-  //   const summonerFormData = new FormData();
-  //   summonerFormData.append('summName', summQuery);
-  //   await ky.post('/api/summoner', {
-  //     body: summonerFormData,
-  //   });
-  // };
-  //
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setSummQuery(summName);
-  //   handleFetchData();
-  // };
-
   useEffect(() => {
     summQuery !== '' && summonerFormData.set('summonerName', summQuery);
   }, [summQuery]);
 
   return (
     <FormContainer>
-      <img src={RorLogo} alt='ror-logo' />
+      <img src={RorLogo} alt="ror-logo" />
       <SummonerForm
-        method='POST'
-        action='/api/summoner'
+        method="POST"
+        action="/api/summoner"
         onSubmit={findSummoner}
       >
         <SummInput
-          placeholder='Summoner Name'
+          placeholder="Summoner Name"
           value={summName}
-          name='summName'
+          name="summName"
+          aria-autocomplete="list"
           onChange={(e) => setSummName(e.target.value)}
         />
-        <SubmitButt type='submit' disabled={summName === ''}>
+        <SubmitButt type="submit" disabled={summName === ''}>
           submit
         </SubmitButt>
       </SummonerForm>

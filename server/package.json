@@ -8,11 +8,11 @@
     "start": "node index.js",
     "bin-start": "node ./bin/www",
     "server": "nodemon index.js --ignore client",
-    "dev-build": "concurrently \"pnpm server\" \"pnpm heroku-postbuild\""
+    "dev-build": "concurrently \"npm server\" \"npm heroku-postbuild\""
   },
   "dependencies": {
     "@fightmegg/riot-api": "^0.0.8",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
@@ -21,9 +21,9 @@
     "express-session": "^1.17.2",
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.14"
   },
   "devDependencies": {
-    "@netlify/eslint-config-node": "^3.3.3"
+    "@netlify/eslint-config-node": "^3.3.4"
   }
 }
