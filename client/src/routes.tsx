@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { useTransition, animated } from 'react-spring';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { animated, useTransition } from 'react-spring';
 import SummonersRift from './pages/summoners-rift/SummonersRift';
 import App from './App';
 
@@ -16,8 +16,8 @@ const AppRoutes: () => any[ReactElement] = () => {
   return routeTransitions((props, item) => (
     <animated.div style={props}>
       <Routes location={item}>
-        <Route exact path="/" component={App} />
-        <Route path="/summoners-rift" component={SummonersRift} />
+        <Route path="/" element={<App />} />
+        <Route path="/summoners-rift" element={<SummonersRift />} />
       </Routes>
     </animated.div>
   ));
