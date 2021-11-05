@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "license": "MIT",
+  "engines": {
+    "node": "^16.0.0"
+  },
   "scripts": {
     "install-all": "yarn install && concurrently \"yarn client-install\" \"yarn server-install\"",
     "client-install": "cd client && yarn install",
