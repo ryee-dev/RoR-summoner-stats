@@ -8,7 +8,7 @@
     "client-install": "cd client && yarn install",
     "server-install": "cd server && yarn install",
     "client": "cd client && yarn start",
-    "start": "cd server && yarn start",
+    "start": "cd server && yarn && yarn start",
     "bin-start": "node index.js",
     "server": "cd server && yarn server",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
