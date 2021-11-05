@@ -1,10 +1,11 @@
 import { readFile } from 'fs';
 import path from 'path';
 
-import { PlatformId, RiotAPI } from '@fightmegg/riot-api';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express from 'express';
+
+import { PlatformId, RiotAPI } from './vendors/riot-api/src/index';
 
 dotenv.config();
 
