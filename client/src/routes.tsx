@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 import SummonersRift from './pages/summoners-rift/SummonersRift';
 import App from './App';
@@ -15,10 +15,10 @@ const AppRoutes: () => any[ReactElement] = () => {
 
   return routeTransitions((props, item) => (
     <animated.div style={props}>
-      <Switch location={item}>
+      <Routes location={item}>
         <Route exact path="/" component={App} />
         <Route path="/summoners-rift" component={SummonersRift} />
-      </Switch>
+      </Routes>
     </animated.div>
   ));
 };
